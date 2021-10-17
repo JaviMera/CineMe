@@ -9,4 +9,5 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="tmdb_api_key">0d847c48dd1f70c4f4ed5d51304473b9</string>
 </resources>
