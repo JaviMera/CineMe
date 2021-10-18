@@ -1,6 +1,7 @@
 package com.merajavier.cineme
 
 import android.app.Application
+import com.merajavier.cineme.koin.modules.networkModule
 import com.merajavier.cineme.movies.MoviesViewModel
 import com.merajavier.cineme.network.AuthInterceptor
 import com.merajavier.cineme.network.TMDBApiInterface
@@ -25,39 +26,9 @@ class Application : Application() {
             }
         }
 
-        val networkModule = module{
-            factory { AuthInterceptor() }
-            factory { provideOkHttpClient(get()) }
-            factory { provideTmdbApi(get()) as TMDBApiInterface }
-            single{provideMoshi()}
-            single{provideRetrofit(get(), get())}
-        }
-
         startKoin {
             androidContext(this@Application)
             modules(viewModelModule, networkModule)
         }
-    }
-
-    fun provideOkHttpClient(authInterceptor: AuthInterceptor): OkHttpClient {
-        return OkHttpClient().newBuilder().addInterceptor(authInterceptor).build()
-    }
-
-    fun provideMoshi() : Moshi{
-        return Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
-            .build()
-    }
-
-    fun provideRetrofit(moshi: Moshi, okHttpClient: OkHttpClient) : Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BuildConfig.API_URL)
-            .client(okHttpClient)
-            .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .build()
-    }
-
-    fun provideTmdbApi(retrofit: Retrofit) : TMDBApiInterface{
-        return retrofit.create(TMDBApiInterface::class.java)
     }
 }
