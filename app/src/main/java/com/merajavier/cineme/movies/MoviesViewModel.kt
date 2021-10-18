@@ -1,23 +1,19 @@
 package com.merajavier.cineme.movies
 
-import android.app.Application
-import android.graphics.Movie
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.merajavier.cineme.R
-import com.merajavier.cineme.network.TMDBApi
+import com.merajavier.cineme.network.TMDBApiInterface
 import kotlinx.coroutines.launch
-import retrofit2.Response
-import retrofit2.awaitResponse
 import java.lang.Exception
 
-class MoviesViewModel(private val application: Application) : ViewModel() {
+class MoviesViewModel(
+    private val apiInterface: TMDBApiInterface)
+    : ViewModel() {
 
     private val _movie = MutableLiveData<MovieDataItem>()
-
     val movie: LiveData<MovieDataItem>
     get() = _movie
 
@@ -32,11 +28,7 @@ class MoviesViewModel(private val application: Application) : ViewModel() {
     }
 
     private suspend fun getMovie(movieId: Int) {
-        val response = TMDBApi.tmdbService.getMovie(
-            movieId,
-            application.getString(R.string.tmdb_api_key))
-            .awaitResponse()
-
-        _movie.postValue(response.body())
+        val response = apiInterface.getMovie(movieId)
+        _movie.postValue(response)
     }
 }

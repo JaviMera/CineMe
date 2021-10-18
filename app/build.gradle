@@ -18,7 +18,16 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    def localProperties = new Properties()
+    localProperties.load(new FileInputStream(rootProject.file("local.properties")))
+
     buildTypes {
+        debug{
+            minifyEnabled false
+            buildConfigField("String", "API_URL", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "tmdb_api_key", localProperties['apiKey'])
+            debuggable true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -66,11 +75,11 @@ dependencies {
 
     // Koin main features for Android (Scope,ViewModel ...)
     implementation "io.insert-koin:koin-android:$koin_version"
-// Koin Java Compatibility
+    // Koin Java Compatibility
     implementation "io.insert-koin:koin-android-compat:$koin_version"
-// Koin for Jetpack WorkManager
+    // Koin for Jetpack WorkManager
     implementation "io.insert-koin:koin-androidx-workmanager:$koin_version"
-// Koin for Jetpack Compose
+    // Koin for Jetpack Compose
     implementation "io.insert-koin:koin-androidx-compose:$koin_version"
 
     // Testing Navigation
