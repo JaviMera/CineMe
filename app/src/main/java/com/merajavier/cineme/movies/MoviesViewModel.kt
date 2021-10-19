@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.merajavier.cineme.network.TMDBApiInterface
 import kotlinx.coroutines.launch
-import retrofit2.awaitResponse
 import java.lang.Exception
 
 class MoviesViewModel(
@@ -18,12 +17,19 @@ class MoviesViewModel(
     val movies: LiveData<List<MovieDataItem>>
     get() = _movies
 
-    private val pageNumber = 1
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean>
+    get() = _loading
+
+    private val _pageNumber = 1
 
     init {
         viewModelScope.launch {
             try {
-                getNowPlayingMovies(pageNumber)
+                _loading.postValue(true)
+                getNowPlayingMovies(_pageNumber)
+                _loading.postValue(false)
+
             }catch(exception: Exception){
                 Log.i("MoviesViewModel", exception.localizedMessage!!)
             }

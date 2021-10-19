@@ -1,6 +1,8 @@
 package com.merajavier.cineme.movies
 
+import android.opengl.Visibility
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +30,7 @@ class MovieListFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentMoviesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
+        binding.viewModel = _viewModel
 
         moviesAdapter = MoviesRecyclerAdapter()
         binding.recycleViewMovies.adapter = moviesAdapter
@@ -39,6 +42,21 @@ class MovieListFragment : Fragment() {
                     moviesAdapter.submitList(it)
                 }else{
                     Toast.makeText(requireContext(), "Unable to load list of movies", Toast.LENGTH_SHORT).show()
+                }
+            }
+        })
+
+        _viewModel.loading.observe(viewLifecycleOwner, Observer {
+            it.let {
+                when(it){
+                    true -> {
+                        Log.i("MoviesListFragment", "loading")
+                        binding.loadingIndicator.visibility = View.VISIBLE
+                    }
+                    false -> {
+                        Log.i("MoviesListFragment", "not loading")
+                        binding.loadingIndicator.visibility = View.GONE
+                    }
                 }
             }
         })
