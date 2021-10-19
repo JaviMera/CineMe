@@ -13,14 +13,14 @@ class MoviesViewModel(
     private val apiInterface: TMDBApiInterface)
     : ViewModel() {
 
-    private val _movie = MutableLiveData<MovieDataItem>()
-    val movie: LiveData<MovieDataItem>
-    get() = _movie
+    private val _movies = MutableLiveData<List<MovieDataItem>>()
+    val movies: LiveData<List<MovieDataItem>>
+    get() = _movies
 
     init {
         viewModelScope.launch {
             try {
-                getMovie(550)
+                getMovie(551)
             }catch(exception: Exception){
                 Log.i("MoviesViewModel", exception.localizedMessage!!)
             }
@@ -29,6 +29,6 @@ class MoviesViewModel(
 
     private suspend fun getMovie(movieId: Int) {
         val response = apiInterface.getMovie(movieId)
-        _movie.postValue(response)
+        _movies.postValue(listOf(response))
     }
 }
