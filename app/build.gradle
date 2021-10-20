@@ -25,6 +25,7 @@ android {
         debug{
             minifyEnabled false
             buildConfigField("String", "API_URL", "\"https://api.themoviedb.org/3/\"")
+            buildConfigField("String", "API_POSTER_URL", "\"https://image.tmdb.org/t/p/w500/\"")
             buildConfigField("String", "tmdb_api_key", localProperties['apiKey'])
             debuggable true
         }
@@ -72,6 +73,10 @@ dependencies {
 
     // JSON Converter
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+
+    // Glide
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
 
     // Koin core features
     implementation "io.insert-koin:koin-core:$koin_version"

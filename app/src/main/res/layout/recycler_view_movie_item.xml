@@ -21,6 +21,7 @@
             android:layout_height="100dp"
             android:contentDescription="@string/movie_item_poster_description"
             android:scaleType="fitXY"
+            app:showPoster="@{movie.posterPath}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
