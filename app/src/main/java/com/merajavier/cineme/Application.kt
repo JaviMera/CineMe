@@ -2,8 +2,11 @@ package com.merajavier.cineme
 
 import android.app.Application
 import com.merajavier.cineme.koin.modules.networkModule
+import com.merajavier.cineme.movies.MovieDataItem
 import com.merajavier.cineme.movies.MoviesViewModel
 import com.merajavier.cineme.network.AuthInterceptor
+import com.merajavier.cineme.network.NetworkMovieRepository
+import com.merajavier.cineme.network.NetworkRepositoryInterface
 import com.merajavier.cineme.network.TMDBApiInterface
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -22,7 +25,11 @@ class Application : Application() {
 
         val viewModelModule = module {
             viewModel{
-                MoviesViewModel(get() as TMDBApiInterface)
+                MoviesViewModel(get() as NetworkMovieRepository)
+            }
+
+            single{
+                NetworkMovieRepository(get() as TMDBApiInterface)
             }
         }
 

@@ -5,12 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.merajavier.cineme.network.NetworkMovieRepository
 import com.merajavier.cineme.network.TMDBApiInterface
 import kotlinx.coroutines.launch
 import java.lang.Exception
 
 class MoviesViewModel(
-    private val apiInterface: TMDBApiInterface)
+    private val networkMovieRepository: NetworkMovieRepository)
     : ViewModel() {
 
     private val _movies = MutableLiveData<List<MovieDataItem>>()
@@ -25,11 +26,11 @@ class MoviesViewModel(
         viewModelScope.launch {
             try {
                 _loading.postValue(true)
-                val response = apiInterface.getNowPlayingMovies(pageNumber)
+                val movies = networkMovieRepository.getAll(pageNumber)
                 if(_movies.value?.any() == true){
-                    _movies.postValue(_movies.value?.plus(response.movies))
+                    _movies.postValue(_movies.value?.plus(movies))
                 }else{
-                    _movies.postValue(response.movies)
+                    _movies.postValue(movies)
                 }
                 _loading.postValue(false)
 
