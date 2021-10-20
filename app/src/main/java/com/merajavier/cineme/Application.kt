@@ -17,6 +17,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
+import timber.log.Timber
 
 class Application : Application() {
 
@@ -36,6 +37,10 @@ class Application : Application() {
         startKoin {
             androidContext(this@Application)
             modules(viewModelModule, networkModule)
+        }
+
+        if(BuildConfig.DEBUG){
+            Timber.plant(Timber.DebugTree())
         }
     }
 }

@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.merajavier.cineme.network.NetworkMovieRepository
 import com.merajavier.cineme.network.TMDBApiInterface
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.lang.Exception
 
 class MoviesViewModel(
@@ -35,7 +36,7 @@ class MoviesViewModel(
                 _loading.postValue(false)
 
             }catch(exception: Exception){
-                Log.i("MoviesViewModel", exception.localizedMessage!!)
+                Timber.i(exception.localizedMessage)
             }
         }
     }

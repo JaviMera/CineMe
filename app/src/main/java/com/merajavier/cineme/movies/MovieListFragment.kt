@@ -13,8 +13,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
+import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentMoviesBinding
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 class MovieListFragment : Fragment() {
 
@@ -63,7 +65,7 @@ class MovieListFragment : Fragment() {
                 if(it.any()){
                     moviesAdapter.submitList(it)
                 }else{
-                    Toast.makeText(requireContext(), "Unable to load list of movies", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), getString(R.string.get_movies_error), Toast.LENGTH_SHORT).show()
                 }
             }
         })
@@ -72,11 +74,11 @@ class MovieListFragment : Fragment() {
             it.let {
                 when(it){
                     true -> {
-                        Log.i("MoviesListFragment", "loading")
+                        Timber.i("loading")
                         binding.loadingIndicator.visibility = View.VISIBLE
                     }
                     false -> {
-                        Log.i("MoviesListFragment", "not loading")
+                        Timber.i("not loading")
                         binding.loadingIndicator.visibility = View.GONE
                     }
                 }
