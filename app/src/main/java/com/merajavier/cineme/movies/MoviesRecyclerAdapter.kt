@@ -1,6 +1,7 @@
 package com.merajavier.cineme.movies
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
@@ -10,12 +11,18 @@ import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentMoviesBinding
 import com.merajavier.cineme.databinding.RecyclerViewMovieItemBinding
 
-class MoviesRecyclerAdapter() : ListAdapter<MovieDataItem, MoviesRecyclerAdapter.MovieViewHolder>(DiffCallback) {
+class MoviesRecyclerAdapter(
+    private val onMovieClickListener: OnMovieClickListener
+) : ListAdapter<MovieDataItem, MoviesRecyclerAdapter.MovieViewHolder>(DiffCallback) {
 
     class MovieViewHolder(private val binding: RecyclerViewMovieItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movieDataItem: MovieDataItem){
             binding.movie = movieDataItem
         }
+    }
+
+    class OnMovieClickListener(val clickListener: (movieId: Int) -> Unit){
+        fun onClick(movieId: Int) = clickListener(movieId)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
@@ -27,6 +34,10 @@ class MoviesRecyclerAdapter() : ListAdapter<MovieDataItem, MoviesRecyclerAdapter
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
 
         var movie = getItem(position)
+        holder.itemView.setOnClickListener{
+            onMovieClickListener.onClick(movie.id)
+        }
+
         holder.bind(movie)
     }
 

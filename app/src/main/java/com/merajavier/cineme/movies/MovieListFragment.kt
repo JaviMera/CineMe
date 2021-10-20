@@ -39,7 +39,11 @@ class MovieListFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.viewModel = _viewModel
 
-        moviesAdapter = MoviesRecyclerAdapter()
+        moviesAdapter = MoviesRecyclerAdapter(MoviesRecyclerAdapter.OnMovieClickListener{
+            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT)
+                .show()
+        })
+
         binding.recycleViewMovies.adapter = moviesAdapter
         val layoutManager = binding.recycleViewMovies.layoutManager as LinearLayoutManager
 
