@@ -21,23 +21,21 @@ class MoviesViewModel(
     val loading: LiveData<Boolean>
     get() = _loading
 
-    private val _pageNumber = 1
-
-    init {
+    fun getNowPlayingMovies(pageNumber: Int){
         viewModelScope.launch {
             try {
                 _loading.postValue(true)
-                getNowPlayingMovies(_pageNumber)
+                val response = apiInterface.getNowPlayingMovies(pageNumber)
+                if(_movies.value?.any() == true){
+                    _movies.postValue(_movies.value?.plus(response.movies))
+                }else{
+                    _movies.postValue(response.movies)
+                }
                 _loading.postValue(false)
 
             }catch(exception: Exception){
                 Log.i("MoviesViewModel", exception.localizedMessage!!)
             }
         }
-    }
-
-    private suspend fun getNowPlayingMovies(pageNumber: Int){
-        val response = apiInterface.getNowPlayingMovies(pageNumber)
-        _movies.postValue(response.movies)
     }
 }

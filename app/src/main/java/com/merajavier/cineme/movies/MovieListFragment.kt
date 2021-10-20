@@ -7,8 +7,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AbsListView
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.merajavier.cineme.databinding.FragmentMoviesBinding
 import org.koin.android.ext.android.inject
 
@@ -17,6 +21,7 @@ class MovieListFragment : Fragment() {
     private lateinit var binding: FragmentMoviesBinding
     private lateinit var moviesAdapter: MoviesRecyclerAdapter
     private val _viewModel: MoviesViewModel by inject()
+    private var _pageNumber = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +39,21 @@ class MovieListFragment : Fragment() {
 
         moviesAdapter = MoviesRecyclerAdapter()
         binding.recycleViewMovies.adapter = moviesAdapter
+        val layoutManager = binding.recycleViewMovies.layoutManager as LinearLayoutManager
+        binding.recycleViewMovies.addOnScrollListener(object: RecyclerView.OnScrollListener(){
+
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if(dy > 0 && _viewModel.loading.value == false){
+                    if(layoutManager.findLastCompletelyVisibleItemPosition() == layoutManager.itemCount - 1){
+                        _pageNumber = _pageNumber.inc()
+                        _viewModel.getNowPlayingMovies(_pageNumber)
+                    }
+                }
+            }
+        })
+
+        _viewModel.getNowPlayingMovies(_pageNumber)
 
         _viewModel.movies.observe(viewLifecycleOwner, Observer {
 
