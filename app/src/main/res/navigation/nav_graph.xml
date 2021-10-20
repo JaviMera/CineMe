@@ -8,11 +8,11 @@
     <fragment
         android:id="@+id/navigation_movies"
         android:name="com.merajavier.cineme.movies.MovieListFragment"
-        android:label="MovieListFragment"
+        android:label="@string/movies_fragment_title"
         tools:layout="@layout/fragment_movies"/>
     <fragment
         android:id="@+id/navigation_tv_shows"
         android:name="com.merajavier.cineme.shows.TVShowListFragment"
-        android:label="fragment_t_v_show_list"
+        android:label="@string/tv_shows_fragment_title"
         tools:layout="@layout/fragment_t_v_show_list" />
 </navigation>

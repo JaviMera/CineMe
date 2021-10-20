@@ -10,4 +10,6 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_main">MainActivity</string>
     <string name="movie_item_poster_description">Movie picture</string>
+    <string name="movies_fragment_title">Movies</string>
+    <string name="tv_shows_fragment_title">TV Shows</string>
 </resources>

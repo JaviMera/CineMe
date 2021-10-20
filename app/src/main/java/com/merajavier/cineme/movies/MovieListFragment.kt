@@ -40,6 +40,8 @@ class MovieListFragment : Fragment() {
         moviesAdapter = MoviesRecyclerAdapter()
         binding.recycleViewMovies.adapter = moviesAdapter
         val layoutManager = binding.recycleViewMovies.layoutManager as LinearLayoutManager
+
+        // Add a scroll listener to get more items if the user reaches the bottom of the list
         binding.recycleViewMovies.addOnScrollListener(object: RecyclerView.OnScrollListener(){
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
