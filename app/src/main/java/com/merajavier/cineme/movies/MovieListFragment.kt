@@ -1,7 +1,9 @@
 package com.merajavier.cineme.movies
 
+import android.content.Intent
 import android.opengl.Visibility
 import android.os.Bundle
+import android.telecom.Call
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentMoviesBinding
+import com.merajavier.cineme.details.DetailsActivity
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
@@ -40,8 +43,11 @@ class MovieListFragment : Fragment() {
         binding.viewModel = _viewModel
 
         moviesAdapter = MoviesRecyclerAdapter(MoviesRecyclerAdapter.OnMovieClickListener{
-            Toast.makeText(requireContext(), it.toString(), Toast.LENGTH_SHORT)
-                .show()
+            val intent = Intent(requireActivity(), DetailsActivity::class.java).apply {
+                putExtra(DetailsActivity.SELECTED_MOVIE_ID, it)
+            }
+
+            startActivity(intent)
         })
 
         binding.recycleViewMovies.adapter = moviesAdapter

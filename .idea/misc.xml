@@ -4,10 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/javie/Desktop/Capstone/CineMe/app/src/main/res/layout/fragment_movies.xml" value="0.290625" />
+        <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/drawable-anydpi/movie_favorite_not_selected.xml" value="0.29270833333333335" />
+        <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/drawable/details_movie_favorite_button_background.xml" value="0.253125" />
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/drawable/loading_icon.xml" value="0.2765625" />
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/drawable/loading_image.xml" value="0.2765625" />
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/drawable/loading_image_error.xml" value="0.2765625" />
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/layout/activity_cinema.xml" value="0.378125" />
+        <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/layout/activity_details.xml" value="0.264" />
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/layout/activity_main.xml" value="0.20833333333333334" />
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/layout/fragment_authentication.xml" value="0.22239583333333332" />
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/layout/fragment_home.xml" value="0.21822916666666667" />
@@ -16,6 +19,7 @@
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/layout/recycler_view_movie_item.xml" value="0.536" />
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/menu/bottom_nav_menu.xml" value="0.3921875" />
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.3921875" />
+        <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/xml/movie_details_motion_layout_description.xml" value="0.253125" />
       </map>
     </option>
   </component>
