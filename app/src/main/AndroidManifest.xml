@@ -15,7 +15,8 @@
         <activity
             android:name=".details.DetailsActivity"
             android:exported="true"
-            android:launchMode="singleTask"/>
+            android:launchMode="singleTask"
+            android:theme="@style/Theme.CineMe.NoActionBar"/>
         <activity
             android:name=".CinemaActivity"
             android:exported="true"
