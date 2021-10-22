@@ -9,7 +9,7 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar_layout"
         android:layout_width="match_parent"
-        android:layout_height="180dp">
+        android:layout_height="280dp">
 
         <androidx.constraintlayout.motion.widget.MotionLayout
             android:id="@+id/motion_layout"
@@ -29,7 +29,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/background_poster"
                 tools:srcCompat="@drawable/background_poster" />
 
             <ImageView
@@ -42,7 +41,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:srcCompat="@drawable/venom"
                 tools:srcCompat="@drawable/venom" />
 
             <TextView
@@ -58,7 +56,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/details_movie_poster"
                 app:layout_constraintTop_toTopOf="@id/details_movie_poster"
-                android:text="Venom: Let there be carnage (2021)"
                 tools:text="Venom: Let there be carnage (2021)" />
 
             <TextView
