@@ -2,6 +2,7 @@ package com.merajavier.cineme.koin.modules
 
 import com.merajavier.cineme.BuildConfig
 import com.merajavier.cineme.network.AuthInterceptor
+import com.merajavier.cineme.network.TMDBApiCastInterface
 import com.merajavier.cineme.network.TMDBApiInterface
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -13,7 +14,8 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 val networkModule = module{
     factory { AuthInterceptor() }
     factory { provideOkHttpClient(get()) }
-    factory { provideTmdbApi(get()) as TMDBApiInterface }
+    factory { provideTmdbMoviesApi(get()) as TMDBApiInterface }
+    factory { provideTmdbCastApi(get())}
     single{provideMoshi()}
     single{provideRetrofit(get(), get())}
 }
@@ -36,6 +38,10 @@ fun provideRetrofit(moshi: Moshi, okHttpClient: OkHttpClient) : Retrofit {
         .build()
 }
 
-fun provideTmdbApi(retrofit: Retrofit) : TMDBApiInterface{
+fun provideTmdbMoviesApi(retrofit: Retrofit) : TMDBApiInterface{
     return retrofit.create(TMDBApiInterface::class.java)
+}
+
+fun provideTmdbCastApi(retrofit: Retrofit) : TMDBApiCastInterface{
+    return retrofit.create(TMDBApiCastInterface::class.java)
 }

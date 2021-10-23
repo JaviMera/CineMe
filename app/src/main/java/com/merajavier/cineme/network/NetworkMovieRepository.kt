@@ -7,7 +7,6 @@ interface NetworkRepositoryInterface<T>{
     suspend fun getAll(pageNumber: Int) : List<T>
     suspend fun getDetails(movieId: Int) : T
 }
-
 class NetworkMovieRepository(
     private val apiInterface: TMDBApiInterface
     ) : NetworkRepositoryInterface<MovieDataItem>{
@@ -21,3 +20,4 @@ class NetworkMovieRepository(
         return apiInterface.getMovie(movieId)
     }
 }
+

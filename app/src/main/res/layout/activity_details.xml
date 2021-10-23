@@ -119,7 +119,7 @@
                     app:layout_constraintTop_toBottomOf="@id/details_movie_genres" />
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/details_movie_cast"
+                    android:id="@+id/details_movie_actors"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -128,7 +128,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/detail_movies_top_cast_title"
-                    tools:listitem="@layout/details_movie_cast_item"
+                    tools:listitem="@layout/details_movie_actor_item"
                     tools:itemCount="3"/>
 
             </androidx.constraintlayout.widget.ConstraintLayout>

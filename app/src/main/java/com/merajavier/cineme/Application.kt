@@ -1,9 +1,12 @@
 package com.merajavier.cineme
 
 import android.app.Application
+import com.merajavier.cineme.cast.ActorListViewModel
 import com.merajavier.cineme.koin.modules.networkModule
 import com.merajavier.cineme.movies.MovieListViewModel
+import com.merajavier.cineme.network.NetworkMovieActorRepository
 import com.merajavier.cineme.network.NetworkMovieRepository
+import com.merajavier.cineme.network.TMDBApiCastInterface
 import com.merajavier.cineme.network.TMDBApiInterface
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -21,8 +24,15 @@ class Application : Application() {
                 MovieListViewModel(get() as NetworkMovieRepository)
             }
 
+            viewModel{
+                ActorListViewModel(get() as NetworkMovieActorRepository)
+            }
             single{
                 NetworkMovieRepository(get() as TMDBApiInterface)
+            }
+
+            single{
+                NetworkMovieActorRepository(get() as TMDBApiCastInterface)
             }
         }
 

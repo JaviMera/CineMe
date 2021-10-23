@@ -5,7 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="actor"
+            type="com.merajavier.cineme.cast.ActorDataItem" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -18,6 +20,7 @@
             android:layout_height="wrap_content"
             android:scaleType="fitCenter"
             android:contentDescription="@string/details_movie_cast_item_picture"
+            app:showPoster="@{actor.photo}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -31,6 +34,7 @@
             android:textSize="12sp"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
+            android:text="@{actor.name}"
             app:layout_constraintStart_toStartOf="@id/cast_item_photo"
             app:layout_constraintTop_toBottomOf="@+id/cast_item_photo"
             app:layout_constraintEnd_toEndOf="@id/cast_item_photo" />
@@ -42,6 +46,7 @@
             android:textAlignment="center"
             android:textSize="12sp"
             android:textColor="@color/colorPrimaryLight"
+            android:text="@{actor.character}"
             app:layout_constraintStart_toStartOf="@+id/cast_item_actor_name"
             app:layout_constraintTop_toBottomOf="@id/cast_item_actor_name"
             app:layout_constraintEnd_toEndOf="@id/cast_item_actor_name"
