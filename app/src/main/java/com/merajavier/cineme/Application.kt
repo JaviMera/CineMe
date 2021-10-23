@@ -2,21 +2,13 @@ package com.merajavier.cineme
 
 import android.app.Application
 import com.merajavier.cineme.koin.modules.networkModule
-import com.merajavier.cineme.movies.MovieDataItem
-import com.merajavier.cineme.movies.MoviesViewModel
-import com.merajavier.cineme.network.AuthInterceptor
+import com.merajavier.cineme.movies.MovieListViewModel
 import com.merajavier.cineme.network.NetworkMovieRepository
-import com.merajavier.cineme.network.NetworkRepositoryInterface
 import com.merajavier.cineme.network.TMDBApiInterface
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
-import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
 import timber.log.Timber
 
 class Application : Application() {
@@ -26,7 +18,7 @@ class Application : Application() {
 
         val viewModelModule = module {
             viewModel{
-                MoviesViewModel(get() as NetworkMovieRepository)
+                MovieListViewModel(get() as NetworkMovieRepository)
             }
 
             single{

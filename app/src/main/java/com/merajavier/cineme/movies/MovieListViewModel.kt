@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception
 
-class MoviesViewModel(
+class MovieListViewModel(
     private val networkMovieRepository: NetworkMovieRepository)
     : ViewModel() {
 
@@ -22,6 +22,10 @@ class MoviesViewModel(
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean>
     get() = _loading
+
+    private val _selectedMovie = MutableLiveData<MovieDataItem>()
+    val movieSelected: LiveData<MovieDataItem>
+    get() = _selectedMovie
 
     fun getNowPlayingMovies(pageNumber: Int){
         viewModelScope.launch {
@@ -37,6 +41,17 @@ class MoviesViewModel(
 
             }catch(exception: Exception){
                 Timber.i(exception.localizedMessage)
+            }
+        }
+    }
+
+    fun getMovieDetails(movieId: Int){
+        viewModelScope.launch {
+            try{
+                val movie = networkMovieRepository.getDetails(movieId)
+                _selectedMovie.postValue(movie)
+            }catch(exception: Exception){
+                Timber.i("Problem selecting movie: ${exception.localizedMessage}")
             }
         }
     }

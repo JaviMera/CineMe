@@ -1,20 +1,15 @@
 package com.merajavier.cineme.movies
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
-import android.telecom.Call
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.OnScrollListener
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentMoviesBinding
 import com.merajavier.cineme.details.DetailsActivity
@@ -25,7 +20,7 @@ class MovieListFragment : Fragment() {
 
     private lateinit var binding: FragmentMoviesBinding
     private lateinit var moviesAdapter: MoviesRecyclerAdapter
-    private val _viewModel: MoviesViewModel by inject()
+    private val _viewModel: MovieListViewModel by inject()
     private var _pageNumber = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,11 +38,7 @@ class MovieListFragment : Fragment() {
         binding.viewModel = _viewModel
 
         moviesAdapter = MoviesRecyclerAdapter(MoviesRecyclerAdapter.OnMovieClickListener{
-            val intent = Intent(requireActivity(), DetailsActivity::class.java).apply {
-                putExtra(DetailsActivity.SELECTED_MOVIE_ID, it)
-            }
-
-            startActivity(intent)
+            _viewModel.getMovieDetails(it)
         })
 
         binding.recycleViewMovies.adapter = moviesAdapter
@@ -94,6 +85,18 @@ class MovieListFragment : Fragment() {
                 }
             }
         })
+
+        _viewModel.movieSelected.observe(viewLifecycleOwner, Observer {
+
+            it.let {
+                val intent = Intent(requireActivity(), DetailsActivity::class.java).apply {
+                    putExtra(DetailsActivity.SELECTED_MOVIE_ID, it)
+                }
+
+                startActivity(intent)
+            }
+        })
+
         return binding.root
     }
 }

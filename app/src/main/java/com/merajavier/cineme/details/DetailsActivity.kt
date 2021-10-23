@@ -2,10 +2,11 @@ package com.merajavier.cineme.details
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
 import com.google.android.material.appbar.AppBarLayout
-import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.ActivityDetailsBinding
+import com.merajavier.cineme.movies.MovieDataItem
+import com.merajavier.cineme.movies.MovieListViewModel
+import org.koin.android.compat.SharedViewModelCompat.sharedViewModel
 import timber.log.Timber
 
 class DetailsActivity : AppCompatActivity() {
@@ -18,8 +19,12 @@ class DetailsActivity : AppCompatActivity() {
         binding = ActivityDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val movieId = intent.getIntExtra(SELECTED_MOVIE_ID, 1)
-        Timber.i(if(movieId != 1) "Movie id: $movieId" else "unable to retrieve movie id")
+        intent?.getParcelableExtra<MovieDataItem>(SELECTED_MOVIE_ID).let {
+
+            if(it != null){
+                binding.movie = it
+            }
+        }
 
         val listener = AppBarLayout.OnOffsetChangedListener{unsued, verticalOffset ->
             val seekPosition = -verticalOffset / binding.appbarLayout.totalScrollRange.toFloat()
