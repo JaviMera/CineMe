@@ -20,4 +20,6 @@
     <string name="details_movie_poster_description">movie poster</string>
     <string name="details_movie_favorite_icon_description">movie favorite icon</string>
     <string name="detail_movies_overview_title">Overview:</string>
+    <string name="detail_movies_top_cast_title">Top Cast:</string>
+    <string name="details_movie_cast_item_picture">Actor picture</string>
 </resources>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="100dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/cast_item_photo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:contentDescription="@string/details_movie_cast_item_picture"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:srcCompat="@drawable/cast_photo" />
+
+        <TextView
+            android:id="@+id/cast_item_actor_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="Rebecca Ferguson"
+            android:textSize="12sp"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            app:layout_constraintStart_toStartOf="@id/cast_item_photo"
+            app:layout_constraintTop_toBottomOf="@+id/cast_item_photo"
+            app:layout_constraintEnd_toEndOf="@id/cast_item_photo" />
+
+        <TextView
+            android:id="@+id/cast_item_character"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="12sp"
+            android:textColor="@color/colorPrimaryLight"
+            app:layout_constraintStart_toStartOf="@+id/cast_item_actor_name"
+            app:layout_constraintTop_toBottomOf="@id/cast_item_actor_name"
+            app:layout_constraintEnd_toEndOf="@id/cast_item_actor_name"
+            tools:text="Lady Jessica Atreides"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
