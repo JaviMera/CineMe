@@ -9,5 +9,6 @@ data class ActorDataItem(
     val id: Int,
     val name: String?,
     val character: String?,
-    @Json(name="profile_path") val photo: String?
+    @Json(name="profile_path") var photo: String?,
+    val order: Int
 ) : Parcelable

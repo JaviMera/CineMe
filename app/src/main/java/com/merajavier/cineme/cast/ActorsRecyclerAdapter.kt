@@ -40,7 +40,7 @@ class ActorsRecyclerAdapter
     companion object DiffCallback : DiffUtil.ItemCallback<ActorDataItem>() {
 
         override fun areItemsTheSame(oldItem: ActorDataItem, newItem: ActorDataItem): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.id == newItem.id && oldItem.order == newItem.order
         }
 
         override fun areContentsTheSame(oldItem: ActorDataItem, newItem: ActorDataItem): Boolean {

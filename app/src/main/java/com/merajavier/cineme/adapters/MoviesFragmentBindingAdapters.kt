@@ -8,6 +8,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.merajavier.cineme.BuildConfig
 import com.merajavier.cineme.R
+import com.merajavier.cineme.network.NetworkCastRepositoryInterface
 
 @BindingAdapter("showLoading")
 fun bindLoadingBar(circularProgressIndicator: CircularProgressIndicator, isLoading: Boolean){
@@ -23,9 +24,13 @@ fun bindLoadingBar(circularProgressIndicator: CircularProgressIndicator, isLoadi
 
 @BindingAdapter("showPoster")
 fun bindPictureOfDay(imageView: ImageView, posterUrl: String?){
-    posterUrl?.let{
+
+    if(posterUrl == null){
+        imageView.setImageResource(R.drawable.loading_image_error)
+    }else{
+
         Glide.with(imageView.context)
-            .load("${BuildConfig.API_POSTER_URL}${it}")
+            .load("${BuildConfig.API_POSTER_URL}${posterUrl}")
             .apply(
                 RequestOptions()
                 .placeholder(R.drawable.loading_image)
