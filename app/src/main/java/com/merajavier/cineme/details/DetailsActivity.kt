@@ -1,7 +1,6 @@
 package com.merajavier.cineme.details
 
-import android.animation.Animator
-import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.Animation
@@ -15,12 +14,7 @@ import com.merajavier.cineme.common.toPercentAverage
 import com.merajavier.cineme.databinding.ActivityDetailsBinding
 import com.merajavier.cineme.genre.GenresRecyclerAdapter
 import com.merajavier.cineme.movies.MovieDataItem
-import com.merajavier.cineme.network.NetworkMovieActorRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import timber.log.Timber
 
 class DetailsActivity : AppCompatActivity() {
 
@@ -48,9 +42,17 @@ class DetailsActivity : AppCompatActivity() {
                 genresAdapter.submitList(it.genres)
                 actorListViewModel.getMovieActors(it.id)
 
-                val animator = ProgressBarAnimation(binding.detailsMovieUserScoreProgress, 0.0, it.voteAverage.toPercentAverage())
-                animator.duration = 1000
-                binding.detailsMovieUserScoreProgress.startAnimation(animator)
+                val progressBarAnimator = ProgressBarAnimation(binding.detailsMovieUserScoreProgress, 0.0, it.voteAverage.toPercentAverage())
+                progressBarAnimator.duration = 2000
+                binding.detailsMovieUserScoreProgress.startAnimation(progressBarAnimator)
+
+                val progressPercentAnimator = ValueAnimator.ofInt(0, it.voteAverage.toPercentAverage().toInt())
+                progressPercentAnimator.duration = 2000
+                progressPercentAnimator.addUpdateListener { animation ->
+                    binding.detailsMovieUserScorePercentage.text = animation.animatedValue.toString()
+                }
+
+                progressPercentAnimator.start()
             }
         }
 
