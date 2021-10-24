@@ -11,6 +11,7 @@ import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.merajavier.cineme.cast.ActorListViewModel
 import com.merajavier.cineme.cast.ActorsRecyclerAdapter
+import com.merajavier.cineme.common.toPercentAverage
 import com.merajavier.cineme.databinding.ActivityDetailsBinding
 import com.merajavier.cineme.genre.GenresRecyclerAdapter
 import com.merajavier.cineme.movies.MovieDataItem
@@ -47,7 +48,7 @@ class DetailsActivity : AppCompatActivity() {
                 genresAdapter.submitList(it.genres)
                 actorListViewModel.getMovieActors(it.id)
 
-                val animator = ProgressBarAnimation(binding.detailsMovieUserScoreProgress, 0.0, it.voteAverage * 10)
+                val animator = ProgressBarAnimation(binding.detailsMovieUserScoreProgress, 0.0, it.voteAverage.toPercentAverage())
                 animator.duration = 1000
                 binding.detailsMovieUserScoreProgress.startAnimation(animator)
             }
@@ -81,7 +82,6 @@ class DetailsActivity : AppCompatActivity() {
             super.applyTransformation(interpolatedTime, t)
             val value = from + (to - from) * interpolatedTime
             progressBar.progress = value.toInt()
-            Timber.i(progressBar.progress.toString())
         }
     }
 }

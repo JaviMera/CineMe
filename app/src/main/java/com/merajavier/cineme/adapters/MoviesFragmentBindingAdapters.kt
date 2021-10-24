@@ -9,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.merajavier.cineme.BuildConfig
 import com.merajavier.cineme.R
+import com.merajavier.cineme.common.toPercentAverage
 import com.merajavier.cineme.network.NetworkCastRepositoryInterface
 
 @BindingAdapter("showLoading")
@@ -43,11 +44,13 @@ fun bindPictureOfDay(imageView: ImageView, posterUrl: String?){
 @BindingAdapter("showAverageProgress")
 fun bindAverageProgress(circularProgressIndicator: CircularProgressIndicator, average: Double){
 
-    circularProgressIndicator.progress = (average * 10).toInt()
+    circularProgressIndicator.progress = average
+        .toPercentAverage()
+        .toInt()
 }
 
 @BindingAdapter("showVoteAverage")
 fun bindAverageScore(textView: TextView, average: Double){
     val context = textView.context
-    textView.text = context.getString(R.string.details_movie_user_average_value, (average * 10).toInt())
+    textView.text = context.getString(R.string.details_movie_user_average_value, average.toPercentAverage().toInt())
 }
