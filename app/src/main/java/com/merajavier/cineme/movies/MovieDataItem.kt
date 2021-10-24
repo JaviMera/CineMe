@@ -16,5 +16,6 @@ data class MovieDataItem(
     @Json(name="vote_average") val voteAverage: Double,
     @Json(name="poster_path") val posterPath: String?,
     @Json(name="backdrop_path") val backdropPath: String?,
-    val genres: List<GenreDataItem>?
+    val genres: List<GenreDataItem>?,
+    @Json(name="vote_count") val voteCount: Int
 ) : Parcelable

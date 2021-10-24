@@ -50,7 +50,6 @@
                     android:textSize="15sp"
                     android:textStyle="bold"
                     android:padding="3dp"
-                    app:drawableRightCompat="@drawable/movie_favorite_not_selected"
                     app:layout_constraintBottom_toBottomOf="parent"
                     tools:text="Venom: Let there be carnage" />
 
@@ -97,13 +96,103 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_overview"
-                    tools:listitem="@layout/details_movie_genre_chip"
-                    tools:itemCount="3"/>
+                    tools:itemCount="3"
+                    tools:listitem="@layout/details_movie_genre_chip" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                    android:id="@+id/details_movie_user_score_progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="24dp"
+                    android:indeterminate="false"
+                    android:max="100"
+                    app:indicatorColor="@color/track_color"
+                    app:indicatorDirectionCircular="clockwise"
+                    app:layout_constraintEnd_toStartOf="@+id/details_movie_favorite"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/details_movie_genres"
+                    app:trackColor="@color/colorSecondaryDark"
+                    tools:progress="60" />
+
+                <TextView
+                    android:id="@+id/details_movie_user_score_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="12sp"
+                    android:text="@{String.valueOf(movie.voteAverage * 10)}"
+                    app:layout_constraintBottom_toBottomOf="@+id/details_movie_user_score_progress"
+                    app:layout_constraintEnd_toEndOf="@+id/details_movie_user_score_progress"
+                    app:layout_constraintStart_toStartOf="@+id/details_movie_user_score_progress"
+                    app:layout_constraintTop_toTopOf="@+id/details_movie_user_score_progress"
+                    tools:text="50%" />
+
+                <TextView
+                    android:id="@+id/details_movie_user_score_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_movies_user_score_text"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:layout_constraintEnd_toEndOf="@id/details_movie_user_score_progress"
+                    app:layout_constraintStart_toStartOf="@id/details_movie_user_score_progress"
+                    app:layout_constraintTop_toBottomOf="@id/details_movie_user_score_progress" />
+
+                <ImageView
+                    android:id="@+id/details_movie_favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/details_movie_favorite_description"
+                    android:src="@drawable/movie_favorite_not_selected"
+                    app:layout_constraintBottom_toBottomOf="@+id/details_movie_user_score_progress"
+                    app:layout_constraintEnd_toStartOf="@+id/details_movie_user_votes"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/details_movie_user_score_progress"
+                    app:layout_constraintTop_toTopOf="@id/details_movie_user_score_progress" />
+
+                <TextView
+                    android:id="@+id/details_movie_user_favorite_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/details_movie_user_favorite_text"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:layout_constraintEnd_toEndOf="@id/details_movie_favorite"
+                    app:layout_constraintStart_toStartOf="@id/details_movie_favorite"
+                    app:layout_constraintTop_toBottomOf="@id/details_movie_favorite" />
+
+                <TextView
+                    android:id="@+id/details_movie_user_votes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="16dp"
+                    android:textColor="@color/colorPrimaryLight"
+                    android:text="@{String.valueOf(movie.voteCount)}"
+                    app:layout_constraintBottom_toBottomOf="@+id/details_movie_favorite"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/details_movie_favorite"
+                    app:layout_constraintTop_toTopOf="@+id/details_movie_favorite"
+                    tools:text="1,900" />
+
+                <TextView
+                    android:id="@+id/details_movie_user_votes_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/details_movie_user_votes_text"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:layout_constraintEnd_toEndOf="@id/details_movie_user_votes"
+                    app:layout_constraintStart_toStartOf="@id/details_movie_user_votes"
+                    app:layout_constraintTop_toBottomOf="@id/details_movie_user_votes" />
 
                 <TextView
                     android:id="@+id/detail_movies_top_cast_title"
@@ -116,20 +205,31 @@
                     android:textSize="18sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/details_movie_genres" />
+                    app:layout_constraintTop_toBottomOf="@id/details_movie_user_score_title" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/details_movie_actors"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     android:orientation="horizontal"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/detail_movies_top_cast_title"
-                    tools:listitem="@layout/details_movie_actor_item"
-                    tools:itemCount="3"/>
+                    tools:itemCount="3"
+                    tools:listitem="@layout/details_movie_actor_item" />
+
+                <TextView
+                    android:id="@+id/details_movie_director_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/details_movie_director_title"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/details_movie_actors" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
