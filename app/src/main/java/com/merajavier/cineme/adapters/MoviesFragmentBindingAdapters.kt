@@ -2,6 +2,7 @@ package com.merajavier.cineme.adapters
 
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -37,4 +38,16 @@ fun bindPictureOfDay(imageView: ImageView, posterUrl: String?){
                 .error(R.drawable.loading_image_error))
             .into(imageView)
     }
+}
+
+@BindingAdapter("showAverageProgress")
+fun bindAverageProgress(circularProgressIndicator: CircularProgressIndicator, average: Double){
+
+    circularProgressIndicator.progress = (average * 10).toInt()
+}
+
+@BindingAdapter("showVoteAverage")
+fun bindAverageScore(textView: TextView, average: Double){
+    val context = textView.context
+    textView.text = context.getString(R.string.details_movie_user_average_value, (average * 10).toInt())
 }

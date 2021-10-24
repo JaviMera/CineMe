@@ -1,9 +1,14 @@
 package com.merajavier.cineme.details
 
+import android.animation.Animator
+import android.animation.ObjectAnimator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.animation.Animation
+import android.view.animation.Transformation
 import androidx.lifecycle.Observer
 import com.google.android.material.appbar.AppBarLayout
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.merajavier.cineme.cast.ActorListViewModel
 import com.merajavier.cineme.cast.ActorsRecyclerAdapter
 import com.merajavier.cineme.databinding.ActivityDetailsBinding
@@ -14,6 +19,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import timber.log.Timber
 
 class DetailsActivity : AppCompatActivity() {
 
@@ -40,6 +46,10 @@ class DetailsActivity : AppCompatActivity() {
                 binding.movie = it
                 genresAdapter.submitList(it.genres)
                 actorListViewModel.getMovieActors(it.id)
+
+                val animator = ProgressBarAnimation(binding.detailsMovieUserScoreProgress, 0.0, it.voteAverage * 10)
+                animator.duration = 1000
+                binding.detailsMovieUserScoreProgress.startAnimation(animator)
             }
         }
 
@@ -59,5 +69,19 @@ class DetailsActivity : AppCompatActivity() {
 
     companion object{
         const val SELECTED_MOVIE_ID = "SELECTED_MOVIE_ID"
+    }
+
+    class ProgressBarAnimation(
+        private val progressBar: CircularProgressIndicator,
+        private val from: Double,
+        private val to: Double
+    ) : Animation() {
+
+        override fun applyTransformation(interpolatedTime: Float, t: Transformation?) {
+            super.applyTransformation(interpolatedTime, t)
+            val value = from + (to - from) * interpolatedTime
+            progressBar.progress = value.toInt()
+            Timber.i(progressBar.progress.toString())
+        }
     }
 }
