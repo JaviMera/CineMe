@@ -10,3 +10,4 @@ interface TMDBApiCastInterface {
         @Path("movie_id") movieId: Int
     ) : ActorsResponse
 }
+

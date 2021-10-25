@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentMoviesBinding
 import com.merajavier.cineme.details.DetailsActivity
+import com.merajavier.cineme.login.LoginViewModel
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
 class MovieListFragment : Fragment() {
@@ -21,6 +23,8 @@ class MovieListFragment : Fragment() {
     private lateinit var binding: FragmentMoviesBinding
     private lateinit var moviesAdapter: MoviesRecyclerAdapter
     private val _viewModel: MovieListViewModel by inject()
+    private val _loginViewModel: LoginViewModel by sharedViewModel()
+
     private var _pageNumber = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -98,5 +102,11 @@ class MovieListFragment : Fragment() {
         })
 
         return binding.root
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Toast.makeText(requireContext(), _loginViewModel.isLogged.value.toString(), Toast.LENGTH_SHORT)
+            .show()
     }
 }

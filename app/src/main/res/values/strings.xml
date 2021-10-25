@@ -29,4 +29,9 @@
     <string name="details_movie_director_title">Directors:</string>
     <string name="details_movie_user_average_value">%d%%</string>
     <string name="details_movie_writers_title">Writers:</string>
+    <string name="login_username_hint">Username...</string>
+    <string name="login_password_hint">Password...</string>
+    <string name="login_sign_in_text">SIGN IN</string>
+    <string name="login_sign_up_hint">SIGN UP</string>
+    <string name="login_sign_as_guest_text">SIGN AS GUEST</string>
 </resources>
