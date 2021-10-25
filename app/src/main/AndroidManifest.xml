@@ -13,15 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CineMe">
         <activity
-            android:name=".login.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
             android:name=".details.DetailsActivity"
             android:exported="true"
             android:launchMode="singleTask"
@@ -30,6 +21,11 @@
             android:name=".CinemaActivity"
             android:exported="true"
             android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 

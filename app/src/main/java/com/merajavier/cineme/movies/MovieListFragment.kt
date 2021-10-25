@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.merajavier.cineme.R
@@ -23,7 +24,7 @@ class MovieListFragment : Fragment() {
     private lateinit var binding: FragmentMoviesBinding
     private lateinit var moviesAdapter: MoviesRecyclerAdapter
     private val _viewModel: MovieListViewModel by inject()
-    private val _loginViewModel: LoginViewModel by sharedViewModel()
+    private val _loginViewModel: LoginViewModel by inject()
 
     private var _pageNumber = 1
 
@@ -106,7 +107,5 @@ class MovieListFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
-        Toast.makeText(requireContext(), _loginViewModel.isLogged.value.toString(), Toast.LENGTH_SHORT)
-            .show()
     }
 }

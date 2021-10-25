@@ -1,6 +1,7 @@
 package com.merajavier.cineme
 
 import android.os.Bundle
+import android.widget.Toast
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.get
@@ -30,7 +31,7 @@ class CinemaActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_movies, R.id.navigation_tv_shows
+                R.id.navigation_movies, R.id.navigation_tv_shows, R.id.navigation_login
             )
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

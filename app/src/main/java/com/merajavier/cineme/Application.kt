@@ -27,7 +27,7 @@ class Application : Application() {
                 CastListViewModel(get() as NetworkMovieActorRepository)
             }
 
-            viewModel {
+            viewModel () {
                 LoginViewModel(get() as NetworkLoginRepositoryInterface)
             }
 
