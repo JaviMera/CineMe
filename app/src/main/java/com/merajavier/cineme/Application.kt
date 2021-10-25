@@ -1,7 +1,7 @@
 package com.merajavier.cineme
 
 import android.app.Application
-import com.merajavier.cineme.cast.ActorListViewModel
+import com.merajavier.cineme.cast.CastListViewModel
 import com.merajavier.cineme.koin.modules.networkModule
 import com.merajavier.cineme.movies.MovieListViewModel
 import com.merajavier.cineme.network.NetworkMovieActorRepository
@@ -25,7 +25,7 @@ class Application : Application() {
             }
 
             viewModel{
-                ActorListViewModel(get() as NetworkMovieActorRepository)
+                CastListViewModel(get() as NetworkMovieActorRepository)
             }
             single{
                 NetworkMovieRepository(get() as TMDBApiInterface)

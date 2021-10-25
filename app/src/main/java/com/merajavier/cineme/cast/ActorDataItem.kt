@@ -12,3 +12,4 @@ data class ActorDataItem(
     @Json(name="profile_path") var photo: String?,
     val order: Int
 ) : Parcelable
+

@@ -8,7 +8,7 @@ import android.view.animation.Transformation
 import androidx.lifecycle.Observer
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.progressindicator.CircularProgressIndicator
-import com.merajavier.cineme.cast.ActorListViewModel
+import com.merajavier.cineme.cast.CastListViewModel
 import com.merajavier.cineme.cast.ActorsRecyclerAdapter
 import com.merajavier.cineme.common.toPercentAverage
 import com.merajavier.cineme.databinding.ActivityDetailsBinding
@@ -21,7 +21,7 @@ class DetailsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailsBinding
     private lateinit var genresAdapter: GenresRecyclerAdapter
     private lateinit var actorsAdapter: ActorsRecyclerAdapter
-    private val actorListViewModel: ActorListViewModel by inject()
+    private val castListViewModel: CastListViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,7 +40,8 @@ class DetailsActivity : AppCompatActivity() {
             if(it != null){
                 binding.movie = it
                 genresAdapter.submitList(it.genres)
-                actorListViewModel.getMovieActors(it.id)
+                castListViewModel.getMovieActors(it.id)
+                castListViewModel.getDirectors(it.id)
 
                 val progressBarAnimator = ProgressBarAnimation(binding.detailsMovieUserScoreProgress, 0.0, it.voteAverage.toPercentAverage())
                 progressBarAnimator.duration = 2000
@@ -61,9 +62,20 @@ class DetailsActivity : AppCompatActivity() {
             binding.motionLayout.progress = seekPosition
         }
 
-        actorListViewModel.actors.observe(this, Observer {
+        castListViewModel.actors.observe(this, Observer {
             it.let {
                 actorsAdapter.submitList(it)
+            }
+        })
+
+        castListViewModel.crew.observe(this, Observer {
+            it.let { crew ->
+                val directors = crew
+                    .filter { member -> member.job == "Director" }
+                    .map { member -> member.name}
+                    .joinToString()
+
+                binding.detailsMovieDirector.text = directors
             }
         })
 

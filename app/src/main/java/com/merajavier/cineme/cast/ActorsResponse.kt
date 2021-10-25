@@ -6,5 +6,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ActorsResponse (
     val id: Int,
-    val cast: List<ActorDataItem>
+    val cast: List<ActorDataItem>,
+    val crew: List<CrewDataItem>
 ) : Parcelable
