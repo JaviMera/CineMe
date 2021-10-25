@@ -26,6 +26,7 @@
     <string name="details_movie_user_favorite_text">Add to favorites</string>
     <string name="details_movie_favorite_description">Add to favorites icon</string>
     <string name="detail_movies_user_score_text">User score</string>
-    <string name="details_movie_director_title">Director:</string>
+    <string name="details_movie_director_title">Directors:</string>
     <string name="details_movie_user_average_value">%d%%</string>
+    <string name="details_movie_writers_title">Writers:</string>
 </resources>

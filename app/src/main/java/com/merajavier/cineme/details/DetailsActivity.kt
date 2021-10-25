@@ -76,6 +76,12 @@ class DetailsActivity : AppCompatActivity() {
                     .joinToString()
 
                 binding.detailsMovieDirector.text = directors
+
+                val writers = crew
+                    .filter { member -> member.department == "Writing" }
+                    .joinToString { member -> "${member.name} (${member.job})" }
+
+                binding.detailsMovieWriters.text = writers
             }
         })
 

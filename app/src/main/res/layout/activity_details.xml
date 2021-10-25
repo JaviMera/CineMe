@@ -243,9 +243,30 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:textColor="@color/colorPrimary"
-                    app:layout_constraintBottom_toBottomOf="@id/details_movie_director_title"
-                    app:layout_constraintStart_toEndOf="@+id/details_movie_director_title"
-                    app:layout_constraintTop_toTopOf="@+id/details_movie_director_title"
+                    app:layout_constraintTop_toBottomOf="@id/details_movie_director_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="David Fincher, Lio Messi, Francella" />
+
+                <TextView
+                    android:id="@+id/details_movie_writers_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/details_movie_writers_title"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/details_movie_director" />
+
+                <TextView
+                    android:id="@+id/details_movie_writers"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:textColor="@color/colorPrimary"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/details_movie_writers_title"
                     tools:text="David Fincher, Lio Messi, Francella" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
