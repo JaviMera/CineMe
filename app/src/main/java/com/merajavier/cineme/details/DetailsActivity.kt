@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.animation.Animation
 import android.view.animation.Transformation
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.progressindicator.CircularProgressIndicator
@@ -54,6 +55,13 @@ class DetailsActivity : AppCompatActivity() {
                 }
 
                 progressPercentAnimator.start()
+            }
+        }
+
+        intent?.getStringExtra("SESSION_ID").let { sessionId ->
+            binding.detailsMovieFavorite.setOnClickListener {
+
+                Toast.makeText(this, sessionId.toString(), Toast.LENGTH_SHORT).show()
             }
         }
 

@@ -7,15 +7,11 @@ interface NetworkLoginRepositoryInterface {
     suspend fun getGuestSession() : GuestSessionResponse
 }
 
-class NetworkGuestSessionRepository(
-    private val apiInterface : TMDBApiGuestInterface
+class NetworkLoginRepository(
+    private val apiInterface : TMDBApiLoginInterface
 ) : NetworkLoginRepositoryInterface {
 
     override suspend fun getGuestSession(): GuestSessionResponse {
-        return GuestSessionResponse(
-            true,
-            "asdasdasd",
-            expirationDate = "2021-10-25"
-        )
+        return apiInterface.getGuestSession()
     }
 }

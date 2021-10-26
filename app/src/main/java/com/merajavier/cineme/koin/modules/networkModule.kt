@@ -3,7 +3,7 @@ package com.merajavier.cineme.koin.modules
 import com.merajavier.cineme.BuildConfig
 import com.merajavier.cineme.network.AuthInterceptor
 import com.merajavier.cineme.network.TMDBApiCastInterface
-import com.merajavier.cineme.network.TMDBApiGuestInterface
+import com.merajavier.cineme.network.TMDBApiLoginInterface
 import com.merajavier.cineme.network.TMDBApiInterface
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -48,6 +48,6 @@ fun provideTmdbCastApi(retrofit: Retrofit) : TMDBApiCastInterface{
     return retrofit.create(TMDBApiCastInterface::class.java)
 }
 
-fun provideTmdbGuestApi(retrofit: Retrofit) : TMDBApiGuestInterface{
-    return retrofit.create(TMDBApiGuestInterface::class.java)
+fun provideTmdbGuestApi(retrofit: Retrofit) : TMDBApiLoginInterface{
+    return retrofit.create(TMDBApiLoginInterface::class.java)
 }

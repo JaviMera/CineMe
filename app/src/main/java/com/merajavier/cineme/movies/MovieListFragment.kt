@@ -24,7 +24,7 @@ class MovieListFragment : Fragment() {
     private lateinit var binding: FragmentMoviesBinding
     private lateinit var moviesAdapter: MoviesRecyclerAdapter
     private val _viewModel: MovieListViewModel by inject()
-    private val _loginViewModel: LoginViewModel by inject()
+    private val _loginViewModel: LoginViewModel by sharedViewModel()
 
     private var _pageNumber = 1
 
@@ -96,6 +96,7 @@ class MovieListFragment : Fragment() {
             it.let {
                 val intent = Intent(requireActivity(), DetailsActivity::class.java).apply {
                     putExtra(DetailsActivity.SELECTED_MOVIE_ID, it)
+                    putExtra("SESSION_ID", _loginViewModel.sessionId.value)
                 }
 
                 startActivity(intent)

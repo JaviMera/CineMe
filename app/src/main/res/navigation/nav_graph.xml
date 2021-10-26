@@ -31,5 +31,12 @@
         android:id="@+id/userFragment"
         android:name="com.merajavier.cineme.login.UserFragment"
         android:label="fragment_user"
-        tools:layout="@layout/fragment_user" />
+        tools:layout="@layout/fragment_user" >
+        <action
+            android:id="@+id/action_userFragment_to_navigation_login"
+            app:destination="@id/navigation_login"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation_login"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>

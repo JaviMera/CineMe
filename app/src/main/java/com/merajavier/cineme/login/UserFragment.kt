@@ -1,20 +1,19 @@
 package com.merajavier.cineme.login
 
-import android.content.Context
 import android.os.Bundle
 import android.view.*
-import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.merajavier.cineme.CinemaActivity
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentUserBinding
+import com.merajavier.cineme.network.NetworkLoginRepository
 import kotlinx.coroutines.launch
-import timber.log.Timber
+import org.koin.android.ext.android.inject
 
 class UserFragment : Fragment() {
     private lateinit var binding: FragmentUserBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -33,5 +32,17 @@ class UserFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.fragment_user_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        when(item.itemId){
+            R.id.user_logout -> {
+                lifecycleScope.launch {
+                    findNavController().navigate(UserFragmentDirections.actionUserFragmentToNavigationLogin())
+                }
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

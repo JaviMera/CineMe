@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.merajavier.cineme.network.NetworkGuestSessionRepository
 import com.merajavier.cineme.network.NetworkLoginRepositoryInterface
 import kotlinx.coroutines.launch
 
@@ -16,9 +15,15 @@ class LoginViewModel(
     val isLogged: LiveData<Boolean>
     get() = _isLogged
 
+    private var _sessionId = MutableLiveData<String>()
+    val sessionId: LiveData<String>
+    get() = _sessionId
+
     fun signInAsGuest() {
         viewModelScope.launch {
-            _isLogged.postValue(guestSessionRepository.getGuestSession().success)
+            val response  = guestSessionRepository.getGuestSession()
+            _isLogged.postValue(response.success)
+            _sessionId.postValue(response.sessionId)
         }
     }
 }
