@@ -1,12 +1,15 @@
 package com.merajavier.cineme
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.navigation.NavigationBarView
 import com.merajavier.cineme.databinding.ActivityCinemaBinding
 
 class CinemaActivity : AppCompatActivity() {
@@ -30,6 +33,7 @@ class CinemaActivity : AppCompatActivity() {
                 R.id.navigation_movies, R.id.navigation_tv_shows, R.id.navigation_login, R.id.userFragment
             )
         )
+
         setupActionBarWithNavController(navController, appBarConfiguration)
         _binding.navView.setupWithNavController(navController)
     }

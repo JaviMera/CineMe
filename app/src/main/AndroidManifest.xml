@@ -13,11 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CineMe">
         <activity
-            android:name=".details.DetailsActivity"
-            android:exported="true"
-            android:launchMode="singleTask"
-            android:theme="@style/Theme.CineMe.NoActionBar" />
-        <activity
             android:name=".CinemaActivity"
             android:exported="true"
             android:label="@string/app_name">

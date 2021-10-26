@@ -9,7 +9,14 @@
         android:id="@+id/navigation_movies"
         android:name="com.merajavier.cineme.movies.MovieListFragment"
         android:label="@string/movies_fragment_title"
-        tools:layout="@layout/fragment_movies"/>
+        tools:layout="@layout/fragment_movies">
+        <action
+            android:id="@+id/action_navigation_movies_to_detailsFragment"
+            app:destination="@id/detailsFragment"
+            app:launchSingleTop="false"
+            app:popUpTo="@id/detailsFragment"
+            app:popUpToInclusive="false" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_tv_shows"
         android:name="com.merajavier.cineme.shows.TVShowListFragment"
@@ -44,4 +51,19 @@
         android:name="com.merajavier.cineme.movies.rate.RateFragment"
         android:label="RateFragment"
         tools:layout="@layout/fragment_rate"/>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.merajavier.cineme.details.DetailsFragment"
+        android:label="DetailsFragment"
+        tools:layout="@layout/fragment_details">
+        <action
+            android:id="@+id/action_detailsFragment_to_navigation_movies"
+            app:destination="@id/navigation_movies"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation_movies"
+            app:popUpToInclusive="true" />
+        <argument
+            android:name="movie"
+            app:argType="com.merajavier.cineme.movies.MovieDataItem" />
+    </fragment>
 </navigation>

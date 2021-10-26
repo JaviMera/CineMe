@@ -1,6 +1,5 @@
 package com.merajavier.cineme.movies
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -13,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentMoviesBinding
-import com.merajavier.cineme.details.DetailsActivity
 import com.merajavier.cineme.login.LoginViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
@@ -92,21 +90,11 @@ class MovieListFragment : Fragment() {
         })
 
         _viewModel.movieSelected.observe(viewLifecycleOwner, Observer {
-
             it.let {
-                val intent = Intent(requireActivity(), DetailsActivity::class.java).apply {
-                    putExtra(DetailsActivity.SELECTED_MOVIE_ID, it)
-                    putExtra("SESSION_ID", _loginViewModel.sessionId.value)
-                }
-
-                startActivity(intent)
+                findNavController().navigate(MovieListFragmentDirections.actionNavigationMoviesToDetailsFragment(it))
             }
         })
 
         return binding.root
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 }
