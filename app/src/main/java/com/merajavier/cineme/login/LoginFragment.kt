@@ -29,17 +29,25 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = this
 
-        binding.loginSignInGuest.setOnClickListener{
-            _loginViewModel.signInAsGuest()
+        if(_loginViewModel.isLogged.value == true){
+
+            lifecycleScope.launch {
+                findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToUserFragment())
+            }
+        }else{
+            binding.loginSignInGuest.setOnClickListener{
+                _loginViewModel.signInAsGuest()
+            }
+
+            _loginViewModel.isLogged.observe(requireActivity(), Observer {
+                it.let {
+                    lifecycleScope.launch {
+                        findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToUserFragment())
+                    }
+                }
+            })
         }
 
-        _loginViewModel.isLogged.observe(requireActivity(), Observer {
-            it.let {
-                lifecycleScope.launch {
-                    findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToUserFragment())
-                }
-            }
-        })
         return binding.root
     }
 }
