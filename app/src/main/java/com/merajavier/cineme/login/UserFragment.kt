@@ -39,7 +39,7 @@ class UserFragment : Fragment() {
         when(item.itemId){
             R.id.user_logout -> {
                 lifecycleScope.launch {
-                    findNavController().navigate(UserFragmentDirections.actionUserFragmentToNavigationLogin())
+//                    findNavController().navigate(UserFragmentDirections.actionUserFragmentToNavigationLogin())
                 }
             }
         }

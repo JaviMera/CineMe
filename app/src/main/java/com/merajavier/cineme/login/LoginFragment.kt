@@ -12,6 +12,7 @@ import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentLoginBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import timber.log.Timber
 
 class LoginFragment : Fragment() {
 
@@ -30,18 +31,18 @@ class LoginFragment : Fragment() {
         binding.lifecycleOwner = this
 
         if(_loginViewModel.isLogged.value == true){
-
             lifecycleScope.launch {
                 findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToUserFragment())
             }
         }else{
+
             binding.loginSignInGuest.setOnClickListener{
                 _loginViewModel.signInAsGuest()
             }
 
             _loginViewModel.isLogged.observe(requireActivity(), Observer {
                 it.let {
-                    lifecycleScope.launch {
+                    lifecycleScope.launchWhenResumed {
                         findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToUserFragment())
                     }
                 }
