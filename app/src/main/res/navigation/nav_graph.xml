@@ -39,4 +39,9 @@
             app:popUpTo="@id/navigation_login"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/rateFragment"
+        android:name="com.merajavier.cineme.movies.rate.RateFragment"
+        android:label="RateFragment"
+        tools:layout="@layout/fragment_rate"/>
 </navigation>

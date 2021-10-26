@@ -34,4 +34,5 @@
     <string name="login_sign_in_text">SIGN IN</string>
     <string name="login_sign_up_hint">SIGN UP</string>
     <string name="login_sign_as_guest_text">SIGN AS GUEST</string>
+    <string name="rate_movie_button_text">Rate</string>
 </resources>
