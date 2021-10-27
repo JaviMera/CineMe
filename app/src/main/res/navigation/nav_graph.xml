@@ -49,7 +49,11 @@
         android:id="@+id/rateFragment"
         android:name="com.merajavier.cineme.movies.rate.RateFragment"
         android:label="RateFragment"
-        tools:layout="@layout/fragment_rate"/>
+        tools:layout="@layout/fragment_rate">
+        <argument
+            android:name="movie"
+            app:argType="com.merajavier.cineme.movies.MovieDataItem" />
+    </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.merajavier.cineme.details.DetailsFragment"
@@ -58,5 +62,11 @@
         <argument
             android:name="movie"
             app:argType="com.merajavier.cineme.movies.MovieDataItem" />
+        <action
+            android:id="@+id/action_detailsFragment_to_rateFragment"
+            app:destination="@id/rateFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/rateFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

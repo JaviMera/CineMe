@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.merajavier.cineme.movies.SingleLiveData
 import com.merajavier.cineme.network.NetworkLoginRepositoryInterface
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class LoginViewModel(
     private val guestSessionRepository: NetworkLoginRepositoryInterface
@@ -16,15 +17,16 @@ class LoginViewModel(
     val isLogged: LiveData<Boolean>
     get() = _isLogged
 
-    private var _sessionId = MutableLiveData<String>()
-    val sessionId: LiveData<String>
+    private var _sessionId = String()
+    val sessionId: String
     get() = _sessionId
 
     fun signInAsGuest() {
         viewModelScope.launch {
             val response  = guestSessionRepository.getGuestSession()
             _isLogged.postValue(response.success)
-            _sessionId.postValue(response.sessionId)
+            _sessionId = response.sessionId
+            Timber.i(response.sessionId)
         }
     }
 }

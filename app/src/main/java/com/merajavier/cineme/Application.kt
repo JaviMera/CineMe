@@ -4,7 +4,9 @@ import android.app.Application
 import com.merajavier.cineme.cast.CastListViewModel
 import com.merajavier.cineme.koin.modules.networkModule
 import com.merajavier.cineme.login.LoginViewModel
+import com.merajavier.cineme.movies.MovieDataItem
 import com.merajavier.cineme.movies.MovieListViewModel
+import com.merajavier.cineme.account.guest.GuestViewModel
 import com.merajavier.cineme.network.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -26,8 +28,12 @@ class Application : Application() {
                 CastListViewModel(get() as NetworkMovieActorRepository)
             }
 
-            viewModel () {
+            viewModel {
                 LoginViewModel(get() as NetworkLoginRepositoryInterface)
+            }
+
+            viewModel {
+                GuestViewModel(get() as NetworkGuestRepositoryInterface)
             }
 
             single{
@@ -39,8 +45,11 @@ class Application : Application() {
             }
 
             single{
-
                 NetworkLoginRepository(get() as TMDBApiLoginInterface) as NetworkLoginRepositoryInterface
+            }
+
+            single {
+                NetworkGuestRepository(get() as TMDBApiGuestSessionInterface) as NetworkGuestRepositoryInterface
             }
         }
 

@@ -12,17 +12,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentMoviesBinding
-import com.merajavier.cineme.login.LoginViewModel
 import org.koin.android.ext.android.inject
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
 class MovieListFragment : Fragment() {
 
     private lateinit var binding: FragmentMoviesBinding
     private lateinit var moviesAdapter: MoviesRecyclerAdapter
-    private val _viewModel: MovieListViewModel by inject()
-    private val _loginViewModel: LoginViewModel by sharedViewModel()
+    private val viewModel: MovieListViewModel by inject()
 
     private var _pageNumber = 1
 
@@ -38,10 +35,10 @@ class MovieListFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentMoviesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
-        binding.viewModel = _viewModel
+        binding.viewModel = viewModel
 
         moviesAdapter = MoviesRecyclerAdapter(MoviesRecyclerAdapter.OnMovieClickListener{
-            _viewModel.getMovieDetails(it)
+            viewModel.getMovieDetails(it)
         })
 
         binding.recycleViewMovies.adapter = moviesAdapter
@@ -52,18 +49,18 @@ class MovieListFragment : Fragment() {
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if(dy > 0 && _viewModel.loading.value == false){
+                if(dy > 0 && viewModel.loading.value == false){
                     if(layoutManager.findLastCompletelyVisibleItemPosition() == layoutManager.itemCount - 1){
                         _pageNumber = _pageNumber.inc()
-                        _viewModel.getNowPlayingMovies(_pageNumber)
+                        viewModel.getNowPlayingMovies(_pageNumber)
                     }
                 }
             }
         })
 
-        _viewModel.getNowPlayingMovies(_pageNumber)
+        viewModel.getNowPlayingMovies(_pageNumber)
 
-        _viewModel.movies.observe(viewLifecycleOwner, Observer {
+        viewModel.movies.observe(viewLifecycleOwner, Observer {
 
             it.let {
                 if(it.any()){
@@ -74,7 +71,7 @@ class MovieListFragment : Fragment() {
             }
         })
 
-        _viewModel.loading.observe(viewLifecycleOwner, Observer {
+        viewModel.loading.observe(viewLifecycleOwner, Observer {
             it.let {
                 when(it){
                     true -> {
@@ -89,7 +86,7 @@ class MovieListFragment : Fragment() {
             }
         })
 
-        _viewModel.movieSelected.observe(viewLifecycleOwner, Observer {
+        viewModel.movieSelected.observe(viewLifecycleOwner, Observer {
             it.let {
                 findNavController().navigate(MovieListFragmentDirections.actionNavigationMoviesToDetailsFragment(it))
             }

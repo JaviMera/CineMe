@@ -1,11 +1,11 @@
 package com.merajavier.cineme.network
 
 import com.merajavier.cineme.cast.ActorDataItem
+import com.merajavier.cineme.genre.RateMovieRequest
 import com.merajavier.cineme.movies.MovieDataItem
 import com.merajavier.cineme.movies.MoviesResponse
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import com.merajavier.cineme.movies.rate.RateMovieResponse
+import retrofit2.http.*
 
 interface TMDBApiInterface {
     @GET("movie/{movie_id}")
@@ -18,4 +18,10 @@ interface TMDBApiInterface {
         @Query("page") pageNumber: Int
     ) : MoviesResponse
 
+    @POST("movie/{movie_id}/rating")
+    suspend fun rateMovieAsGuest(
+        @Path("movie_id") movieId: Int,
+        @Query("guest_session_id") guestSessionId: String,
+        @Body rateMovieRequest: RateMovieRequest
+    ) : RateMovieResponse
 }

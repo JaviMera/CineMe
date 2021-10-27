@@ -8,17 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.Transformation
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
+import androidx.fragment.app.FragmentResultListener
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.merajavier.cineme.account.guest.GuestViewModel
 import com.merajavier.cineme.cast.ActorsRecyclerAdapter
 import com.merajavier.cineme.cast.CastListViewModel
 import com.merajavier.cineme.common.toPercentAverage
 import com.merajavier.cineme.databinding.FragmentDetailsBinding
 import com.merajavier.cineme.genre.GenresRecyclerAdapter
+import com.merajavier.cineme.login.LoginViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class DetailsFragment : Fragment() {
 
@@ -26,10 +33,17 @@ class DetailsFragment : Fragment() {
     private lateinit var genresAdapter: GenresRecyclerAdapter
     private lateinit var actorsAdapter: ActorsRecyclerAdapter
     private val castListViewModel: CastListViewModel by viewModel()
+    private val loginViewModel: LoginViewModel by sharedViewModel()
+
     private val args: DetailsFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requireActivity().supportFragmentManager.setFragmentResultListener("MOVIE_RATE", this){ requestKey, bundle ->
+            val result = bundle.getString("MOVIE_RATE_VALUE")
+            Timber.i(result)
+        }
     }
 
     override fun onCreateView(
@@ -96,6 +110,15 @@ class DetailsFragment : Fragment() {
         })
 
         binding.appbarLayout.addOnOffsetChangedListener(listener)
+
+        binding.detailsMovieFavorite.setOnClickListener {
+            if(loginViewModel.isLogged.value == true && !loginViewModel.sessionId.isNullOrEmpty()){
+                findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToRateFragment(args.movie))
+            }else{
+                Toast.makeText(requireContext(), "Please log in to be able to rate a movie.", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
 
         return binding.root
     }
