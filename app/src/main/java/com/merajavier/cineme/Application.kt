@@ -30,6 +30,10 @@ class Application : Application() {
                 LoginViewModel(get() as NetworkLoginRepositoryInterface)
             }
 
+            single {
+                NetworkAuthenticationRepository(get() as TMDBApiAuthenticationInterface) as NetworkAuthenticationRepositoryInterface
+            }
+
             single{
                 NetworkMovieRepository(get() as TMDBApiInterface)
             }
@@ -39,7 +43,6 @@ class Application : Application() {
             }
 
             single{
-
                 NetworkLoginRepository(get() as TMDBApiLoginInterface) as NetworkLoginRepositoryInterface
             }
         }
