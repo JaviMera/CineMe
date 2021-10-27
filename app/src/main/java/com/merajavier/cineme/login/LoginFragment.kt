@@ -47,6 +47,10 @@ class LoginFragment : Fragment() {
                     }
                 }
             })
+
+            binding.loginSignIn.setOnClickListener {
+                _loginViewModel.signInAsUser("jmera","NTB4jqp0czb!dxe@wnh")
+            }
         }
 
         return binding.root

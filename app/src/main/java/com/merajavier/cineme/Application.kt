@@ -27,7 +27,10 @@ class Application : Application() {
             }
 
             viewModel () {
-                LoginViewModel(get() as NetworkLoginRepositoryInterface)
+                LoginViewModel(
+                    get() as NetworkLoginRepositoryInterface,
+                    get() as NetworkAccountRepositoryInterface,
+                    get() as NetworkAuthenticationRepositoryInterface)
             }
 
             single {
@@ -44,6 +47,10 @@ class Application : Application() {
 
             single{
                 NetworkLoginRepository(get() as TMDBApiLoginInterface) as NetworkLoginRepositoryInterface
+            }
+
+            single{
+                NetworkAccountRepository(get() as TMDBApiAccountInterface) as NetworkAccountRepositoryInterface
             }
         }
 

@@ -5,14 +5,17 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.merajavier.cineme.CinemaActivity
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentUserBinding
 import com.merajavier.cineme.network.NetworkLoginRepository
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class UserFragment : Fragment() {
     private lateinit var binding: FragmentUserBinding
+    private val loginViewModel: LoginViewModel by sharedViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,6 +26,14 @@ class UserFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentUserBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+
+        val activity = requireActivity() as CinemaActivity
+        activity.supportActionBar.let{
+            if (it != null) {
+                it.title = loginViewModel.userSession.username
+            }
+        }
 
         // Inflate the layout for this fragment
         setHasOptionsMenu(true)

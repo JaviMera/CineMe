@@ -46,11 +46,6 @@
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" />
     <fragment
-        android:id="@+id/rateFragment"
-        android:name="com.merajavier.cineme.movies.rate.RateFragment"
-        android:label="RateFragment"
-        tools:layout="@layout/fragment_rate"/>
-    <fragment
         android:id="@+id/detailsFragment"
         android:name="com.merajavier.cineme.details.DetailsFragment"
         android:label="DetailsFragment"

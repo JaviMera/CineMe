@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ValidateTokenWithLoginResponse(
     val success: Boolean,
-    @Json(name="status_code") val statusCode: Int,
-    @Json(name="status_message") val statusMessage: Int
+    @Json(name="expires_at") val expirationDate: String,
+    @Json(name="request_token") val requestToken: String
 ) : Parcelable
 

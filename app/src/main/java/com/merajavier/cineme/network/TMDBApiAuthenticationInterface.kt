@@ -10,13 +10,13 @@ interface TMDBApiAuthenticationInterface {
     suspend fun createRequestToken()
     : CreateTokenResponse
 
-    @POST("/authentication/token/validate_with_login")
+    @POST("authentication/token/validate_with_login")
     suspend fun validateTokenWithLogin(
         @Body validateTokenWithLoginRequest: ValidateTokenWithLoginRequest
     )
     : ValidateTokenWithLoginResponse
 
-    @POST("/authentication/session/new")
+    @POST("authentication/session/new")
     suspend fun createSession(
         @Body createSessionRequest: CreateSessionRequest
     ) : CreateSessionResponse
