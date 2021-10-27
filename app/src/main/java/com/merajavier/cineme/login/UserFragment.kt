@@ -35,7 +35,6 @@ class UserFragment : Fragment() {
             }
         }
 
-        // Inflate the layout for this fragment
         setHasOptionsMenu(true)
         return binding.root
     }
