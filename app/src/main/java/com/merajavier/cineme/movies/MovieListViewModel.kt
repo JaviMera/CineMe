@@ -61,7 +61,6 @@ class MovieListViewModel(
     fun getNowPlayingMovies(pageNumber: Int){
         viewModelScope.launch {
 
-            Timber.i("Getting movies from page $pageNumber")
             try {
                 _loading.postValue(true)
                 val movies = networkMovieRepository.getAll(pageNumber)
@@ -87,5 +86,9 @@ class MovieListViewModel(
                 Timber.i("Problem selecting movie: ${exception.localizedMessage}")
             }
         }
+    }
+
+    fun resetList() {
+        _movies.value = listOf()
     }
 }

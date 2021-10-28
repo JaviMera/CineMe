@@ -13,6 +13,7 @@ class NetworkMovieRepository(
 
     override suspend fun getAll(pageNumber: Int): List<MovieDataItem> {
         val response = apiInterface.getNowPlayingMovies(pageNumber)
+
         return response.movies
     }
 
