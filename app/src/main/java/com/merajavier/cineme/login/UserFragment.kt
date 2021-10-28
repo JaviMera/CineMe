@@ -6,12 +6,14 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.CinemaActivity
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentUserBinding
 import com.merajavier.cineme.login.account.AccountViewModel
 import com.merajavier.cineme.login.account.FavoriteMoviesAdapter
 import com.merajavier.cineme.login.account.MarkFavoriteRequest
+import com.merajavier.cineme.login.account.MarkFavoriteStatus
 import com.merajavier.cineme.network.NetworkAccountRepositoryInterface
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -24,7 +26,6 @@ class UserFragment : Fragment() {
     private val loginViewModel: LoginViewModel by sharedViewModel()
     private val accountViewModel: AccountViewModel by viewModel()
     private lateinit var favoriteMoviesAdapter: FavoriteMoviesAdapter
-    private val accountRepositoryInterface: NetworkAccountRepositoryInterface by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,23 +39,10 @@ class UserFragment : Fragment() {
         binding.lifecycleOwner = this
 
         favoriteMoviesAdapter = FavoriteMoviesAdapter(FavoriteMoviesAdapter.OnFavoriteRemoveClickListener {
-            lifecycleScope.launch {
-                val response = accountRepositoryInterface.markFavorite(
-                    loginViewModel.userSession.sessionId,
-                    MarkFavoriteRequest(
-                        "movie",
-                        it,
-                        false
-                    )
-                )
-
-                if(response.success){
-                    accountViewModel.getFavoriteMovies(
-                        loginViewModel.userSession.accountId,
-                        loginViewModel.userSession.sessionId
-                    )
-                }
-            }
+            accountViewModel.addMovieToFavorites(
+                loginViewModel.userSession.sessionId,
+                MarkFavoriteRequest("movie", it, false)
+            )
         })
 
         binding.recycleViewMovies.adapter = favoriteMoviesAdapter
@@ -76,6 +64,43 @@ class UserFragment : Fragment() {
         accountViewModel.favoriteMovies.observe(viewLifecycleOwner, Observer {
             it.let {
                 favoriteMoviesAdapter.submitList(it)
+            }
+        })
+
+        accountViewModel.movieUpdated.observe(viewLifecycleOwner, Observer {
+
+            if(it == null){
+                Snackbar.make(
+                    binding.favoriteMoviesConstraintLayout,
+                    "Unable to remove movie",
+                    Snackbar.LENGTH_SHORT
+                )
+                    .show()
+            }else{
+                when(it){
+                    MarkFavoriteStatus.DONE -> {
+
+                        accountViewModel.getFavoriteMovies(
+                            loginViewModel.userSession.accountId,
+                            loginViewModel.userSession.sessionId
+                        )
+
+                        Snackbar.make(
+                            binding.favoriteMoviesConstraintLayout,
+                            "Favorites Updated!",
+                            Snackbar.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                    MarkFavoriteStatus.FAILED -> {
+                        Snackbar.make(
+                            binding.favoriteMoviesConstraintLayout,
+                            "Unable to remove movie",
+                            Snackbar.LENGTH_SHORT
+                        )
+                            .show()
+                    }
+                }
             }
         })
 
