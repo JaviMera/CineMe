@@ -21,6 +21,7 @@ import com.merajavier.cineme.databinding.FragmentDetailsBinding
 import com.merajavier.cineme.genre.GenresRecyclerAdapter
 import com.merajavier.cineme.login.LoginViewModel
 import com.merajavier.cineme.login.account.AccountViewModel
+import com.merajavier.cineme.movies.favorites.MarkFavoriteRequest
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -107,7 +108,13 @@ class DetailsFragment : Fragment() {
         binding.detailsMovieFavorite.setOnClickListener {
 
             if(loginViewModel.isLogged.value == true){
-                binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_selected)
+                val isFavorite = !(accountViewModel.isFavoriteMovie.value)!!
+                accountViewModel.addMovieToFavorites(
+                    loginViewModel.userSession.sessionId,
+                    MarkFavoriteRequest("movie", args.movie.id, isFavorite)
+                )
+
+                displayFavoriteIcon(isFavorite)
             }else{
                 Toast.makeText(
                     requireContext(), "You need to sign in to add to favorites.", Toast.LENGTH_SHORT)
@@ -121,13 +128,17 @@ class DetailsFragment : Fragment() {
             if(it == null){
                 binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_not_selected)
             }else{
-                when(it){
-                    true -> binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_selected)
-                    false -> binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_not_selected)
-                }
+                displayFavoriteIcon(it)
             }
         })
         return binding.root
+    }
+
+    private fun displayFavoriteIcon(isFavorite: Boolean){
+        when(isFavorite){
+            true -> binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_selected)
+            false -> binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_not_selected)
+        }
     }
 
     class ProgressBarAnimation(

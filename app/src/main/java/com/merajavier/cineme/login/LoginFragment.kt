@@ -49,7 +49,7 @@ class LoginFragment : Fragment() {
             })
 
             binding.loginSignIn.setOnClickListener {
-                _loginViewModel.signInAsUser("jmera","NTB4jqp0czb!dxe@wnh")
+                _loginViewModel.signInAsUser(binding.loginUsername.text.toString(), binding.loginPassword.text.toString())
             }
         }
 
