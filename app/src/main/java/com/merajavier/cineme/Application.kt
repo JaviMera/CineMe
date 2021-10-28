@@ -4,6 +4,7 @@ import android.app.Application
 import com.merajavier.cineme.cast.CastListViewModel
 import com.merajavier.cineme.koin.modules.networkModule
 import com.merajavier.cineme.login.LoginViewModel
+import com.merajavier.cineme.login.account.AccountViewModel
 import com.merajavier.cineme.movies.MovieListViewModel
 import com.merajavier.cineme.network.*
 import org.koin.android.ext.koin.androidContext
@@ -31,6 +32,12 @@ class Application : Application() {
                     get() as NetworkLoginRepositoryInterface,
                     get() as NetworkAccountRepositoryInterface,
                     get() as NetworkAuthenticationRepositoryInterface)
+            }
+
+            viewModel {
+                AccountViewModel(
+                    get() as NetworkAccountRepositoryInterface
+                )
             }
 
             single {
