@@ -1,8 +1,7 @@
-package com.merajavier.cineme.login
+package com.merajavier.cineme.login.account
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -10,13 +9,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.CinemaActivity
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentUserBinding
-import com.merajavier.cineme.login.account.AccountViewModel
-import com.merajavier.cineme.login.account.FavoriteMoviesAdapter
-import com.merajavier.cineme.login.account.MarkFavoriteRequest
-import com.merajavier.cineme.login.account.MarkFavoriteStatus
-import com.merajavier.cineme.network.NetworkAccountRepositoryInterface
+import com.merajavier.cineme.login.LoginViewModel
+import com.merajavier.cineme.movies.favorites.FavoriteMoviesAdapter
+import com.merajavier.cineme.movies.favorites.MarkFavoriteRequest
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber

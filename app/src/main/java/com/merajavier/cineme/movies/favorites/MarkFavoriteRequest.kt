@@ -1,4 +1,4 @@
-package com.merajavier.cineme.login.account
+package com.merajavier.cineme.movies.favorites
 
 import android.os.Parcelable
 import com.squareup.moshi.Json

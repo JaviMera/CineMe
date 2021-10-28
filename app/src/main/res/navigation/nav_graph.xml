@@ -42,7 +42,7 @@
     </fragment>
     <fragment
         android:id="@+id/userFragment"
-        android:name="com.merajavier.cineme.login.UserFragment"
+        android:name="com.merajavier.cineme.login.account.UserFragment"
         android:label="fragment_user"
         tools:layout="@layout/fragment_user" />
     <fragment

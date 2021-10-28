@@ -1,11 +1,12 @@
 package com.merajavier.cineme.login.account
 
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.merajavier.cineme.movies.MovieDataItem
+import com.merajavier.cineme.movies.SingleLiveData
+import com.merajavier.cineme.movies.favorites.MarkFavoriteRequest
 import com.merajavier.cineme.network.NetworkAccountRepositoryInterface
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -31,6 +32,10 @@ class AccountViewModel(
     private val _movieUpdated = MutableLiveData<MarkFavoriteStatus>()
     val movieUpdated: LiveData<MarkFavoriteStatus>
     get() = _movieUpdated
+
+    private val _isFavoriteMovie = SingleLiveData<Boolean>()
+    val isFavoriteMovie: LiveData<Boolean>
+    get() = _isFavoriteMovie
 
     fun getFavoriteMovies(accountId: Int, sessionId: String){
         viewModelScope.launch {
@@ -65,6 +70,21 @@ class AccountViewModel(
             }catch(exception: Exception){
                 Timber.i("There was a problem removing the movie from your favorite list.")
                 _movieUpdated.postValue(MarkFavoriteStatus.FAILED)
+            }
+        }
+    }
+
+    fun getFavoriteMovie(movieId:Int, accountId: Int, sessionId: String) {
+
+        viewModelScope.launch {
+            try {
+                val response = accountRepositoryInterface.getFavoriteMovies(accountId, sessionId)
+                val movie = response.movies.find { m -> m.id == movieId }
+
+                _isFavoriteMovie.postValue(movie != null)
+            }catch(exception: Exception){
+                Timber.i(exception.localizedMessage)
+                _isFavoriteMovie.postValue(false)
             }
         }
     }

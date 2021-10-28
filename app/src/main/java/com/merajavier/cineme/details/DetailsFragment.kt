@@ -9,13 +9,10 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.Transformation
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.progressindicator.CircularProgressIndicator
-import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.R
 import com.merajavier.cineme.cast.ActorsRecyclerAdapter
 import com.merajavier.cineme.cast.CastListViewModel
@@ -23,10 +20,7 @@ import com.merajavier.cineme.common.toPercentAverage
 import com.merajavier.cineme.databinding.FragmentDetailsBinding
 import com.merajavier.cineme.genre.GenresRecyclerAdapter
 import com.merajavier.cineme.login.LoginViewModel
-import com.merajavier.cineme.login.account.MarkFavoriteRequest
-import com.merajavier.cineme.network.NetworkAccountRepositoryInterface
-import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
+import com.merajavier.cineme.login.account.AccountViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -36,8 +30,8 @@ class DetailsFragment : Fragment() {
     private lateinit var genresAdapter: GenresRecyclerAdapter
     private lateinit var actorsAdapter: ActorsRecyclerAdapter
     private val castListViewModel: CastListViewModel by viewModel()
+    private val accountViewModel: AccountViewModel by viewModel()
     private val loginViewModel: LoginViewModel by sharedViewModel()
-    private val accountRepository: NetworkAccountRepositoryInterface by inject()
 
     private val args: DetailsFragmentArgs by navArgs()
 
@@ -113,27 +107,26 @@ class DetailsFragment : Fragment() {
         binding.detailsMovieFavorite.setOnClickListener {
 
             if(loginViewModel.isLogged.value == true){
-                lifecycleScope.launch {
-
-                    val response = accountRepository.markFavorite(
-                        loginViewModel.userSession.sessionId,
-                        MarkFavoriteRequest("movie", args.movie.id, true)
-                    )
-
-                    if(response.success){
-                        Toast.makeText(
-                            requireContext(), "Movie added!.", Toast.LENGTH_SHORT)
-                            .show()
-
-                        binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_selected)
-                    }
-                }
+                binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_selected)
             }else{
                 Toast.makeText(
                     requireContext(), "You need to sign in to add to favorites.", Toast.LENGTH_SHORT)
                         .show()
             }
         }
+
+        accountViewModel.getFavoriteMovie(args.movie.id, loginViewModel.userSession.accountId, loginViewModel.userSession.sessionId)
+        accountViewModel.isFavoriteMovie.observe(viewLifecycleOwner, Observer {
+
+            if(it == null){
+                binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_not_selected)
+            }else{
+                when(it){
+                    true -> binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_selected)
+                    false -> binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_not_selected)
+                }
+            }
+        })
         return binding.root
     }
 

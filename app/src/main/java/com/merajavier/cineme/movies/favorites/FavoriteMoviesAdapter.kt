@@ -1,4 +1,4 @@
-package com.merajavier.cineme.login.account
+package com.merajavier.cineme.movies.favorites
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.UserFavoriteMovieItemBinding
 import com.merajavier.cineme.movies.MovieDataItem
-import org.koin.core.component.getScopeName
 
 class FavoriteMoviesAdapter(
     private val onFavoriteRemoveListener: OnFavoriteRemoveClickListener

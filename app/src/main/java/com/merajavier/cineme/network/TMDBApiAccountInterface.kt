@@ -1,10 +1,9 @@
 package com.merajavier.cineme.network
 
 import com.merajavier.cineme.login.account.AccountDetailsResponse
-import com.merajavier.cineme.login.account.FavoriteMoviesResponse
-import com.merajavier.cineme.login.account.MarkFavoriteRequest
-import com.merajavier.cineme.login.account.MarkFavoriteResponse
-import com.merajavier.cineme.movies.MoviesResponse
+import com.merajavier.cineme.movies.favorites.FavoriteMoviesResponse
+import com.merajavier.cineme.movies.favorites.MarkFavoriteRequest
+import com.merajavier.cineme.movies.favorites.MarkFavoriteResponse
 import retrofit2.http.*
 
 interface TMDBApiAccountInterface{
