@@ -63,7 +63,7 @@ fun bindAverageScore(textView: TextView, average: Double){
 fun bindReleaseDate(textView: TextView, releaseDate: String?){
 
     if(releaseDate == null){
-        textView.text = "Date not available"
+        textView.text = textView.context.getString(R.string.movie_release_date_not_available_text)
     }else{
         releaseDate.let{
             val pattern = "MMM d, yyyy"

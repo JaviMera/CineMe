@@ -38,4 +38,5 @@
     <string name="favorite_movie_poster_content_description">Favorite movie poster</string>
     <string name="favorite_movie_remove">Remove</string>
     <string name="favorite_movie_favorite">Favorite</string>
+    <string name="movie_release_date_not_available_text">Date not available</string>
 </resources>

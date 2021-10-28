@@ -9,17 +9,26 @@ import androidx.recyclerview.widget.RecyclerView
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.UserFavoriteMovieItemBinding
 import com.merajavier.cineme.movies.MovieDataItem
+import org.koin.core.component.getScopeName
 
 class FavoriteMoviesAdapter(
+    private val onFavoriteRemoveListener: OnFavoriteRemoveClickListener
 ) : ListAdapter<MovieDataItem, FavoriteMoviesAdapter.FavoriteMovieViewHolder>(DiffCallback){
 
     class FavoriteMovieViewHolder(
         private val binding: UserFavoriteMovieItemBinding
     ) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(movieDataItem: MovieDataItem) {
+        fun bind(movieDataItem: MovieDataItem, onRemoveClickListener: OnFavoriteRemoveClickListener) {
+            binding.favoriteMovieRemove.setOnClickListener {
+                onRemoveClickListener.onClick(movieDataItem.id)
+            }
             binding.movie = movieDataItem
         }
+    }
+
+    class OnFavoriteRemoveClickListener(val clickListener: (movieId: Int) -> Unit){
+        fun onClick(movieId: Int) = clickListener(movieId)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteMovieViewHolder {
@@ -30,7 +39,7 @@ class FavoriteMoviesAdapter(
 
     override fun onBindViewHolder(holder: FavoriteMovieViewHolder, position: Int) {
         val movie = getItem(position)
-        holder.bind(movie)
+        holder.bind(movie, onFavoriteRemoveListener)
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<MovieDataItem>() {

@@ -11,7 +11,10 @@ import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentUserBinding
 import com.merajavier.cineme.login.account.AccountViewModel
 import com.merajavier.cineme.login.account.FavoriteMoviesAdapter
+import com.merajavier.cineme.login.account.MarkFavoriteRequest
+import com.merajavier.cineme.network.NetworkAccountRepositoryInterface
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
@@ -21,6 +24,7 @@ class UserFragment : Fragment() {
     private val loginViewModel: LoginViewModel by sharedViewModel()
     private val accountViewModel: AccountViewModel by viewModel()
     private lateinit var favoriteMoviesAdapter: FavoriteMoviesAdapter
+    private val accountRepositoryInterface: NetworkAccountRepositoryInterface by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,7 +37,26 @@ class UserFragment : Fragment() {
         binding = FragmentUserBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
 
-        favoriteMoviesAdapter = FavoriteMoviesAdapter()
+        favoriteMoviesAdapter = FavoriteMoviesAdapter(FavoriteMoviesAdapter.OnFavoriteRemoveClickListener {
+            lifecycleScope.launch {
+                val response = accountRepositoryInterface.markFavorite(
+                    loginViewModel.userSession.sessionId,
+                    MarkFavoriteRequest(
+                        "movie",
+                        it,
+                        false
+                    )
+                )
+
+                if(response.success){
+                    accountViewModel.getFavoriteMovies(
+                        loginViewModel.userSession.accountId,
+                        loginViewModel.userSession.sessionId
+                    )
+                }
+            }
+        })
+
         binding.recycleViewMovies.adapter = favoriteMoviesAdapter
 
         val activity = requireActivity() as CinemaActivity

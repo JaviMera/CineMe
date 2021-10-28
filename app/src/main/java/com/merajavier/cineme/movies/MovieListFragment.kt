@@ -22,7 +22,6 @@ class MovieListFragment : Fragment() {
     private lateinit var binding: FragmentMoviesBinding
     private lateinit var moviesAdapter: MoviesRecyclerAdapter
     private val _viewModel: MovieListViewModel by inject()
-    private val _loginViewModel: LoginViewModel by sharedViewModel()
 
     private var _pageNumber = 1
 
