@@ -54,3 +54,8 @@ fun bindAverageScore(textView: TextView, average: Double){
     val context = textView.context
     textView.text = context.getString(R.string.details_movie_user_average_value, average.toPercentAverage().toInt())
 }
+
+@BindingAdapter("showReleaseDate")
+fun bindReleaseDate(textView: TextView, releaseDate: String){
+    //TODO
+}

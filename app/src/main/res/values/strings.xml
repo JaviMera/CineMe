@@ -35,4 +35,7 @@
     <string name="login_sign_up_hint">SIGN UP</string>
     <string name="login_sign_as_guest_text">SIGN AS GUEST</string>
     <string name="rate_movie_button_text">Rate</string>
+    <string name="favorite_movie_poster_content_description">Favorite movie poster</string>
+    <string name="favorite_movie_remove">Remove</string>
+    <string name="favorite_movie_favorite">Favorite</string>
 </resources>
