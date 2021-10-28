@@ -53,14 +53,7 @@ class CinemaActivity : AppCompatActivity() {
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
+    // Disable base back press functionality
     override fun onBackPressed() {
-        super.onBackPressed()
-        if(_binding.navView.selectedItemId == R.id.navigation_login && _loginViewModel.isLogged.value == true){
-            val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_cinema) as NavHostFragment
-            val navController = navHostFragment.navController
-            lifecycleScope.launch {
-                navController.navigate(LoginFragmentDirections.actionNavigationLoginToNavigationMovies())
-            }
-        }
     }
 }

@@ -67,6 +67,7 @@ class MovieListFragment : Fragment() {
             it.let {
                 if(it.any()){
                     moviesAdapter.submitList(it)
+                    Timber.i("Got more movies: ${moviesAdapter.itemCount.toString()}")
                 }else{
                     Toast.makeText(requireContext(), getString(R.string.get_movies_error), Toast.LENGTH_SHORT).show()
                 }
@@ -77,11 +78,9 @@ class MovieListFragment : Fragment() {
             it.let {
                 when(it){
                     true -> {
-                        Timber.i("loading")
                         binding.loadingIndicator.visibility = View.VISIBLE
                     }
                     false -> {
-                        Timber.i("not loading")
                         binding.loadingIndicator.visibility = View.GONE
                     }
                 }

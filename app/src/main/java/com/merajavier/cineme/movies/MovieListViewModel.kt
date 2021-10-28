@@ -46,7 +46,7 @@ class MovieListViewModel(
     private val networkMovieRepository: NetworkMovieRepository)
     : ViewModel() {
 
-    private val _movies = MutableLiveData<List<MovieDataItem>>()
+    private val _movies = SingleLiveData<List<MovieDataItem>>()
     val movies: LiveData<List<MovieDataItem>>
     get() = _movies
 
@@ -60,6 +60,8 @@ class MovieListViewModel(
 
     fun getNowPlayingMovies(pageNumber: Int){
         viewModelScope.launch {
+
+            Timber.i("Getting movies from page $pageNumber")
             try {
                 _loading.postValue(true)
                 val movies = networkMovieRepository.getAll(pageNumber)
