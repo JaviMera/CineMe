@@ -19,14 +19,21 @@ class AccountViewModel(
     val favoriteMovies: LiveData<List<MovieDataItem>>
     get() = _favoriteMovies
 
+    private val _loading = MutableLiveData<Boolean>()
+    val loading: LiveData<Boolean>
+    get() = _loading
+
     fun getFavoriteMovies(accountId: Int, sessionId: String){
         viewModelScope.launch {
 
             try {
+                _loading.postValue(true)
                 val response = accountRepositoryInterface.getFavoriteMovies(accountId, sessionId)
                 _favoriteMovies.postValue(response.movies)
+                _loading.postValue(false)
             }catch(exception: Exception){
                 Timber.i(exception.localizedMessage)
+                _loading.postValue(false)
             }
         }
     }

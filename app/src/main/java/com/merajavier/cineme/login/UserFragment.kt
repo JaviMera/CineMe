@@ -10,6 +10,7 @@ import com.merajavier.cineme.CinemaActivity
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentUserBinding
 import com.merajavier.cineme.login.account.AccountViewModel
+import com.merajavier.cineme.login.account.FavoriteMoviesAdapter
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -19,6 +20,7 @@ class UserFragment : Fragment() {
     private lateinit var binding: FragmentUserBinding
     private val loginViewModel: LoginViewModel by sharedViewModel()
     private val accountViewModel: AccountViewModel by viewModel()
+    private lateinit var favoriteMoviesAdapter: FavoriteMoviesAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,9 @@ class UserFragment : Fragment() {
     ): View? {
         binding = FragmentUserBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
+
+        favoriteMoviesAdapter = FavoriteMoviesAdapter()
+        binding.recycleViewMovies.adapter = favoriteMoviesAdapter
 
         val activity = requireActivity() as CinemaActivity
         activity.supportActionBar.let{
@@ -47,9 +52,7 @@ class UserFragment : Fragment() {
 
         accountViewModel.favoriteMovies.observe(viewLifecycleOwner, Observer {
             it.let {
-
-                Toast.makeText(requireContext(), it.size.toString(), Toast.LENGTH_SHORT)
-                    .show()
+                favoriteMoviesAdapter.submitList(it)
             }
         })
 

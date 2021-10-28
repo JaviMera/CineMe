@@ -1,8 +1,10 @@
 package com.merajavier.cineme.adapters
 
+import android.os.Build
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -11,6 +13,8 @@ import com.merajavier.cineme.BuildConfig
 import com.merajavier.cineme.R
 import com.merajavier.cineme.common.toPercentAverage
 import com.merajavier.cineme.network.NetworkCastRepositoryInterface
+import java.text.SimpleDateFormat
+import java.util.*
 
 @BindingAdapter("showLoading")
 fun bindLoadingBar(circularProgressIndicator: CircularProgressIndicator, isLoading: Boolean){
@@ -56,6 +60,24 @@ fun bindAverageScore(textView: TextView, average: Double){
 }
 
 @BindingAdapter("showReleaseDate")
-fun bindReleaseDate(textView: TextView, releaseDate: String){
-    //TODO
+fun bindReleaseDate(textView: TextView, releaseDate: String?){
+
+    if(releaseDate == null){
+        textView.text = "Date not available"
+    }else{
+        releaseDate.let{
+            val pattern = "MMM d, yyyy"
+            val calendar = Calendar.getInstance()
+            val values = releaseDate.split("-")
+
+            if(values.isNotEmpty()){
+                calendar.set(Calendar.YEAR, values[0].toInt())
+                calendar.set(Calendar.MONTH, values[1].toInt())
+                calendar.set(Calendar.DAY_OF_MONTH, values[2].toInt())
+                textView.text = SimpleDateFormat(pattern, Locale.getDefault()).format(calendar.time)
+            }else{
+                textView.text = it
+            }
+        }
+    }
 }
