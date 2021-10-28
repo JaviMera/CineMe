@@ -82,10 +82,11 @@
                 android:text="@string/favorite_movie_favorite"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="12sp"
-                app:iconSize="20dp"
-                app:iconTint="#DD35D5"
                 app:icon="@drawable/movie_favorite_selected"
                 app:iconGravity="start"
+                app:iconSize="20dp"
+                app:iconTint="#DD35D5"
+                app:layout_constraintBottom_toBottomOf="@id/favorite_movie_poster"
                 app:layout_constraintStart_toEndOf="@id/favorite_movie_poster"
                 app:layout_constraintTop_toBottomOf="@id/favorite_movie_overview" />
 
@@ -94,6 +95,7 @@
                 style="?attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
                 android:text="@string/favorite_movie_remove"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="12sp"
@@ -101,6 +103,8 @@
                 app:iconGravity="start"
                 app:iconSize="20dp"
                 app:iconTint="@color/black"
+                app:layout_constraintTop_toTopOf="@id/favorite_movie_marked_favorite"
+                app:layout_constraintBottom_toBottomOf="@id/favorite_movie_marked_favorite"
                 app:layout_constraintBaseline_toBaselineOf="@+id/favorite_movie_marked_favorite"
                 app:layout_constraintStart_toEndOf="@id/favorite_movie_marked_favorite" />
         </androidx.constraintlayout.widget.ConstraintLayout>
