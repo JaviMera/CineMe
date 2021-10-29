@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.merajavier.cineme.data.local.FavoriteMovieEntity
 import com.merajavier.cineme.data.local.LocalAccountRepositoryInterface
+import com.merajavier.cineme.data.local.toFavoriteMovieEnties
 import com.merajavier.cineme.movies.SingleLiveData
 import com.merajavier.cineme.movies.favorites.FavoriteMovieDataItem
 import com.merajavier.cineme.movies.favorites.MarkFavoriteRequest
@@ -59,17 +60,7 @@ class AccountViewModel(
 
     fun addFavoriteMovieToLocalDb(movies: List<FavoriteMovieDataItem>) {
         viewModelScope.launch {
-            movies.forEach { movie ->
-                localAccountRepositoryInterface.addFavoriteMovies(
-                    listOf(FavoriteMovieEntity(
-                        movieId = movie.id,
-                        title = movie.title,
-                        overview = movie.overview,
-                        releaseDate = movie.releaseDate,
-                        posterPath = movie.posterPath
-                    ))
-                )
-            }
+            localAccountRepositoryInterface.addFavoriteMovies(movies.toFavoriteMovieEnties())
         }
     }
 
@@ -110,17 +101,9 @@ class AccountViewModel(
         }
     }
 
-    fun deleteFavoriteMovieFromDb(movie: FavoriteMovieDataItem) {
+    fun deleteFavoriteMovieFromDb(movie: FavoriteMovieEntity) {
         viewModelScope.launch {
-            localAccountRepositoryInterface.deleteFavoriteMovie(
-                FavoriteMovieEntity(
-                    movieId = movie.id,
-                    title = movie.title,
-                    overview = movie.overview,
-                    posterPath = movie.posterPath,
-                    releaseDate = movie.releaseDate
-                )
-            )
+            localAccountRepositoryInterface.deleteFavoriteMovie(movie)
         }
     }
 }

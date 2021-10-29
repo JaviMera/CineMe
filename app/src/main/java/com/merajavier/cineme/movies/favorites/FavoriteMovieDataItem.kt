@@ -1,6 +1,7 @@
 package com.merajavier.cineme.movies.favorites
 
 import android.os.Parcelable
+import com.merajavier.cineme.data.local.FavoriteMovieEntity
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 

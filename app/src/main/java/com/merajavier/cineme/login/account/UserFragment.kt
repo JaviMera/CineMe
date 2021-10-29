@@ -9,6 +9,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.CinemaActivity
 import com.merajavier.cineme.R
 import com.merajavier.cineme.data.local.FavoriteMovieEntity
+import com.merajavier.cineme.data.local.toFavoriteMovieEntity
 import com.merajavier.cineme.databinding.FragmentUserBinding
 import com.merajavier.cineme.login.LoginViewModel
 import com.merajavier.cineme.movies.favorites.FavoriteMovieDataItem
@@ -38,7 +39,7 @@ class UserFragment : Fragment() {
 
         favoriteMoviesAdapter = FavoriteMoviesAdapter(FavoriteMoviesAdapter.OnFavoriteRemoveClickListener {
             accountViewModel.addMovieToFavorites(loginViewModel.userSession.sessionId,it.id,false)
-            accountViewModel.deleteFavoriteMovieFromDb(it)
+            accountViewModel.deleteFavoriteMovieFromDb(it.toFavoriteMovieEntity())
         })
 
         binding.recycleViewMovies.adapter = favoriteMoviesAdapter

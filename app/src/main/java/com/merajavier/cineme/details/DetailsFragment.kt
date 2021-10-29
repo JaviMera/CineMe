@@ -17,6 +17,7 @@ import com.merajavier.cineme.R
 import com.merajavier.cineme.cast.ActorsRecyclerAdapter
 import com.merajavier.cineme.cast.CastListViewModel
 import com.merajavier.cineme.common.toPercentAverage
+import com.merajavier.cineme.data.local.toFavoriteMovieEntity
 import com.merajavier.cineme.databinding.FragmentDetailsBinding
 import com.merajavier.cineme.genre.GenresRecyclerAdapter
 import com.merajavier.cineme.login.LoginViewModel
@@ -119,13 +120,7 @@ class DetailsFragment : Fragment() {
                 if(!isFavorite){
 
                     accountViewModel.deleteFavoriteMovieFromDb(
-                        FavoriteMovieDataItem(
-                            id = args.movie.id,
-                            title = args.movie.title,
-                            overview = args.movie.overview,
-                            posterPath = args.movie.posterPath,
-                            releaseDate = args.movie.releaseDate
-                        )
+                        args.movie.toFavoriteMovieEntity()
                     )
                 }
 
