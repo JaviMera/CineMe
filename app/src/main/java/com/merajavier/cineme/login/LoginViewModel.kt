@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.merajavier.cineme.login.authentication.CreateSessionRequest
+import com.merajavier.cineme.login.authentication.DeleteSessionRequest
 import com.merajavier.cineme.login.authentication.ValidateTokenWithLoginRequest
 import com.merajavier.cineme.movies.SingleLiveData
 import com.merajavier.cineme.network.NetworkAccountRepositoryInterface
@@ -26,7 +27,7 @@ class LoginViewModel(
     private val authenticationRepository: NetworkAuthenticationRepositoryInterface
 ) : ViewModel() {
 
-    private var _isLogged = SingleLiveData<Boolean>()
+    private var _isLogged = MutableLiveData<Boolean>()
     val isLogged: LiveData<Boolean>
     get() = _isLogged
 
@@ -76,6 +77,19 @@ class LoginViewModel(
                 }
             }catch (exception: Exception){
                 Timber.i("Unable to authenticate: ${exception.localizedMessage}")
+            }
+        }
+    }
+
+    fun logout() {
+        viewModelScope.launch {
+            try{
+                val response = authenticationRepository.deleteSession(DeleteSessionRequest(userSession.sessionId))
+                if(response.success){
+                    _isLogged.postValue(false)
+                }
+            }catch(exception: Exception){
+                Timber.i("Unable to log out: ${exception.localizedMessage}")
             }
         }
     }

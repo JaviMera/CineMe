@@ -6,6 +6,7 @@ interface NetworkAuthenticationRepositoryInterface {
     suspend fun createToken() : CreateTokenResponse
     suspend fun validateToken(request: ValidateTokenWithLoginRequest) : ValidateTokenWithLoginResponse
     suspend fun createSession(request: CreateSessionRequest) : CreateSessionResponse
+    suspend fun deleteSession(request: DeleteSessionRequest) : DeleteSessionResponse
 }
 
 class NetworkAuthenticationRepository(
@@ -22,6 +23,10 @@ class NetworkAuthenticationRepository(
 
     override suspend fun createSession(request: CreateSessionRequest): CreateSessionResponse {
         return apiInterface.createSession(request)
+    }
+
+    override suspend fun deleteSession(request: DeleteSessionRequest): DeleteSessionResponse {
+        return apiInterface.deleteSession(request)
     }
 }
 

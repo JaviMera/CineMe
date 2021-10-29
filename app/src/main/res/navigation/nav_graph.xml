@@ -44,7 +44,14 @@
         android:id="@+id/userFragment"
         android:name="com.merajavier.cineme.login.account.UserFragment"
         android:label="fragment_user"
-        tools:layout="@layout/fragment_user" />
+        tools:layout="@layout/fragment_user" >
+        <action
+            android:id="@+id/action_userFragment_to_navigation_login"
+            app:destination="@id/navigation_login"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation_login"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.merajavier.cineme.details.DetailsFragment"

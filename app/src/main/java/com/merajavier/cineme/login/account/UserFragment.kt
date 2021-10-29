@@ -5,6 +5,7 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.CinemaActivity
 import com.merajavier.cineme.R
@@ -107,6 +108,17 @@ class UserFragment : Fragment() {
             }
         })
 
+        loginViewModel.isLogged.observe(viewLifecycleOwner, Observer {
+            Timber.i("Log value: $it")
+
+            if(it == false){
+                lifecycleScope.launchWhenResumed {
+                    Timber.i("Logging out")
+                    findNavController().navigate(UserFragmentDirections.actionUserFragmentToNavigationLogin())
+                }
+            }
+        })
+
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -120,9 +132,7 @@ class UserFragment : Fragment() {
 
         when(item.itemId){
             R.id.user_logout -> {
-                lifecycleScope.launch {
-//                    findNavController().navigate(UserFragmentDirections.actionUserFragmentToNavigationLogin())
-                }
+                loginViewModel.logout()
             }
         }
         return super.onOptionsItemSelected(item)

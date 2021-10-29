@@ -42,8 +42,10 @@ class LoginFragment : Fragment() {
             }
 
             _loginViewModel.isLogged.observe(requireActivity(), Observer {
-                it.let {
+
+                if(it == true){
                     lifecycleScope.launchWhenResumed {
+                        Timber.i("Logging in")
                         findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToUserFragment())
                     }
                 }
