@@ -110,10 +110,24 @@ class DetailsFragment : Fragment() {
 
             if(loginViewModel.isLogged.value == true){
                 val isFavorite = !(accountViewModel.isFavoriteMovie.value)!!
+
                 accountViewModel.addMovieToFavorites(
                     loginViewModel.userSession.sessionId,
                     args.movie.id,
                     isFavorite)
+
+                if(!isFavorite){
+
+                    accountViewModel.deleteFavoriteMovieFromDb(
+                        FavoriteMovieDataItem(
+                            id = args.movie.id,
+                            title = args.movie.title,
+                            overview = args.movie.overview,
+                            posterPath = args.movie.posterPath,
+                            releaseDate = args.movie.releaseDate
+                        )
+                    )
+                }
 
                 displayFavoriteIcon(isFavorite)
             }else{
@@ -129,9 +143,11 @@ class DetailsFragment : Fragment() {
             if(it == null){
                 binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_not_selected)
             }else{
+
                 displayFavoriteIcon(it)
             }
         })
+
         return binding.root
     }
 
