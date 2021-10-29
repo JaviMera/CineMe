@@ -8,8 +8,10 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.CinemaActivity
 import com.merajavier.cineme.R
+import com.merajavier.cineme.data.local.FavoriteMovieEntity
 import com.merajavier.cineme.databinding.FragmentUserBinding
 import com.merajavier.cineme.login.LoginViewModel
+import com.merajavier.cineme.movies.favorites.FavoriteMovieDataItem
 import com.merajavier.cineme.movies.favorites.FavoriteMoviesAdapter
 import com.merajavier.cineme.movies.favorites.MarkFavoriteRequest
 import kotlinx.coroutines.launch
@@ -35,10 +37,7 @@ class UserFragment : Fragment() {
         binding.lifecycleOwner = this
 
         favoriteMoviesAdapter = FavoriteMoviesAdapter(FavoriteMoviesAdapter.OnFavoriteRemoveClickListener {
-            accountViewModel.addMovieToFavorites(
-                loginViewModel.userSession.sessionId,
-                MarkFavoriteRequest("movie", it, false)
-            )
+            accountViewModel.addMovieToFavorites(loginViewModel.userSession.sessionId,it,false)
         })
 
         binding.recycleViewMovies.adapter = favoriteMoviesAdapter
@@ -58,8 +57,14 @@ class UserFragment : Fragment() {
         )
 
         accountViewModel.favoriteMovies.observe(viewLifecycleOwner, Observer {
-            it.let {
-                favoriteMoviesAdapter.submitList(it)
+            it?.let {
+                accountViewModel.addFavoriteMovieToLocalDb(it)
+            }
+        })
+
+        accountViewModel.localFavoriteMovies.observe(viewLifecycleOwner, Observer {
+            it?.let{ movieEntities ->
+                favoriteMoviesAdapter.submitList(movieEntities)
             }
         })
 

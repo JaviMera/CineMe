@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class FavoriteMoviesResponse(
     @Json(name = "page") val pageNumber: Int,
-    @Json(name="results") val movies: List<MovieDataItem>,
+    @Json(name="results") val movies: List<FavoriteMovieDataItem>,
     @Json(name = "total_pages") val totalPages: Int,
     @Json(name="total_results") val totalResults: Int
 ) : Parcelable

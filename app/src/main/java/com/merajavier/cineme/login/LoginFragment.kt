@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.merajavier.cineme.BuildConfig
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentLoginBinding
 import kotlinx.coroutines.launch
@@ -51,6 +52,9 @@ class LoginFragment : Fragment() {
             binding.loginSignIn.setOnClickListener {
                 _loginViewModel.signInAsUser(binding.loginUsername.text.toString(), binding.loginPassword.text.toString())
             }
+
+            binding.loginUsername.setText(BuildConfig.username)
+            binding.loginPassword.setText(BuildConfig.password)
         }
 
         return binding.root

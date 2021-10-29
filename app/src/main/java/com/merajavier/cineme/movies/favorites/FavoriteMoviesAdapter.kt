@@ -8,21 +8,20 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.UserFavoriteMovieItemBinding
-import com.merajavier.cineme.movies.MovieDataItem
 
 class FavoriteMoviesAdapter(
     private val onFavoriteRemoveListener: OnFavoriteRemoveClickListener
-) : ListAdapter<MovieDataItem, FavoriteMoviesAdapter.FavoriteMovieViewHolder>(DiffCallback){
+) : ListAdapter<FavoriteMovieDataItem, FavoriteMoviesAdapter.FavoriteMovieViewHolder>(DiffCallback){
 
     class FavoriteMovieViewHolder(
         private val binding: UserFavoriteMovieItemBinding
     ) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(movieDataItem: MovieDataItem, onRemoveClickListener: OnFavoriteRemoveClickListener) {
+        fun bind(movie: FavoriteMovieDataItem, onRemoveClickListener: OnFavoriteRemoveClickListener) {
             binding.favoriteMovieRemove.setOnClickListener {
-                onRemoveClickListener.onClick(movieDataItem.id)
+                onRemoveClickListener.onClick(movie.id)
             }
-            binding.movie = movieDataItem
+            binding.movie = movie
         }
     }
 
@@ -41,13 +40,16 @@ class FavoriteMoviesAdapter(
         holder.bind(movie, onFavoriteRemoveListener)
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<MovieDataItem>() {
+    companion object DiffCallback : DiffUtil.ItemCallback<FavoriteMovieDataItem>() {
 
-        override fun areItemsTheSame(oldItem: MovieDataItem, newItem: MovieDataItem): Boolean {
+        override fun areItemsTheSame(oldItem: FavoriteMovieDataItem, newItem: FavoriteMovieDataItem): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: MovieDataItem, newItem: MovieDataItem): Boolean {
+        override fun areContentsTheSame(
+            oldItem: FavoriteMovieDataItem,
+            newItem: FavoriteMovieDataItem
+        ): Boolean {
             return oldItem == newItem
         }
     }

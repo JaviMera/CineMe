@@ -28,6 +28,8 @@ android {
             buildConfigField("String", "API_URL", "\"https://api.themoviedb.org/3/\"")
             buildConfigField("String", "API_POSTER_URL", "\"https://image.tmdb.org/t/p/w500/\"")
             buildConfigField("String", "tmdb_api_key", localProperties['apiKey'])
+            buildConfigField("String", "username", localProperties['username'])
+            buildConfigField("String", "password", localProperties['password'])
             debuggable true
         }
         release {

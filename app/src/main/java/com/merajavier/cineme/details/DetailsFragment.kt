@@ -21,6 +21,7 @@ import com.merajavier.cineme.databinding.FragmentDetailsBinding
 import com.merajavier.cineme.genre.GenresRecyclerAdapter
 import com.merajavier.cineme.login.LoginViewModel
 import com.merajavier.cineme.login.account.AccountViewModel
+import com.merajavier.cineme.movies.favorites.FavoriteMovieDataItem
 import com.merajavier.cineme.movies.favorites.MarkFavoriteRequest
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -111,8 +112,8 @@ class DetailsFragment : Fragment() {
                 val isFavorite = !(accountViewModel.isFavoriteMovie.value)!!
                 accountViewModel.addMovieToFavorites(
                     loginViewModel.userSession.sessionId,
-                    MarkFavoriteRequest("movie", args.movie.id, isFavorite)
-                )
+                    args.movie.id,
+                    isFavorite)
 
                 displayFavoriteIcon(isFavorite)
             }else{

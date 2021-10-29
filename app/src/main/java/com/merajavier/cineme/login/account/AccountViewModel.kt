@@ -4,8 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.merajavier.cineme.movies.MovieDataItem
+import com.merajavier.cineme.data.local.FavoriteMovieEntity
+import com.merajavier.cineme.data.local.LocalAccountRepositoryInterface
 import com.merajavier.cineme.movies.SingleLiveData
+import com.merajavier.cineme.movies.favorites.FavoriteMovieDataItem
 import com.merajavier.cineme.movies.favorites.MarkFavoriteRequest
 import com.merajavier.cineme.network.NetworkAccountRepositoryInterface
 import kotlinx.coroutines.launch
@@ -18,11 +20,12 @@ enum class MarkFavoriteStatus{
 }
 
 class AccountViewModel(
-    private val accountRepositoryInterface: NetworkAccountRepositoryInterface
+    private val accountRepositoryInterface: NetworkAccountRepositoryInterface,
+    private val localAccountRepositoryInterface: LocalAccountRepositoryInterface
 ) : ViewModel(){
 
-    private val _favoriteMovies = MutableLiveData<List<MovieDataItem>>()
-    val favoriteMovies: LiveData<List<MovieDataItem>>
+    private val _favoriteMovies = MutableLiveData<List<FavoriteMovieDataItem>>()
+    val favoriteMovies: LiveData<List<FavoriteMovieDataItem>>
     get() = _favoriteMovies
 
     private val _loading = MutableLiveData<Boolean>()
@@ -36,6 +39,8 @@ class AccountViewModel(
     private val _isFavoriteMovie = SingleLiveData<Boolean>()
     val isFavoriteMovie: LiveData<Boolean>
     get() = _isFavoriteMovie
+
+    val localFavoriteMovies = localAccountRepositoryInterface.favoriteMovies
 
     fun getFavoriteMovies(accountId: Int, sessionId: String){
         viewModelScope.launch {
@@ -52,13 +57,29 @@ class AccountViewModel(
         }
     }
 
-    fun addMovieToFavorites(sessionId:String, request: MarkFavoriteRequest){
+    fun addFavoriteMovieToLocalDb(movies: List<FavoriteMovieDataItem>) {
+        viewModelScope.launch {
+            movies.forEach { movie ->
+                localAccountRepositoryInterface.addFavoriteMovies(
+                    listOf(FavoriteMovieEntity(
+                        movieId = movie.id,
+                        title = movie.title,
+                        overview = movie.overview,
+                        releaseDate = movie.releaseDate,
+                        posterPath = movie.posterPath
+                    ))
+                )
+            }
+        }
+    }
+
+    fun addMovieToFavorites(sessionId:String, movieId: Int, isFavorite: Boolean){
         viewModelScope.launch {
             try{
 
                 val response = accountRepositoryInterface.markFavorite(
                     sessionId,
-                    request
+                    MarkFavoriteRequest("movie", movieId, isFavorite)
                 )
 
                 if(response.success){
