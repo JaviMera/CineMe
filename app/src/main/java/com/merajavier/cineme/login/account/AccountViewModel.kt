@@ -109,4 +109,18 @@ class AccountViewModel(
             }
         }
     }
+
+    fun deleteFavoriteMovieFromDb(movie: FavoriteMovieDataItem) {
+        viewModelScope.launch {
+            localAccountRepositoryInterface.deleteFavoriteMovie(
+                FavoriteMovieEntity(
+                    movieId = movie.id,
+                    title = movie.title,
+                    overview = movie.overview,
+                    posterPath = movie.posterPath,
+                    releaseDate = movie.releaseDate
+                )
+            )
+        }
+    }
 }

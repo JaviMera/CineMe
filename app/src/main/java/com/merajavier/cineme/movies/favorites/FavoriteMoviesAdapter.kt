@@ -19,14 +19,14 @@ class FavoriteMoviesAdapter(
 
         fun bind(movie: FavoriteMovieDataItem, onRemoveClickListener: OnFavoriteRemoveClickListener) {
             binding.favoriteMovieRemove.setOnClickListener {
-                onRemoveClickListener.onClick(movie.id)
+                onRemoveClickListener.onClick(movie)
             }
             binding.movie = movie
         }
     }
 
-    class OnFavoriteRemoveClickListener(val clickListener: (movieId: Int) -> Unit){
-        fun onClick(movieId: Int) = clickListener(movieId)
+    class OnFavoriteRemoveClickListener(val clickListener: (movie: FavoriteMovieDataItem) -> Unit){
+        fun onClick(movie: FavoriteMovieDataItem) = clickListener(movie)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteMovieViewHolder {

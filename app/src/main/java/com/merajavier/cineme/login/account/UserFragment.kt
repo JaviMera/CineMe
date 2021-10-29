@@ -37,7 +37,8 @@ class UserFragment : Fragment() {
         binding.lifecycleOwner = this
 
         favoriteMoviesAdapter = FavoriteMoviesAdapter(FavoriteMoviesAdapter.OnFavoriteRemoveClickListener {
-            accountViewModel.addMovieToFavorites(loginViewModel.userSession.sessionId,it,false)
+            accountViewModel.addMovieToFavorites(loginViewModel.userSession.sessionId,it.id,false)
+            accountViewModel.deleteFavoriteMovieFromDb(it)
         })
 
         binding.recycleViewMovies.adapter = favoriteMoviesAdapter

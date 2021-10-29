@@ -13,6 +13,7 @@ interface LocalAccountRepositoryInterface{
 
     suspend fun getFavorites() : LiveData<List<FavoriteMovieEntity>>
     suspend fun addFavoriteMovies(favorites: List<FavoriteMovieEntity>)
+    suspend fun deleteFavoriteMovie(movie: FavoriteMovieEntity)
 }
 
 class LocalAccountRepository(
@@ -38,6 +39,10 @@ class LocalAccountRepository(
     }
 
     override suspend fun addFavoriteMovies(favorites: List<FavoriteMovieEntity>) = withContext(iosDispatcher){
-        favoritesDao.insertFavorites(favorites)
+        favoritesDao.addMovies(favorites)
+    }
+
+    override suspend fun deleteFavoriteMovie(movie: FavoriteMovieEntity) {
+        favoritesDao.deleteMovie(movie)
     }
 }
