@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
-class FavoriteMovieDataItem(
+data class FavoriteMovieDataItem(
     val id: Int,
     val title: String,
     val overview:String,
