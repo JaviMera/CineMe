@@ -14,10 +14,14 @@ interface LocalAccountRepositoryInterface{
     suspend fun getFavorites() : LiveData<List<FavoriteMovieEntity>>
     suspend fun addFavoriteMovies(favorites: List<FavoriteMovieEntity>)
     suspend fun deleteFavoriteMovie(movie: FavoriteMovieEntity)
+    suspend fun createSession(userSessionEntity: UserSessionEntity)
+    suspend fun getSession(username: String) : UserSessionEntity
+    suspend fun deleteSession(userSessionEntity: UserSessionEntity)
 }
 
 class LocalAccountRepository(
     private val favoritesDao: FavoriteMovieDao,
+    private val userSessionDao: UserSessionDao,
     private val iosDispatcher: CoroutineDispatcher = Dispatchers.IO
 )
     : LocalAccountRepositoryInterface{
@@ -44,5 +48,17 @@ class LocalAccountRepository(
 
     override suspend fun deleteFavoriteMovie(movie: FavoriteMovieEntity) {
         favoritesDao.deleteMovie(movie)
+    }
+
+    override suspend fun createSession(userSessionEntity: UserSessionEntity) = withContext(iosDispatcher){
+        userSessionDao.addSession(userSessionEntity)
+    }
+
+    override suspend fun getSession(username: String): UserSessionEntity = withContext(iosDispatcher){
+        return@withContext userSessionDao.getSession(username)
+    }
+
+    override suspend fun deleteSession(userSessionEntity: UserSessionEntity) = withContext(iosDispatcher) {
+        userSessionDao.deleteSession(userSessionEntity)
     }
 }

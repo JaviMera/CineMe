@@ -12,3 +12,4 @@ data class FavoriteMovieEntity(
     @ColumnInfo(name="poster_path") var posterPath: String?,
     @ColumnInfo(name="release_date") var releaseDate: String?
 )
+

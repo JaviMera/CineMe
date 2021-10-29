@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.merajavier.cineme.data.local.LocalAccountRepositoryInterface
+import com.merajavier.cineme.data.local.UserSessionEntity
 import com.merajavier.cineme.login.authentication.CreateSessionRequest
 import com.merajavier.cineme.login.authentication.DeleteSessionRequest
 import com.merajavier.cineme.login.authentication.ValidateTokenWithLoginRequest
@@ -24,16 +26,13 @@ data class UserSession(
 class LoginViewModel(
     private val guestSessionRepository: NetworkLoginRepositoryInterface,
     private val accountRepository: NetworkAccountRepositoryInterface,
-    private val authenticationRepository: NetworkAuthenticationRepositoryInterface
+    private val authenticationRepository: NetworkAuthenticationRepositoryInterface,
+    private val localAccountRepositoryInterface: LocalAccountRepositoryInterface
 ) : ViewModel() {
 
     private var _isLogged = MutableLiveData<Boolean>()
     val isLogged: LiveData<Boolean>
     get() = _isLogged
-
-    private var _sessionId = MutableLiveData<String>()
-    val sessionId: LiveData<String>
-    get() = _sessionId
 
     private var _userSession = UserSession()
     val userSession: UserSession
@@ -43,7 +42,6 @@ class LoginViewModel(
         viewModelScope.launch {
             val response  = guestSessionRepository.getGuestSession()
             _isLogged.postValue(response.success)
-            _sessionId.postValue(response.sessionId)
         }
     }
 
@@ -64,6 +62,10 @@ class LoginViewModel(
 
                         if(sessionResponse.success){
                             val accountResponse = accountRepository.getAccountDetails(sessionResponse.sessionId)
+
+                            localAccountRepositoryInterface.createSession(
+                                UserSessionEntity(accountResponse.username, sessionResponse.sessionId, accountResponse.id)
+                            )
                             _userSession = UserSession(sessionResponse.sessionId, accountResponse.id, accountResponse.username)
                             _isLogged.postValue(true)
                         }else{
@@ -86,10 +88,32 @@ class LoginViewModel(
             try{
                 val response = authenticationRepository.deleteSession(DeleteSessionRequest(userSession.sessionId))
                 if(response.success){
+                    localAccountRepositoryInterface.deleteSession(
+                        UserSessionEntity(
+                        userSession.username, userSession.sessionId, userSession.accountId)
+                    )
+
                     _isLogged.postValue(false)
                 }
             }catch(exception: Exception){
                 Timber.i("Unable to log out: ${exception.localizedMessage}")
+            }
+        }
+    }
+
+    fun restoreLogin(username: String?) {
+
+        viewModelScope.launch {
+            username?.let {
+                val credentials = localAccountRepositoryInterface.getSession(username)
+
+                _userSession = UserSession(
+                    accountId = credentials.accountId,
+                    username = credentials.userName,
+                    sessionId = credentials.sessionId
+                )
+
+                _isLogged.postValue(true)
             }
         }
     }

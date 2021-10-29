@@ -45,7 +45,6 @@ class LoginFragment : Fragment() {
 
                 if(it == true){
                     lifecycleScope.launchWhenResumed {
-                        Timber.i("Logging in")
                         findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToUserFragment())
                     }
                 }

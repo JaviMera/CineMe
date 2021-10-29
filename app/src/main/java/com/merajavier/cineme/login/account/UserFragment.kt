@@ -1,5 +1,6 @@
 package com.merajavier.cineme.login.account
 
+import android.content.Context.MODE_PRIVATE
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -109,11 +110,15 @@ class UserFragment : Fragment() {
         })
 
         loginViewModel.isLogged.observe(viewLifecycleOwner, Observer {
-            Timber.i("Log value: $it")
-
             if(it == false){
                 lifecycleScope.launchWhenResumed {
-                    Timber.i("Logging out")
+
+                    val sharedPreferencesEditor = requireActivity().getSharedPreferences("LOGIN_PREFERENCES", MODE_PRIVATE)
+                        .edit()
+
+                    sharedPreferencesEditor.remove("USERNAME")
+                    sharedPreferencesEditor.apply()
+
                     findNavController().navigate(UserFragmentDirections.actionUserFragmentToNavigationLogin())
                 }
             }

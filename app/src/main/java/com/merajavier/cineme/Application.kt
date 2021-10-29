@@ -2,13 +2,11 @@ package com.merajavier.cineme
 
 import android.app.Application
 import com.merajavier.cineme.cast.CastListViewModel
-import com.merajavier.cineme.data.local.FavoriteMovieDao
-import com.merajavier.cineme.data.local.LocalAccountRepository
-import com.merajavier.cineme.data.local.LocalAccountRepositoryInterface
-import com.merajavier.cineme.data.local.TMDBDatabase
+import com.merajavier.cineme.data.local.*
 import com.merajavier.cineme.koin.modules.networkModule
 import com.merajavier.cineme.login.LoginViewModel
 import com.merajavier.cineme.login.account.AccountViewModel
+import com.merajavier.cineme.login.account.UserFragmentDirections
 import com.merajavier.cineme.movies.MovieListViewModel
 import com.merajavier.cineme.network.*
 import org.koin.android.ext.koin.androidContext
@@ -35,7 +33,8 @@ class Application : Application() {
                 LoginViewModel(
                     get() as NetworkLoginRepositoryInterface,
                     get() as NetworkAccountRepositoryInterface,
-                    get() as NetworkAuthenticationRepositoryInterface)
+                    get() as NetworkAuthenticationRepositoryInterface,
+                    get() as LocalAccountRepositoryInterface)
             }
 
             viewModel {
@@ -66,11 +65,17 @@ class Application : Application() {
             }
 
             single{
-                LocalAccountRepository(get() as FavoriteMovieDao) as LocalAccountRepositoryInterface
+                LocalAccountRepository(
+                    get() as FavoriteMovieDao,
+                    get() as UserSessionDao) as LocalAccountRepositoryInterface
             }
 
             single {
                 TMDBDatabase.getInstance(this@Application).favoriteMovieDao
+            }
+
+            single {
+                TMDBDatabase.getInstance(this@Application).userSessionDao
             }
         }
 
