@@ -55,21 +55,11 @@ class CinemaActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        val preferences = getSharedPreferences("LOGIN_PREFERENCES", MODE_PRIVATE)
-
-        if(!preferences.contains("USERNAME")){
-            val editor = preferences.edit()
-            editor.putString("USERNAME", loginViewModel.userSession.username)
-            editor.apply()
-        }
+        loginViewModel.saveLogin()
     }
 
     override fun onResume() {
         super.onResume()
-
-        val preferences = getSharedPreferences("LOGIN_PREFERENCES", MODE_PRIVATE)
-        if(preferences.contains("USERNAME")){
-            loginViewModel.restoreLogin(preferences.getString("USERNAME", ""))
-        }
+        loginViewModel.restoreLogin()
     }
 }

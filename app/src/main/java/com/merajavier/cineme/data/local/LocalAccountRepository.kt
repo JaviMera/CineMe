@@ -15,7 +15,7 @@ interface LocalAccountRepositoryInterface{
     suspend fun addFavoriteMovies(favorites: List<FavoriteMovieEntity>)
     suspend fun deleteFavoriteMovie(movie: FavoriteMovieEntity)
     suspend fun createSession(userSessionEntity: UserSessionEntity)
-    suspend fun getSession(username: String) : UserSessionEntity
+    suspend fun getSession(username: String) : UserSessionEntity?
     suspend fun deleteSession(userSessionEntity: UserSessionEntity)
 }
 
@@ -54,7 +54,7 @@ class LocalAccountRepository(
         userSessionDao.addSession(userSessionEntity)
     }
 
-    override suspend fun getSession(username: String): UserSessionEntity = withContext(iosDispatcher){
+    override suspend fun getSession(username: String): UserSessionEntity? = withContext(iosDispatcher){
         return@withContext userSessionDao.getSession(username)
     }
 

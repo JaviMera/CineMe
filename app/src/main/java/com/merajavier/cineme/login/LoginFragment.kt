@@ -9,16 +9,14 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.merajavier.cineme.BuildConfig
-import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentLoginBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import timber.log.Timber
 
 class LoginFragment : Fragment() {
 
     private lateinit var binding: FragmentLoginBinding
-    private val _loginViewModel: LoginViewModel by sharedViewModel()
+    private val loginViewModel: LoginViewModel by sharedViewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,17 +29,17 @@ class LoginFragment : Fragment() {
         binding = FragmentLoginBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = this
 
-        if(_loginViewModel.isLogged.value == true){
+        if(loginViewModel.isLogged.value == true){
             lifecycleScope.launch {
                 findNavController().navigate(LoginFragmentDirections.actionNavigationLoginToUserFragment())
             }
         }else{
 
             binding.loginSignInGuest.setOnClickListener{
-                _loginViewModel.signInAsGuest()
+                loginViewModel.signInAsGuest()
             }
 
-            _loginViewModel.isLogged.observe(requireActivity(), Observer {
+            loginViewModel.isLogged.observe(requireActivity(), Observer {
 
                 if(it == true){
                     lifecycleScope.launchWhenResumed {
@@ -51,7 +49,7 @@ class LoginFragment : Fragment() {
             })
 
             binding.loginSignIn.setOnClickListener {
-                _loginViewModel.signInAsUser(binding.loginUsername.text.toString(), binding.loginPassword.text.toString())
+                loginViewModel.signInAsUser(binding.loginUsername.text.toString(), binding.loginPassword.text.toString())
             }
 
             binding.loginUsername.setText(BuildConfig.username)

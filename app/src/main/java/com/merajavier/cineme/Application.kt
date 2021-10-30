@@ -1,9 +1,11 @@
 package com.merajavier.cineme
 
 import android.app.Application
+import android.content.SharedPreferences
 import com.merajavier.cineme.cast.CastListViewModel
 import com.merajavier.cineme.data.local.*
 import com.merajavier.cineme.koin.modules.networkModule
+import com.merajavier.cineme.koin.modules.sharedPreferencesModule
 import com.merajavier.cineme.login.LoginViewModel
 import com.merajavier.cineme.login.account.AccountViewModel
 import com.merajavier.cineme.login.account.UserFragmentDirections
@@ -34,7 +36,8 @@ class Application : Application() {
                     get() as NetworkLoginRepositoryInterface,
                     get() as NetworkAccountRepositoryInterface,
                     get() as NetworkAuthenticationRepositoryInterface,
-                    get() as LocalAccountRepositoryInterface)
+                    get() as LocalAccountRepositoryInterface,
+                    get() as SharedPreferences)
             }
 
             viewModel {
@@ -81,7 +84,7 @@ class Application : Application() {
 
         startKoin {
             androidContext(this@Application)
-            modules(viewModelModule, networkModule)
+            modules(viewModelModule, networkModule, sharedPreferencesModule)
         }
 
         if(BuildConfig.DEBUG){

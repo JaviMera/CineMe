@@ -1,5 +1,6 @@
 package com.merajavier.cineme.login
 
+import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,7 +28,8 @@ class LoginViewModel(
     private val guestSessionRepository: NetworkLoginRepositoryInterface,
     private val accountRepository: NetworkAccountRepositoryInterface,
     private val authenticationRepository: NetworkAuthenticationRepositoryInterface,
-    private val localAccountRepositoryInterface: LocalAccountRepositoryInterface
+    private val localAccountRepositoryInterface: LocalAccountRepositoryInterface,
+    private val loginSharedPreferences: SharedPreferences
 ) : ViewModel() {
 
     private var _isLogged = MutableLiveData<Boolean>()
@@ -66,6 +68,7 @@ class LoginViewModel(
                             localAccountRepositoryInterface.createSession(
                                 UserSessionEntity(accountResponse.username, sessionResponse.sessionId, accountResponse.id)
                             )
+
                             _userSession = UserSession(sessionResponse.sessionId, accountResponse.id, accountResponse.username)
                             _isLogged.postValue(true)
                         }else{
@@ -88,10 +91,16 @@ class LoginViewModel(
             try{
                 val response = authenticationRepository.deleteSession(DeleteSessionRequest(userSession.sessionId))
                 if(response.success){
+
                     localAccountRepositoryInterface.deleteSession(
                         UserSessionEntity(
                         userSession.username, userSession.sessionId, userSession.accountId)
                     )
+
+                    loginSharedPreferences
+                        .edit()
+                        .remove(LOGIN_USERNAME_KEY)
+                        .apply()
 
                     _isLogged.postValue(false)
                 }
@@ -101,20 +110,42 @@ class LoginViewModel(
         }
     }
 
-    fun restoreLogin(username: String?) {
+    fun restoreLogin() {
 
         viewModelScope.launch {
-            username?.let {
-                val credentials = localAccountRepositoryInterface.getSession(username)
+            val username = loginSharedPreferences.getString(LOGIN_USERNAME_KEY, "")
 
-                _userSession = UserSession(
-                    accountId = credentials.accountId,
-                    username = credentials.userName,
-                    sessionId = credentials.sessionId
-                )
+            if(username.isNullOrEmpty()){
+                _isLogged.postValue(false)
+            }else{
 
-                _isLogged.postValue(true)
+                localAccountRepositoryInterface.getSession(username)?.let { credentials ->
+
+                    _userSession = UserSession(
+                        accountId = credentials.accountId,
+                        username = credentials.userName,
+                        sessionId = credentials.sessionId
+                    )
+
+                    _isLogged.postValue(true)
+                }
             }
         }
+    }
+
+    fun saveLogin() {
+
+        if(!loginSharedPreferences.contains(LOGIN_USERNAME_KEY)){
+
+            val editor = loginSharedPreferences
+                .edit()
+
+            editor.putString(LOGIN_USERNAME_KEY, userSession.username)
+            editor.apply()
+        }
+    }
+
+    companion object {
+        private const val LOGIN_USERNAME_KEY = "username"
     }
 }
