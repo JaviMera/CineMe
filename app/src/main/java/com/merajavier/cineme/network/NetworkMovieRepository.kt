@@ -15,7 +15,7 @@ interface NetworkRepositoryInterface<T>{
 
     suspend fun getAll(pageNumber: Int) : List<T>
     suspend fun getDetails(movieId: Int) : T
-    suspend fun  getUpcoming() : TMDBApiResult<*>
+    suspend fun  getUpcoming(pageNumber: Int) : TMDBApiResult<*>
 }
 
 class NetworkMovieRepository(
@@ -32,9 +32,9 @@ class NetworkMovieRepository(
         return apiMoviesiInterface.getMovie(movieId)
     }
 
-    override suspend fun getUpcoming(): TMDBApiResult<*> {
+    override suspend fun getUpcoming(pageNumber: Int): TMDBApiResult<*> {
         return try {
-            val response = apiMoviesiInterface.getUpcomingMovies().awaitResponse()
+            val response = apiMoviesiInterface.getUpcomingMovies(pageNumber).awaitResponse()
             if(response.isSuccessful){
                 TMDBApiResult.Success(Gson().fromJson(response.body(), UpcomingMovieResponse::class.java))
             }else{

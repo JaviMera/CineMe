@@ -21,7 +21,7 @@ class UpcomingMoviesWorker(
     override suspend fun doWork(): Result {
 
         return try{
-            when(val response = networkMovieRepository.getUpcoming()) {
+            when(val response = networkMovieRepository.getUpcoming(1)) {
                 is TMDBApiResult.Success -> {
                     val upcomingMovies = response.data as UpcomingMovieResponse
                     if(upcomingMovies.movies.any()){

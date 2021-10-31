@@ -20,5 +20,7 @@ interface TMDBApMoviesiInterface {
     ) : MoviesResponse
 
     @GET("movie/upcoming")
-    fun getUpcomingMovies() : Call<String>
+    fun getUpcomingMovies(
+        @Query("page") pageNumber: Int
+    ) : Call<String>
 }
