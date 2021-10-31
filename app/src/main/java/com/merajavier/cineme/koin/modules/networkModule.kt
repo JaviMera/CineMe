@@ -7,12 +7,14 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 
 val networkModule = module{
     factory { AuthInterceptor() }
     factory { provideOkHttpClient(get()) }
-    factory { provideTmdbMoviesApi(get()) as TMDBApiInterface }
+    factory { provideTmdbMoviesApi(get()) as TMDBApMoviesiInterface }
     factory { provideTmdbCastApi(get())}
     factory { provideTmdbGuestApi(get()) }
     factory {provideTmdbAuthenticationApi(get())}
@@ -36,12 +38,14 @@ fun provideRetrofit(moshi: Moshi, okHttpClient: OkHttpClient) : Retrofit {
     return Retrofit.Builder()
         .baseUrl(BuildConfig.API_URL)
         .client(okHttpClient)
+        .addConverterFactory(ScalarsConverterFactory.create())
         .addConverterFactory(MoshiConverterFactory.create(moshi))
+        .addConverterFactory(GsonConverterFactory.create())
         .build()
 }
 
-fun provideTmdbMoviesApi(retrofit: Retrofit) : TMDBApiInterface{
-    return retrofit.create(TMDBApiInterface::class.java)
+fun provideTmdbMoviesApi(retrofit: Retrofit) : TMDBApMoviesiInterface{
+    return retrofit.create(TMDBApMoviesiInterface::class.java)
 }
 
 fun provideTmdbCastApi(retrofit: Retrofit) : TMDBApiCastInterface{

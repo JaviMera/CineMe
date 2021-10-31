@@ -2,14 +2,25 @@ package com.merajavier.cineme
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.work.*
+import com.merajavier.cineme.common.ErrorResponse
+import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.databinding.ActivityCinemaBinding
 import com.merajavier.cineme.login.LoginViewModel
+import com.merajavier.cineme.movies.MoviesResponse
+import com.merajavier.cineme.movies.upcoming.UpcomingMovieResponse
+import com.merajavier.cineme.network.NetworkMovieRepository
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import timber.log.Timber
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.concurrent.TimeUnit
 
 class CinemaActivity : AppCompatActivity() {
 
@@ -21,9 +32,6 @@ class CinemaActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val preferences = getSharedPreferences("LOGIN_PREFERENCES", MODE_PRIVATE)
-        Timber.i("Username restored: ${preferences.getString("USERNAME", "")}")
 
         _binding = ActivityCinemaBinding.inflate(layoutInflater)
         setContentView(_binding.root)
@@ -40,6 +48,22 @@ class CinemaActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         _binding.navView.setupWithNavController(navController)
+        
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.UNMETERED)
+            .build()
+
+        val request = PeriodicWorkRequestBuilder<UpcomingMoviesWorker>(1, TimeUnit.DAYS)
+            .setConstraints(constraints)
+            .build()
+
+        WorkManager
+            .getInstance(applicationContext)
+            .enqueueUniquePeriodicWork(
+                UpcomingMoviesWorker.WORKER_NAME,
+                ExistingPeriodicWorkPolicy.KEEP,
+                request
+            )
     }
 
     override fun onSupportNavigateUp(): Boolean {

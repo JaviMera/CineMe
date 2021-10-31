@@ -39,4 +39,9 @@
     <string name="favorite_movie_remove">Remove</string>
     <string name="favorite_movie_favorite">Favorite</string>
     <string name="movie_release_date_not_available_text">Date not available</string>
+    <string name="notification_id_key">NOTIFICATION_ID</string>
+    <string name="notification_title">What is coming to theaters next week!</string>
+    <string name="notification_action_text">see all upcoming films</string>
+    <string name="notification_text">%1$s and much more!</string>
+    <string name="notification_channel_name">Upcoming Movies</string>
 </resources>

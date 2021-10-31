@@ -1,10 +1,8 @@
 package com.merajavier.cineme.movies
 
-import android.util.Log
 import androidx.annotation.MainThread
 import androidx.lifecycle.*
 import com.merajavier.cineme.network.NetworkMovieRepository
-import com.merajavier.cineme.network.TMDBApiInterface
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception
