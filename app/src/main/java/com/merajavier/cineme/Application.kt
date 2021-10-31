@@ -11,6 +11,7 @@ import com.merajavier.cineme.koin.modules.sharedPreferencesModule
 import com.merajavier.cineme.login.LoginViewModel
 import com.merajavier.cineme.login.account.AccountViewModel
 import com.merajavier.cineme.movies.MovieListViewModel
+import com.merajavier.cineme.movies.upcoming.UpcomingMoviesViewModel
 import com.merajavier.cineme.network.*
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
@@ -50,6 +51,10 @@ class Application : Application(), KoinComponent, Configuration.Provider {
                     get() as NetworkAccountRepositoryInterface,
                     get() as LocalAccountRepositoryInterface
                 )
+            }
+
+            viewModel{
+                UpcomingMoviesViewModel(get())
             }
 
             single {

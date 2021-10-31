@@ -9,7 +9,7 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class UpcomingMovieResponse(
     @SerializedName("page") val pageNumber: Int,
-    @SerializedName("results") val movies: List<MovieDataItem>,
+    @SerializedName("results") val movies: List<UpcomingMovieDataItem>,
     @SerializedName("total_pages") val totalPages: Int
 ) : Parcelable
 

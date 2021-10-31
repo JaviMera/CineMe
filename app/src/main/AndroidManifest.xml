@@ -15,7 +15,13 @@
         android:theme="@style/Theme.CineMe">
         <activity
             android:name=".movies.upcoming.UpcomingMoviesActivity"
-            android:exported="false" />
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"
@@ -27,11 +33,6 @@
             android:name=".CinemaActivity"
             android:exported="true"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

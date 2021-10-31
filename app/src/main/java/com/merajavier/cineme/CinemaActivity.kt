@@ -13,12 +13,6 @@ import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.databinding.ActivityCinemaBinding
 import com.merajavier.cineme.login.LoginViewModel
-import com.merajavier.cineme.movies.MoviesResponse
-import com.merajavier.cineme.movies.upcoming.UpcomingMovieResponse
-import com.merajavier.cineme.network.NetworkMovieRepository
-import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
-import timber.log.Timber
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
@@ -48,7 +42,7 @@ class CinemaActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         _binding.navView.setupWithNavController(navController)
-        
+
         val constraints = Constraints.Builder()
             .setRequiredNetworkType(NetworkType.UNMETERED)
             .build()
