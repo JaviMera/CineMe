@@ -15,6 +15,7 @@
         android:theme="@style/Theme.CineMe">
         <activity
             android:name=".movies.upcoming.UpcomingMoviesActivity"
+            android:label="@string/activity_upcoming_movies_title"
             android:exported="false" />
 
         <provider

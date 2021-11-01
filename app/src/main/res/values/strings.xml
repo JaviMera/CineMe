@@ -44,4 +44,5 @@
     <string name="notification_action_text">see all upcoming films</string>
     <string name="notification_text">%1$s and much more!</string>
     <string name="notification_channel_name">Upcoming Movies</string>
+    <string name="activity_upcoming_movies_title">Upcoming Movies</string>
 </resources>
