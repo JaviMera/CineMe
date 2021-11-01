@@ -14,7 +14,6 @@ import com.merajavier.cineme.login.authentication.*
 import com.merajavier.cineme.movies.SingleLiveData
 import com.merajavier.cineme.network.NetworkAccountRepositoryInterface
 import com.merajavier.cineme.network.NetworkAuthenticationRepositoryInterface
-import com.merajavier.cineme.network.NetworkLoginRepositoryInterface
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception
@@ -26,7 +25,6 @@ data class UserSession(
 )
 
 class LoginViewModel(
-    private val guestSessionRepository: NetworkLoginRepositoryInterface,
     private val accountRepository: NetworkAccountRepositoryInterface,
     private val authenticationRepository: NetworkAuthenticationRepositoryInterface,
     private val localAccountRepositoryInterface: LocalAccountRepositoryInterface,
@@ -44,13 +42,6 @@ class LoginViewModel(
     private var _snackbarMessage = SingleLiveData<String>()
     val snackbarMessage: LiveData<String>
     get() = _snackbarMessage
-
-    fun signInAsGuest() {
-        viewModelScope.launch {
-            val response  = guestSessionRepository.getGuestSession()
-            _isLogged.postValue(response.success)
-        }
-    }
 
     fun signInAsUser(username: String, password: String) {
         viewModelScope.launch {

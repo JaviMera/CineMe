@@ -37,7 +37,6 @@ class Application : Application(), KoinComponent, Configuration.Provider {
 
             viewModel () {
                 LoginViewModel(
-                    get() as NetworkLoginRepositoryInterface,
                     get() as NetworkAccountRepositoryInterface,
                     get() as NetworkAuthenticationRepositoryInterface,
                     get() as LocalAccountRepositoryInterface,
@@ -65,10 +64,6 @@ class Application : Application(), KoinComponent, Configuration.Provider {
 
             single{
                 NetworkMovieActorRepository(get() as TMDBApiCastInterface)
-            }
-
-            single{
-                NetworkLoginRepository(get() as TMDBApiLoginInterface) as NetworkLoginRepositoryInterface
             }
 
             single{

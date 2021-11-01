@@ -16,7 +16,6 @@ val networkModule = module{
     factory { provideOkHttpClient(get()) }
     factory { provideTmdbMoviesApi(get()) as TMDBApMoviesiInterface }
     factory { provideTmdbCastApi(get())}
-    factory { provideTmdbGuestApi(get()) }
     factory {provideTmdbAuthenticationApi(get())}
     factory{ provideTmdbAccountApi(get())}
     single{provideMoshi()}
@@ -50,10 +49,6 @@ fun provideTmdbMoviesApi(retrofit: Retrofit) : TMDBApMoviesiInterface{
 
 fun provideTmdbCastApi(retrofit: Retrofit) : TMDBApiCastInterface{
     return retrofit.create(TMDBApiCastInterface::class.java)
-}
-
-fun provideTmdbGuestApi(retrofit: Retrofit) : TMDBApiLoginInterface{
-    return retrofit.create(TMDBApiLoginInterface::class.java)
 }
 
 fun provideTmdbAuthenticationApi(retrofit: Retrofit) : TMDBApiAuthenticationInterface {

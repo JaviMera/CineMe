@@ -36,10 +36,6 @@ class LoginFragment : Fragment() {
             }
         }else{
 
-            binding.loginSignInGuest.setOnClickListener{
-                loginViewModel.signInAsGuest()
-            }
-
             loginViewModel.isLogged.observe(requireActivity(), Observer {
 
                 if(it == true){
