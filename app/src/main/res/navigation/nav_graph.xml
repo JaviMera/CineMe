@@ -38,12 +38,6 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/userFragment"
             app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_navigation_login_to_navigation_movies"
-            app:destination="@id/navigation_movies"
-            app:launchSingleTop="true"
-            app:popUpTo="@id/navigation_movies"
-            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/userFragment"
@@ -56,6 +50,8 @@
             app:enterAnim="@anim/slide_in_left"
             app:exitAnim="@anim/slide_out_right"
             app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/navigation_login"
             app:popUpToInclusive="true" />
     </fragment>
