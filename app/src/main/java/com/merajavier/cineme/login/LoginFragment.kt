@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.BuildConfig
 import com.merajavier.cineme.databinding.FragmentLoginBinding
 import kotlinx.coroutines.launch
@@ -55,6 +56,17 @@ class LoginFragment : Fragment() {
             binding.loginUsername.setText(BuildConfig.username)
             binding.loginPassword.setText(BuildConfig.password)
         }
+
+        loginViewModel.snackbarMessage.observe(viewLifecycleOwner, Observer { message ->
+            message?.let{
+                Snackbar.make(
+                    binding.fragmentLoginConstraintLayout,
+                    it,
+                    Snackbar.LENGTH_LONG
+                )
+                    .show()
+            }
+        })
 
         return binding.root
     }

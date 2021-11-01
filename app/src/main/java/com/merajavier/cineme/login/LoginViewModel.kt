@@ -10,6 +10,7 @@ import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.data.local.LocalAccountRepositoryInterface
 import com.merajavier.cineme.data.local.UserSessionEntity
 import com.merajavier.cineme.login.authentication.*
+import com.merajavier.cineme.movies.SingleLiveData
 import com.merajavier.cineme.network.NetworkAccountRepositoryInterface
 import com.merajavier.cineme.network.NetworkAuthenticationRepositoryInterface
 import com.merajavier.cineme.network.NetworkLoginRepositoryInterface
@@ -39,7 +40,7 @@ class LoginViewModel(
     val userSession: UserSession
     get() = _userSession
 
-    private var _snackbarMessage = MutableLiveData<String>()
+    private var _snackbarMessage = SingleLiveData<String>()
     val snackbarMessage: LiveData<String>
     get() = _snackbarMessage
 
@@ -95,7 +96,7 @@ class LoginViewModel(
                             is TMDBApiResult.Failure ->{
                                 val failureResponse = authenticationResult.data as ErrorResponse
                                 Timber.i(failureResponse.statusMessage)
-                                _snackbarMessage.postValue("Username or password are incorrect")
+                                _snackbarMessage.postValue(failureResponse.statusMessage)
                             }
                             is TMDBApiResult.Error -> {
                                 Timber.i(authenticationResult.message)
