@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.databinding.FragmentMoviesBinding
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
@@ -20,7 +21,6 @@ class MovieListFragment : Fragment() {
     private lateinit var binding: FragmentMoviesBinding
     private lateinit var moviesAdapter: MoviesRecyclerAdapter
     private val viewModel: MovieListViewModel by inject()
-    private var pageNumber = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +31,6 @@ class MovieListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
 
-        Timber.i(pageNumber.toString())
         // Inflate the layout for this fragment
         binding = FragmentMoviesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
@@ -51,20 +50,28 @@ class MovieListFragment : Fragment() {
                 super.onScrolled(recyclerView, dx, dy)
                 if(dy > 0 && viewModel.loading.value == false){
                     if(layoutManager.findLastCompletelyVisibleItemPosition() == layoutManager.itemCount - 1){
-                        pageNumber = pageNumber.inc()
-                        viewModel.getNowPlayingMovies(pageNumber)
+                        if(viewModel.canFetchMovies()){
+                            Snackbar.make(
+                                binding.recycleViewMovies,
+                                "You have seen all movies for today!",
+                                Snackbar.LENGTH_LONG
+                            )
+                                .show()
+                        }else{
+                            viewModel.getNowPlayingMovies()
+                        }
                     }
                 }
             }
         })
 
-        viewModel.getNowPlayingMovies(pageNumber)
+        viewModel.getNowPlayingMovies()
         viewModel.movies.observe(viewLifecycleOwner, Observer {
 
             it.let {
                 if(it.any()){
                     moviesAdapter.submitList(it)
-                    Timber.i("Number of movies: ${moviesAdapter.itemCount}")
+                    Timber.i("Movie count: ${it.size}")
                 }
             }
         })
@@ -94,6 +101,5 @@ class MovieListFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.resetList()
-        pageNumber = 1
     }
 }

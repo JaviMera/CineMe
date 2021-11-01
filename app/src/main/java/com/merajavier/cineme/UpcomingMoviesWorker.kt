@@ -5,9 +5,8 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
-import com.merajavier.cineme.movies.MoviesResponse
 import com.merajavier.cineme.movies.upcoming.UpcomingMovieResponse
-import com.merajavier.cineme.network.NetworkMovieRepository
+import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
 import org.koin.core.component.KoinComponent
 import timber.log.Timber
 import java.lang.Exception
@@ -15,13 +14,13 @@ import java.lang.Exception
 class UpcomingMoviesWorker(
   context: Context,
   params: WorkerParameters,
-  private val networkMovieRepository: NetworkMovieRepository
+  private val networkMoviesRepository: NetworkMoviesRepositoryInterface
 ) : CoroutineWorker(context, params), KoinComponent{
 
     override suspend fun doWork(): Result {
 
         return try{
-            when(val response = networkMovieRepository.getUpcoming(1)) {
+            when(val response = networkMoviesRepository.getUpcoming(1)) {
                 is TMDBApiResult.Success -> {
                     val upcomingMovies = response.data as UpcomingMovieResponse
                     if(upcomingMovies.movies.any()){

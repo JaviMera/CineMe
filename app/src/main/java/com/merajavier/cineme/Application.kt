@@ -2,7 +2,6 @@ package com.merajavier.cineme
 
 import android.app.Application
 import android.content.SharedPreferences
-import android.net.Network
 import androidx.work.*
 import com.merajavier.cineme.cast.CastListViewModel
 import com.merajavier.cineme.data.local.*
@@ -21,7 +20,6 @@ import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.component.KoinComponent
 import org.koin.core.context.startKoin
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
 class Application : Application(), KoinComponent, Configuration.Provider {
 
@@ -30,7 +28,7 @@ class Application : Application(), KoinComponent, Configuration.Provider {
 
         val viewModelModule = module {
             viewModel{
-                MovieListViewModel(get() as NetworkMovieRepository)
+                MovieListViewModel(get() as NetworkMoviesRepositoryInterface)
             }
 
             viewModel{
@@ -62,7 +60,7 @@ class Application : Application(), KoinComponent, Configuration.Provider {
             }
 
             single{
-                NetworkMovieRepository(get() as TMDBApMoviesiInterface)
+                NetworkMoviesRepository(get() as TMDBApMoviesiInterface) as NetworkMoviesRepositoryInterface
             }
 
             single{
@@ -91,7 +89,7 @@ class Application : Application(), KoinComponent, Configuration.Provider {
                 TMDBDatabase.getInstance(this@Application).userSessionDao
             }
 
-            worker {UpcomingMoviesWorker(get(), get(), get() as NetworkMovieRepository)}
+            worker {UpcomingMoviesWorker(get(), get(), get() as NetworkMoviesRepositoryInterface)}
         }
 
         startKoin {

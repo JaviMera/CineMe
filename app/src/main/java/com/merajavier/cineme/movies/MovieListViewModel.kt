@@ -2,7 +2,11 @@ package com.merajavier.cineme.movies
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.*
-import com.merajavier.cineme.network.NetworkMovieRepository
+import com.merajavier.cineme.common.ErrorResponse
+import com.merajavier.cineme.common.TMDBApiResult
+import com.merajavier.cineme.movies.upcoming.UpcomingMovieDataItem
+import com.merajavier.cineme.movies.upcoming.UpcomingMovieResponse
+import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception
@@ -41,36 +45,55 @@ class SingleLiveData<T> : MutableLiveData<T>() {
 }
 
 class MovieListViewModel(
-    private val networkMovieRepository: NetworkMovieRepository)
+    private val networkMovieRepository: NetworkMoviesRepositoryInterface)
     : ViewModel() {
 
-    private val _movies = SingleLiveData<List<MovieDataItem>>()
-    val movies: LiveData<List<MovieDataItem>>
-    get() = _movies
+    private val _nowPlayingMovies = SingleLiveData<List<UpcomingMovieDataItem>>()
+    val movies: LiveData<List<UpcomingMovieDataItem>>
+    get() = _nowPlayingMovies
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean>
     get() = _loading
 
-    private val _selectedMovie = SingleLiveData<MovieDataItem>()
-    val movieSelected: LiveData<MovieDataItem>
+    private val _selectedMovie = SingleLiveData<UpcomingMovieDataItem>()
+    val movieSelected: LiveData<UpcomingMovieDataItem>
     get() = _selectedMovie
 
-    fun getNowPlayingMovies(pageNumber: Int){
+    private var _pageNumber = 0
+
+    private var _maxPages = 1
+
+    fun getNowPlayingMovies(){
         viewModelScope.launch {
 
             try {
                 _loading.postValue(true)
-                val movies = networkMovieRepository.getAll(pageNumber)
-                if(_movies.value?.any() == true){
-                    _movies.postValue(_movies.value?.plus(movies))
-                }else{
-                    _movies.postValue(movies)
-                }
-                _loading.postValue(false)
+                _pageNumber = _pageNumber.inc()
+                when(val response = networkMovieRepository.getNowPlaying(_pageNumber)) {
+                    is TMDBApiResult.Success -> {
+                        val upcomingMovies = response.data as UpcomingMovieResponse
+                        if(_nowPlayingMovies.value?.any() == true){
 
+                            _nowPlayingMovies.postValue(_nowPlayingMovies.value?.plus(upcomingMovies.movies))
+                        }else{
+                            _nowPlayingMovies.postValue(upcomingMovies.movies)
+                        }
+
+                        _maxPages = upcomingMovies.totalPages
+                    }
+                    is TMDBApiResult.Error -> {
+                        Timber.i("Unable to get upcoming movies: ${response.message}")
+                    }
+                    is TMDBApiResult.Failure -> {
+                        val upcomingMoviesfailure = response.data as ErrorResponse
+                        Timber.i(upcomingMoviesfailure.statusMessage)
+                    }
+                }
             }catch(exception: Exception){
                 Timber.i(exception.localizedMessage)
+            }finally {
+                _loading.postValue(false)
             }
         }
     }
@@ -78,8 +101,19 @@ class MovieListViewModel(
     fun getMovieDetails(movieId: Int){
         viewModelScope.launch {
             try{
-                val movie = networkMovieRepository.getDetails(movieId)
-                _selectedMovie.postValue(movie)
+                when(val response = networkMovieRepository.getDetails(movieId)){
+                    is TMDBApiResult.Success -> {
+                        val movie = response.data as UpcomingMovieDataItem
+                        _selectedMovie.postValue(movie)
+                    }
+                    is TMDBApiResult.Error -> {
+                        Timber.i("Unable to get upcoming movies: ${response.message}")
+                    }
+                    is TMDBApiResult.Failure -> {
+                        val upcomingMoviesfailure = response.data as ErrorResponse
+                        Timber.i(upcomingMoviesfailure.statusMessage)
+                    }
+                }
             }catch(exception: Exception){
                 Timber.i("Problem selecting movie: ${exception.localizedMessage}")
             }
@@ -87,6 +121,12 @@ class MovieListViewModel(
     }
 
     fun resetList() {
-        _movies.value = listOf()
+        _nowPlayingMovies.value = listOf()
+        _pageNumber = 0
+        _maxPages = 0
+    }
+
+    fun canFetchMovies(): Boolean {
+        return _pageNumber >= _maxPages
     }
 }

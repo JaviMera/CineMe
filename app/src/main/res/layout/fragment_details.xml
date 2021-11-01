@@ -6,7 +6,7 @@
     <data>
         <variable
             name="movie"
-            type="com.merajavier.cineme.movies.MovieDataItem" />
+            type="com.merajavier.cineme.movies.upcoming.UpcomingMovieDataItem" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

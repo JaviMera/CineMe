@@ -10,14 +10,14 @@ import retrofit2.http.Query
 
 interface TMDBApMoviesiInterface {
     @GET("movie/{movie_id}")
-    suspend fun getMovie(
+    fun getMovie(
         @Path("movie_id") movieId: Int
-    ) : MovieDataItem
+    ) : Call<String>
 
     @GET("movie/now_playing")
-    suspend fun getNowPlayingMovies(
+    fun getNowPlayingMovies(
         @Query("page") pageNumber: Int
-    ) : MoviesResponse
+    ) : Call<String>
 
     @GET("movie/upcoming")
     fun getUpcomingMovies(

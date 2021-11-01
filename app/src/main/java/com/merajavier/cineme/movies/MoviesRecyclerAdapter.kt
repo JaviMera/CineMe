@@ -8,15 +8,16 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.merajavier.cineme.R
-import com.merajavier.cineme.databinding.FragmentMoviesBinding
 import com.merajavier.cineme.databinding.RecyclerViewMovieItemBinding
+import com.merajavier.cineme.databinding.UpcomingMovieItemBinding
+import com.merajavier.cineme.movies.upcoming.UpcomingMovieDataItem
 
 class MoviesRecyclerAdapter(
     private val onMovieClickListener: OnMovieClickListener
-) : ListAdapter<MovieDataItem, MoviesRecyclerAdapter.MovieViewHolder>(DiffCallback) {
+) : ListAdapter<UpcomingMovieDataItem, MoviesRecyclerAdapter.MovieViewHolder>(DiffCallback) {
 
     class MovieViewHolder(private val binding: RecyclerViewMovieItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(movieDataItem: MovieDataItem){
+        fun bind(movieDataItem: UpcomingMovieDataItem){
             binding.movie = movieDataItem
         }
     }
@@ -41,12 +42,12 @@ class MoviesRecyclerAdapter(
         holder.bind(movie)
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<MovieDataItem>(){
-        override fun areItemsTheSame(oldItem: MovieDataItem, newItem: MovieDataItem): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<UpcomingMovieDataItem>(){
+        override fun areItemsTheSame(oldItem: UpcomingMovieDataItem, newItem: UpcomingMovieDataItem): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: MovieDataItem, newItem: MovieDataItem): Boolean {
+        override fun areContentsTheSame(oldItem: UpcomingMovieDataItem, newItem: UpcomingMovieDataItem): Boolean {
             return oldItem == newItem
         }
     }

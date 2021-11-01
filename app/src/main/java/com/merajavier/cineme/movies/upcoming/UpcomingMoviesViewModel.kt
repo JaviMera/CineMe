@@ -4,18 +4,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.work.ListenableWorker
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
-import com.merajavier.cineme.movies.MovieDataItem
-import com.merajavier.cineme.network.NetworkMovieRepository
-import com.merajavier.cineme.sendNotification
+import com.merajavier.cineme.network.NetworkMoviesRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception
 
 class UpcomingMoviesViewModel(
-    private val networkMovieRepository: NetworkMovieRepository
+    private val networkRepository: NetworkMoviesRepository
 ) : ViewModel() {
 
     private val _loading = MutableLiveData<Boolean>()
@@ -28,16 +25,14 @@ class UpcomingMoviesViewModel(
 
     private var _pageNumber = 0
 
-    private var _maxPages = 1
-    val maxPages: Int
-    get() = _maxPages
+    private var _maxPages = 0
 
     fun getUpcomingMovies(){
         viewModelScope.launch {
             try{
                 _loading.postValue(true)
                 _pageNumber = _pageNumber.inc()
-                when(val response = networkMovieRepository.getUpcoming(_pageNumber)) {
+                when(val response = networkRepository.getUpcoming(_pageNumber)) {
                     is TMDBApiResult.Success -> {
                         val upcomingMovies = response.data as UpcomingMovieResponse
                         if(_upcomingMovies.value?.any() == true){
@@ -72,5 +67,6 @@ class UpcomingMoviesViewModel(
     fun resetList() {
         _upcomingMovies.value = listOf()
         _pageNumber = 0
+        _maxPages = 0
     }
 }
