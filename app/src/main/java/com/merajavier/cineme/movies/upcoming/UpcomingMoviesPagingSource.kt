@@ -1,12 +1,13 @@
-package com.merajavier.cineme.movies
+package com.merajavier.cineme.movies.upcoming
 
 import androidx.paging.PagingSource
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
+import com.merajavier.cineme.movies.MovieDataItem
+import com.merajavier.cineme.movies.MoviesResponse
 import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
-import timber.log.Timber
 
-class MoviesPagingSource(
+class UpcomingMoviesPagingSource(
     private val apiInterface: NetworkMoviesRepositoryInterface
 ) : PagingSource<Int, MovieDataItem>() {
 
@@ -15,7 +16,7 @@ class MoviesPagingSource(
         return try {
             val page = params.key ?: 1
             if(page <= maxPages) {
-                when (val result = apiInterface.getNowPlaying(page)) {
+                when (val result = apiInterface.getUpcoming(page)) {
                     is TMDBApiResult.Success -> {
                         val response = result.data as MoviesResponse
                         maxPages = response.totalPages

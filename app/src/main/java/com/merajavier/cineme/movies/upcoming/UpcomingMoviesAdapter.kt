@@ -3,16 +3,18 @@ package com.merajavier.cineme.movies.upcoming
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.PagerAdapter
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.UpcomingMovieItemBinding
 import com.merajavier.cineme.movies.MovieDataItem
 
 class UpcomingMoviesAdapter(
 
-) : ListAdapter<MovieDataItem, UpcomingMoviesAdapter.UpcomingMovieViewHolder>(DiffCallback){
+) : PagingDataAdapter<MovieDataItem, UpcomingMoviesAdapter.UpcomingMovieViewHolder>(DiffCallback){
 
     class UpcomingMovieViewHolder(
         private val binding: UpcomingMovieItemBinding
@@ -36,7 +38,7 @@ class UpcomingMoviesAdapter(
 
     override fun onBindViewHolder(holder: UpcomingMovieViewHolder, position: Int) {
         var movie = getItem(position)
-        holder.bind(movie)
+        movie?.let { holder.bind(it) }
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<MovieDataItem>(){

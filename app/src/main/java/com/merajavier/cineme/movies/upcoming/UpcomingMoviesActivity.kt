@@ -3,14 +3,18 @@ package com.merajavier.cineme.movies.upcoming
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
+import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.R
 import com.merajavier.cineme.cancelNotification
 import com.merajavier.cineme.databinding.ActivityUpcomingMoviesBinding
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@ExperimentalPagingApi
 class UpcomingMoviesActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUpcomingMoviesBinding
@@ -30,40 +34,11 @@ class UpcomingMoviesActivity : AppCompatActivity() {
             cancelNotification(this, notificationId)
         }
 
-        val layoutManager = binding.recyclerUpcomingMovies.layoutManager as GridLayoutManager
-        // Add a scroll listener to get more items if the user reaches the bottom of the list
-        binding.recyclerUpcomingMovies.addOnScrollListener(object: RecyclerView.OnScrollListener(){
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if(dy > 0 && upcomingMoviesViewModel.loading.value == false){
-                    if(layoutManager.findLastCompletelyVisibleItemPosition() == layoutManager.itemCount - 1){
-
-                        if(upcomingMoviesViewModel.canFetchMovies()){
-                            Snackbar.make(
-                                binding.activityUpcomingMoviesConstraintLayout,
-                                "You have seen all upcoming movies for today!",
-                                Snackbar.LENGTH_LONG
-                            )
-                                .show()
-                        }else{
-                            upcomingMoviesViewModel.getUpcomingMovies()
-                        }
-                    }
-                }
+        upcomingMoviesViewModel.fetchMovies().observe(this, Observer {
+            lifecycleScope.launch {
+                adapter.submitData(it)
             }
         })
-
-        upcomingMoviesViewModel.getUpcomingMovies()
-        upcomingMoviesViewModel.movies.observe(this, Observer {
-            if(it != null){
-                adapter.submitList(it)
-            }
-        })
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        upcomingMoviesViewModel.resetList()
     }
 }
 

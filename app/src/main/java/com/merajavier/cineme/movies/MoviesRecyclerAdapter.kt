@@ -3,6 +3,7 @@ package com.merajavier.cineme.movies
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ import com.merajavier.cineme.databinding.RecyclerViewMovieItemBinding
 
 class MoviesRecyclerAdapter(
     private val onMovieClickListener: OnMovieClickListener
-) : ListAdapter<MovieDataItem, MoviesRecyclerAdapter.MovieViewHolder>(DiffCallback) {
+) : PagingDataAdapter<MovieDataItem, MoviesRecyclerAdapter.MovieViewHolder>(DiffCallback) {
 
     class MovieViewHolder(private val binding: RecyclerViewMovieItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(movieDataItem: MovieDataItem){
@@ -33,10 +34,10 @@ class MoviesRecyclerAdapter(
 
         var movie = getItem(position)
         holder.itemView.setOnClickListener{
-            onMovieClickListener.onClick(movie.id)
+            movie?.id?.let { it1 -> onMovieClickListener.onClick(it1) }
         }
 
-        holder.bind(movie)
+        movie?.let { holder.bind(it) }
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<MovieDataItem>(){
@@ -49,3 +50,4 @@ class MoviesRecyclerAdapter(
         }
     }
 }
+

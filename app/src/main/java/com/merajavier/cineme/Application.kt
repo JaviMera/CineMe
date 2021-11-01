@@ -2,6 +2,7 @@ package com.merajavier.cineme
 
 import android.app.Application
 import android.content.SharedPreferences
+import androidx.paging.ExperimentalPagingApi
 import androidx.work.*
 import com.merajavier.cineme.cast.CastListViewModel
 import com.merajavier.cineme.data.local.*
@@ -21,6 +22,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
+@ExperimentalPagingApi
 class Application : Application(), KoinComponent, Configuration.Provider {
 
     override fun onCreate() {

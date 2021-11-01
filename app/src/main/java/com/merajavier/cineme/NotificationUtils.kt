@@ -9,11 +9,13 @@ import android.content.Intent
 import android.os.Build
 import android.util.TimeUtils
 import androidx.core.app.NotificationCompat
+import androidx.paging.ExperimentalPagingApi
 import com.merajavier.cineme.movies.upcoming.UpcomingMoviesActivity
 import java.util.*
 
 private const val NOTIFICATION_CHANNEL_ID = BuildConfig.APPLICATION_ID + ".channel"
 
+@OptIn(ExperimentalPagingApi::class)
 fun sendNotification(context: Context, upcomingTitles: List<String>) {
 
     val notificationManager = context

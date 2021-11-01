@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
+import androidx.lifecycle.distinctUntilChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.paging.ExperimentalPagingApi
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -16,10 +18,13 @@ import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
+@ExperimentalPagingApi
 class MovieListFragment : Fragment() {
 
     private lateinit var binding: FragmentMoviesBinding
     private lateinit var moviesAdapter: MoviesRecyclerAdapter
+
+    @ExperimentalPagingApi
     private val viewModel: MovieListViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,38 +46,10 @@ class MovieListFragment : Fragment() {
         })
 
         binding.recycleViewMovies.adapter = moviesAdapter
-        val layoutManager = binding.recycleViewMovies.layoutManager as LinearLayoutManager
 
-        // Add a scroll listener to get more items if the user reaches the bottom of the list
-        binding.recycleViewMovies.addOnScrollListener(object: RecyclerView.OnScrollListener(){
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                if(dy > 0 && viewModel.loading.value == false){
-                    if(layoutManager.findLastCompletelyVisibleItemPosition() == layoutManager.itemCount - 1){
-                        if(viewModel.canFetchMovies()){
-                            Snackbar.make(
-                                binding.recycleViewMovies,
-                                "You have seen all movies for today!",
-                                Snackbar.LENGTH_LONG
-                            )
-                                .show()
-                        }else{
-                            viewModel.getNowPlayingMovies()
-                        }
-                    }
-                }
-            }
-        })
-
-        viewModel.getNowPlayingMovies()
-        viewModel.movies.observe(viewLifecycleOwner, Observer {
-
-            it.let {
-                if(it.any()){
-                    moviesAdapter.submitList(it)
-                    Timber.i("Movie count: ${it.size}")
-                }
+        viewModel.fetchMovies().observe(viewLifecycleOwner, Observer { pagingData ->
+            lifecycleScope.launch {
+                moviesAdapter.submitData(pagingData)
             }
         })
 
@@ -96,10 +73,5 @@ class MovieListFragment : Fragment() {
         })
 
         return binding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        viewModel.resetList()
     }
 }

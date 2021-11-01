@@ -2,6 +2,10 @@ package com.merajavier.cineme.movies
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.*
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import androidx.paging.map
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
@@ -42,13 +46,10 @@ class SingleLiveData<T> : MutableLiveData<T>() {
     }
 }
 
+@ExperimentalPagingApi
 class MovieListViewModel(
     private val networkMovieRepository: NetworkMoviesRepositoryInterface)
     : ViewModel() {
-
-    private val _nowPlayingMovies = SingleLiveData<List<MovieDataItem>>()
-    val movies: LiveData<List<MovieDataItem>>
-    get() = _nowPlayingMovies
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean>
@@ -58,42 +59,13 @@ class MovieListViewModel(
     val movieSelected: LiveData<MovieDataItem>
     get() = _selectedMovie
 
-    private var _pageNumber = 0
-
-    private var _maxPages = 1
-
-    fun getNowPlayingMovies(){
-        viewModelScope.launch {
-
-            try {
-                _loading.postValue(true)
-                _pageNumber = _pageNumber.inc()
-                when(val response = networkMovieRepository.getNowPlaying(_pageNumber)) {
-                    is TMDBApiResult.Success -> {
-                        val upcomingMovies = response.data as MoviesResponse
-                        if(_nowPlayingMovies.value?.any() == true){
-
-                            _nowPlayingMovies.postValue(_nowPlayingMovies.value?.plus(upcomingMovies.movies))
-                        }else{
-                            _nowPlayingMovies.postValue(upcomingMovies.movies)
-                        }
-
-                        _maxPages = upcomingMovies.totalPages
-                    }
-                    is TMDBApiResult.Error -> {
-                        Timber.i("Unable to get upcoming movies: ${response.message}")
-                    }
-                    is TMDBApiResult.Failure -> {
-                        val upcomingMoviesfailure = response.data as ErrorResponse
-                        Timber.i(upcomingMoviesfailure.statusMessage)
-                    }
-                }
-            }catch(exception: Exception){
-                Timber.i(exception.localizedMessage)
-            }finally {
-                _loading.postValue(false)
+    fun fetchMovies() : LiveData<PagingData<MovieDataItem>>{
+        return MoviesPagerRepository()
+            .nowPlayingMoviesPagingData(networkMovieRepository)
+            .map {
+                it.map { movie -> movie }
             }
-        }
+            .cachedIn(viewModelScope)
     }
 
     fun getMovieDetails(movieId: Int){
@@ -116,15 +88,5 @@ class MovieListViewModel(
                 Timber.i("Problem selecting movie: ${exception.localizedMessage}")
             }
         }
-    }
-
-    fun resetList() {
-        _nowPlayingMovies.value = listOf()
-        _pageNumber = 0
-        _maxPages = 0
-    }
-
-    fun canFetchMovies(): Boolean {
-        return _pageNumber >= _maxPages
     }
 }
