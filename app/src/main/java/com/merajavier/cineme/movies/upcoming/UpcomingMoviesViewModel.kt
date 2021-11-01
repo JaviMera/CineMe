@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
+import com.merajavier.cineme.movies.MovieDataItem
+import com.merajavier.cineme.movies.MoviesResponse
 import com.merajavier.cineme.network.NetworkMoviesRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -19,8 +21,8 @@ class UpcomingMoviesViewModel(
     val loading: LiveData<Boolean>
         get() = _loading
 
-    private val _upcomingMovies = MutableLiveData<List<UpcomingMovieDataItem>>()
-    val upcomingMovies: LiveData<List<UpcomingMovieDataItem>>
+    private val _upcomingMovies = MutableLiveData<List<MovieDataItem>>()
+    val movies: LiveData<List<MovieDataItem>>
     get() = _upcomingMovies
 
     private var _pageNumber = 0
@@ -34,7 +36,7 @@ class UpcomingMoviesViewModel(
                 _pageNumber = _pageNumber.inc()
                 when(val response = networkRepository.getUpcoming(_pageNumber)) {
                     is TMDBApiResult.Success -> {
-                        val upcomingMovies = response.data as UpcomingMovieResponse
+                        val upcomingMovies = response.data as MoviesResponse
                         if(_upcomingMovies.value?.any() == true){
 
                             _upcomingMovies.postValue(_upcomingMovies.value?.plus(upcomingMovies.movies))

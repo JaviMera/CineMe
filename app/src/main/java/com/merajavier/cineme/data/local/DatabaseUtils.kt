@@ -1,8 +1,7 @@
 package com.merajavier.cineme.data.local
 
-import com.merajavier.cineme.movies.MovieDataItem
 import com.merajavier.cineme.movies.favorites.FavoriteMovieDataItem
-import com.merajavier.cineme.movies.upcoming.UpcomingMovieDataItem
+import com.merajavier.cineme.movies.MovieDataItem
 
 fun FavoriteMovieDataItem.toFavoriteMovieEntity() : FavoriteMovieEntity{
     return FavoriteMovieEntity(
@@ -21,7 +20,7 @@ fun List<FavoriteMovieDataItem>.toFavoriteMovieEnties() : List<FavoriteMovieEnti
     }
 }
 
-fun UpcomingMovieDataItem.toFavoriteMovieEntity() : FavoriteMovieEntity{
+fun MovieDataItem.toFavoriteMovieEntity() : FavoriteMovieEntity{
     return FavoriteMovieEntity(
         movieId = this.id,
         overview = this.overview,

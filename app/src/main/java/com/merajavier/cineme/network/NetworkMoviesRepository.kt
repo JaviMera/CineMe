@@ -3,8 +3,8 @@ package com.merajavier.cineme.network
 import com.google.gson.Gson
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
-import com.merajavier.cineme.movies.upcoming.UpcomingMovieDataItem
-import com.merajavier.cineme.movies.upcoming.UpcomingMovieResponse
+import com.merajavier.cineme.movies.MovieDataItem
+import com.merajavier.cineme.movies.MoviesResponse
 import retrofit2.*
 
 interface NetworkMoviesRepositoryInterface {
@@ -22,7 +22,7 @@ class NetworkMoviesRepository(
         return try {
             val response = apiMoviesiInterface.getNowPlayingMovies(pageNumber).awaitResponse()
             if(response.isSuccessful){
-                TMDBApiResult.Success(Gson().fromJson(response.body(), UpcomingMovieResponse::class.java))
+                TMDBApiResult.Success(Gson().fromJson(response.body(), MoviesResponse::class.java))
             }else{
                 TMDBApiResult.Failure(Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java))
             }
@@ -35,7 +35,7 @@ class NetworkMoviesRepository(
         return try {
             val response = apiMoviesiInterface.getMovie(movieId).awaitResponse()
             if(response.isSuccessful){
-                TMDBApiResult.Success(Gson().fromJson(response.body(), UpcomingMovieDataItem::class.java))
+                TMDBApiResult.Success(Gson().fromJson(response.body(), MovieDataItem::class.java))
             }else{
                 TMDBApiResult.Failure(Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java))
             }
@@ -48,7 +48,7 @@ class NetworkMoviesRepository(
         return try {
             val response = apiMoviesiInterface.getUpcomingMovies(pageNumber).awaitResponse()
             if(response.isSuccessful){
-                TMDBApiResult.Success(Gson().fromJson(response.body(), UpcomingMovieResponse::class.java))
+                TMDBApiResult.Success(Gson().fromJson(response.body(), MoviesResponse::class.java))
             }else{
                 TMDBApiResult.Failure(Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java))
             }

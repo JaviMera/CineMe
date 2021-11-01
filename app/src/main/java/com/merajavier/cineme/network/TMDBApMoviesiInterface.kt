@@ -1,8 +1,5 @@
 package com.merajavier.cineme.network
 
-import com.merajavier.cineme.cast.ActorDataItem
-import com.merajavier.cineme.movies.MovieDataItem
-import com.merajavier.cineme.movies.MoviesResponse
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

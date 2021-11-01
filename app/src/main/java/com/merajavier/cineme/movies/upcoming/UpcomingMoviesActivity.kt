@@ -2,8 +2,6 @@ package com.merajavier.cineme.movies.upcoming
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
-import android.widget.Toast.makeText
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -56,7 +54,7 @@ class UpcomingMoviesActivity : AppCompatActivity() {
         })
 
         upcomingMoviesViewModel.getUpcomingMovies()
-        upcomingMoviesViewModel.upcomingMovies.observe(this, Observer {
+        upcomingMoviesViewModel.movies.observe(this, Observer {
             if(it != null){
                 adapter.submitList(it)
             }

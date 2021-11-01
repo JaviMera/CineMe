@@ -6,7 +6,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 <data>
     <variable
         name="movie"
-        type="com.merajavier.cineme.movies.upcoming.UpcomingMovieDataItem" />
+        type="com.merajavier.cineme.movies.MovieDataItem" />
 </data>
 
 <androidx.cardview.widget.CardView

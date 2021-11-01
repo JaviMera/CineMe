@@ -5,7 +5,7 @@ import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
-import com.merajavier.cineme.movies.upcoming.UpcomingMovieResponse
+import com.merajavier.cineme.movies.MoviesResponse
 import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
 import org.koin.core.component.KoinComponent
 import timber.log.Timber
@@ -22,7 +22,7 @@ class UpcomingMoviesWorker(
         return try{
             when(val response = networkMoviesRepository.getUpcoming(1)) {
                 is TMDBApiResult.Success -> {
-                    val upcomingMovies = response.data as UpcomingMovieResponse
+                    val upcomingMovies = response.data as MoviesResponse
                     if(upcomingMovies.movies.any()){
                         sendNotification(applicationContext, upcomingMovies.movies.take(3).map { movie -> movie.title })
                     }

@@ -12,13 +12,13 @@ import com.merajavier.cineme.movies.MovieDataItem
 
 class UpcomingMoviesAdapter(
 
-) : ListAdapter<UpcomingMovieDataItem, UpcomingMoviesAdapter.UpcomingMovieViewHolder>(DiffCallback){
+) : ListAdapter<MovieDataItem, UpcomingMoviesAdapter.UpcomingMovieViewHolder>(DiffCallback){
 
     class UpcomingMovieViewHolder(
         private val binding: UpcomingMovieItemBinding
     ) : RecyclerView.ViewHolder(binding.root){
 
-        fun bind(movie: UpcomingMovieDataItem) {
+        fun bind(movie: MovieDataItem) {
             binding.movie = movie
         }
     }
@@ -39,12 +39,12 @@ class UpcomingMoviesAdapter(
         holder.bind(movie)
     }
 
-    companion object DiffCallback : DiffUtil.ItemCallback<UpcomingMovieDataItem>(){
-        override fun areItemsTheSame(oldItem: UpcomingMovieDataItem, newItem: UpcomingMovieDataItem): Boolean {
+    companion object DiffCallback : DiffUtil.ItemCallback<MovieDataItem>(){
+        override fun areItemsTheSame(oldItem: MovieDataItem, newItem: MovieDataItem): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: UpcomingMovieDataItem, newItem: UpcomingMovieDataItem): Boolean {
+        override fun areContentsTheSame(oldItem: MovieDataItem, newItem: MovieDataItem): Boolean {
             return oldItem == newItem
         }
     }

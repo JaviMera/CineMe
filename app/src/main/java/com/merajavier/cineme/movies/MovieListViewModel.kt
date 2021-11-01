@@ -4,8 +4,6 @@ import androidx.annotation.MainThread
 import androidx.lifecycle.*
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
-import com.merajavier.cineme.movies.upcoming.UpcomingMovieDataItem
-import com.merajavier.cineme.movies.upcoming.UpcomingMovieResponse
 import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -48,16 +46,16 @@ class MovieListViewModel(
     private val networkMovieRepository: NetworkMoviesRepositoryInterface)
     : ViewModel() {
 
-    private val _nowPlayingMovies = SingleLiveData<List<UpcomingMovieDataItem>>()
-    val movies: LiveData<List<UpcomingMovieDataItem>>
+    private val _nowPlayingMovies = SingleLiveData<List<MovieDataItem>>()
+    val movies: LiveData<List<MovieDataItem>>
     get() = _nowPlayingMovies
 
     private val _loading = MutableLiveData<Boolean>()
     val loading: LiveData<Boolean>
     get() = _loading
 
-    private val _selectedMovie = SingleLiveData<UpcomingMovieDataItem>()
-    val movieSelected: LiveData<UpcomingMovieDataItem>
+    private val _selectedMovie = SingleLiveData<MovieDataItem>()
+    val movieSelected: LiveData<MovieDataItem>
     get() = _selectedMovie
 
     private var _pageNumber = 0
@@ -72,7 +70,7 @@ class MovieListViewModel(
                 _pageNumber = _pageNumber.inc()
                 when(val response = networkMovieRepository.getNowPlaying(_pageNumber)) {
                     is TMDBApiResult.Success -> {
-                        val upcomingMovies = response.data as UpcomingMovieResponse
+                        val upcomingMovies = response.data as MoviesResponse
                         if(_nowPlayingMovies.value?.any() == true){
 
                             _nowPlayingMovies.postValue(_nowPlayingMovies.value?.plus(upcomingMovies.movies))
@@ -103,7 +101,7 @@ class MovieListViewModel(
             try{
                 when(val response = networkMovieRepository.getDetails(movieId)){
                     is TMDBApiResult.Success -> {
-                        val movie = response.data as UpcomingMovieDataItem
+                        val movie = response.data as MovieDataItem
                         _selectedMovie.postValue(movie)
                     }
                     is TMDBApiResult.Error -> {
