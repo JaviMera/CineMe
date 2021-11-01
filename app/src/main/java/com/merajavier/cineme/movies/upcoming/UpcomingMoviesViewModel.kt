@@ -8,13 +8,13 @@ import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.movies.MovieDataItem
 import com.merajavier.cineme.movies.MoviesResponse
-import com.merajavier.cineme.network.NetworkMoviesRepository
+import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception
 
 class UpcomingMoviesViewModel(
-    private val networkRepository: NetworkMoviesRepository
+    private val networkMoviesRepository: NetworkMoviesRepositoryInterface
 ) : ViewModel() {
 
     private val _loading = MutableLiveData<Boolean>()
@@ -34,7 +34,7 @@ class UpcomingMoviesViewModel(
             try{
                 _loading.postValue(true)
                 _pageNumber = _pageNumber.inc()
-                when(val response = networkRepository.getUpcoming(_pageNumber)) {
+                when(val response = networkMoviesRepository.getUpcoming(_pageNumber)) {
                     is TMDBApiResult.Success -> {
                         val upcomingMovies = response.data as MoviesResponse
                         if(_upcomingMovies.value?.any() == true){

@@ -14,6 +14,7 @@ import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.databinding.ActivityCinemaBinding
 import com.merajavier.cineme.login.LoginViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 class CinemaActivity : AppCompatActivity() {
@@ -58,6 +59,22 @@ class CinemaActivity : AppCompatActivity() {
                 ExistingPeriodicWorkPolicy.KEEP,
                 request
             )
+
+        WorkManager.getInstance(this)
+            .getWorkInfoByIdLiveData(request.id)
+            .observe(this, Observer {
+                when (it.state) {
+                    WorkInfo.State.SUCCEEDED -> {
+                        Timber.i("Worker succeeded")
+                    }
+                    WorkInfo.State.FAILED -> {
+                        Timber.i("Worker cancelled")
+                    }
+                    WorkInfo.State.RUNNING -> {
+                        Timber.i("Worker running")
+                    }
+                }
+            })
     }
 
     override fun onSupportNavigateUp(): Boolean {
