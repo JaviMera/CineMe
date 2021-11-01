@@ -5,12 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.merajavier.cineme.common.ErrorResponse
+import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.data.local.LocalAccountRepositoryInterface
 import com.merajavier.cineme.data.local.UserSessionEntity
-import com.merajavier.cineme.login.authentication.CreateSessionRequest
-import com.merajavier.cineme.login.authentication.DeleteSessionRequest
-import com.merajavier.cineme.login.authentication.ValidateTokenWithLoginRequest
-import com.merajavier.cineme.movies.SingleLiveData
+import com.merajavier.cineme.login.authentication.*
 import com.merajavier.cineme.network.NetworkAccountRepositoryInterface
 import com.merajavier.cineme.network.NetworkAuthenticationRepositoryInterface
 import com.merajavier.cineme.network.NetworkLoginRepositoryInterface
@@ -40,6 +39,10 @@ class LoginViewModel(
     val userSession: UserSession
     get() = _userSession
 
+    private var _snackbarMessage = MutableLiveData<String>()
+    val snackbarMessage: LiveData<String>
+    get() = _snackbarMessage
+
     fun signInAsGuest() {
         viewModelScope.launch {
             val response  = guestSessionRepository.getGuestSession()
@@ -49,39 +52,67 @@ class LoginViewModel(
 
     fun signInAsUser(username: String, password: String) {
         viewModelScope.launch {
-            val tokenResponse = authenticationRepository.createToken()
+            when(val tokenResult = authenticationRepository.createToken()){
+                is TMDBApiResult.Success -> {
+                    val tokenResponse = tokenResult.data as CreateTokenResponse
 
-            try{
-                if(tokenResponse.success){
-                    val validateResponse = authenticationRepository.validateToken(
-                        ValidateTokenWithLoginRequest(username, password, tokenResponse.requestToken)
-                    )
+                    if(tokenResponse.success){
+                        when(val authenticationResult = authenticationRepository.validateToken(
+                            ValidateTokenWithLoginRequest(username, password, tokenResponse.requestToken)
+                        )){
+                            is TMDBApiResult.Success -> {
+                                val authenticationResponse = authenticationResult.data as ValidateTokenWithLoginResponse
 
-                    if(validateResponse.success){
-                        val sessionResponse = authenticationRepository.createSession(
-                            CreateSessionRequest(tokenResponse.requestToken)
-                        )
+                                if(authenticationResponse.success){
+                                    when(val sessionResult = authenticationRepository.createSession(
+                                        CreateSessionRequest(authenticationResponse.requestToken)
+                                    )){
+                                        is TMDBApiResult.Success -> {
+                                            val sessionResponse = sessionResult.data as CreateSessionResponse
+                                            if(sessionResponse.success){
+                                                val accountResponse = accountRepository.getAccountDetails(sessionResponse.sessionId)
+                                                localAccountRepositoryInterface.createSession(
+                                                    UserSessionEntity(accountResponse.username, sessionResponse.sessionId, accountResponse.id)
+                                                )
 
-                        if(sessionResponse.success){
-                            val accountResponse = accountRepository.getAccountDetails(sessionResponse.sessionId)
+                                                _userSession = UserSession(sessionResponse.sessionId, accountResponse.id, accountResponse.username)
+                                                _isLogged.postValue(true)
+                                            }
+                                        }
+                                        is TMDBApiResult.Failure ->{
 
-                            localAccountRepositoryInterface.createSession(
-                                UserSessionEntity(accountResponse.username, sessionResponse.sessionId, accountResponse.id)
-                            )
-
-                            _userSession = UserSession(sessionResponse.sessionId, accountResponse.id, accountResponse.username)
-                            _isLogged.postValue(true)
-                        }else{
-                            Timber.i("Unable to create a session")
+                                            val failureResponse = authenticationResult.data as ErrorResponse
+                                            Timber.i(failureResponse.statusMessage)
+                                            _snackbarMessage.postValue("Unable to login. Try again")
+                                        }
+                                        is TMDBApiResult.Error -> {
+                                            Timber.i(sessionResult.message)
+                                            _snackbarMessage.postValue("Unable to login. Try again")
+                                        }
+                                    }
+                                }
+                            }
+                            is TMDBApiResult.Failure ->{
+                                val failureResponse = authenticationResult.data as ErrorResponse
+                                Timber.i(failureResponse.statusMessage)
+                                _snackbarMessage.postValue("Username or password are incorrect")
+                            }
+                            is TMDBApiResult.Error -> {
+                                Timber.i(authenticationResult.message)
+                                _snackbarMessage.postValue("Unable to login. Try again")
+                            }
                         }
-                    }else{
-                        Timber.i("Unable to validate token")
                     }
-                }else{
-                    Timber.i("Unable to create a token")
                 }
-            }catch (exception: Exception){
-                Timber.i("Unable to authenticate: ${exception.localizedMessage}")
+                is TMDBApiResult.Failure ->{
+                    val failureResponse = tokenResult.data as ErrorResponse
+                    Timber.i(failureResponse.statusMessage)
+                    _snackbarMessage.postValue("Unable to login. Try again")
+                }
+                is TMDBApiResult.Error -> {
+                    Timber.i(tokenResult.message)
+                    _snackbarMessage.postValue("Unable to login. Try again")
+                }
             }
         }
     }
@@ -89,20 +120,30 @@ class LoginViewModel(
     fun logout() {
         viewModelScope.launch {
             try{
-                val response = authenticationRepository.deleteSession(DeleteSessionRequest(userSession.sessionId))
-                if(response.success){
+                when(val deleteSessionResult = authenticationRepository.deleteSession(DeleteSessionRequest(userSession.sessionId))){
+                    is TMDBApiResult.Success -> {
+                        val deleteSessionResponse = deleteSessionResult.data as DeleteSessionResponse
+                        if(deleteSessionResponse.success){
 
-                    localAccountRepositoryInterface.deleteSession(
-                        UserSessionEntity(
-                        userSession.username, userSession.sessionId, userSession.accountId)
-                    )
+                            localAccountRepositoryInterface.deleteSession(
+                                UserSessionEntity(
+                                userSession.username, userSession.sessionId, userSession.accountId)
+                            )
 
-                    loginSharedPreferences
-                        .edit()
-                        .remove(LOGIN_USERNAME_KEY)
-                        .apply()
+                            loginSharedPreferences
+                                .edit()
+                                .remove(LOGIN_USERNAME_KEY)
+                                .apply()
 
-                    _isLogged.postValue(false)
+                            _isLogged.postValue(false)
+                        }
+                    }
+                    is TMDBApiResult.Failure ->{
+
+                    }
+                    is TMDBApiResult.Error -> {
+
+                    }
                 }
             }catch(exception: Exception){
                 Timber.i("Unable to log out: ${exception.localizedMessage}")

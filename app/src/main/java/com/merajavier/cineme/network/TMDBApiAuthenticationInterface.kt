@@ -1,26 +1,27 @@
 package com.merajavier.cineme.network
 
 import com.merajavier.cineme.login.authentication.*
+import retrofit2.Call
 import retrofit2.http.*
 
 interface TMDBApiAuthenticationInterface {
     @GET("authentication/token/new")
-    suspend fun createRequestToken()
-    : CreateTokenResponse
+    fun createRequestToken()
+    : Call<String>
 
     @POST("authentication/token/validate_with_login")
-    suspend fun validateTokenWithLogin(
+    fun validateTokenWithLogin(
         @Body validateTokenWithLoginRequest: ValidateTokenWithLoginRequest
     )
-    : ValidateTokenWithLoginResponse
+    : Call<String>
 
     @POST("authentication/session/new")
-    suspend fun createSession(
+    fun createSession(
         @Body createSessionRequest: CreateSessionRequest
-    ) : CreateSessionResponse
+    ) : Call<String>
 
     @HTTP( method="DELETE", hasBody = true, path = "authentication/session")
-    suspend fun deleteSession(
+    fun deleteSession(
         @Body deleteSessionRequest: DeleteSessionRequest
-    ) : DeleteSessionResponse
+    ) : Call<String>
 }
