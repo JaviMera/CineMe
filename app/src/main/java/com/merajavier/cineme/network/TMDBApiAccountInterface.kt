@@ -4,23 +4,24 @@ import com.merajavier.cineme.login.account.AccountDetailsResponse
 import com.merajavier.cineme.movies.favorites.FavoriteMoviesResponse
 import com.merajavier.cineme.movies.favorites.MarkFavoriteRequest
 import com.merajavier.cineme.movies.favorites.MarkFavoriteResponse
+import retrofit2.Call
 import retrofit2.http.*
 
 interface TMDBApiAccountInterface{
     @GET("account")
-    suspend fun getDetails(
+    fun getDetails(
         @Query("session_id") sessionId: String
-    ) : AccountDetailsResponse
+    ) : Call<String>
 
     @POST("account/{account_id}/favorite")
-    suspend fun markFavorite(
+    fun markFavorite(
         @Query("session_id") sessionId: String,
         @Body() markFavoriteRequest: MarkFavoriteRequest
-    ) : MarkFavoriteResponse
+    ) : Call<String>
 
     @GET("account/{account_id}/favorite/movies")
-    suspend fun getFavoriteMovies(
+    fun getFavoriteMovies(
         @Path("account_id") accountId: Int,
         @Query("session_id") sessionId: String
-    ) : FavoriteMoviesResponse
+    ) : Call<String>
 }

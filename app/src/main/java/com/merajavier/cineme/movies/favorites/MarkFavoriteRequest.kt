@@ -6,8 +6,8 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class MarkFavoriteRequest(
-    @Json(name="media_type") val mediaType: String,
-    @Json(name="media_id") val mediaId: Int,
+    val media_type: String,
+    val media_id: Int,
     val favorite: Boolean
 ) : Parcelable
 

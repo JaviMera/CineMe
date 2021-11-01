@@ -1,13 +1,14 @@
 package com.merajavier.cineme.movies.favorites
 
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class FavoriteMoviesResponse(
-    @Json(name = "page") val pageNumber: Int,
-    @Json(name="results") val movies: List<FavoriteMovieDataItem>,
-    @Json(name = "total_pages") val totalPages: Int,
-    @Json(name="total_results") val totalResults: Int
+    @SerializedName( "page") val pageNumber: Int,
+    @SerializedName("results") val movies: List<FavoriteMovieDataItem>,
+    @SerializedName( "total_pages") val totalPages: Int,
+    @SerializedName("total_results") val totalResults: Int
 ) : Parcelable

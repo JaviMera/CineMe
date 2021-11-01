@@ -9,6 +9,7 @@ import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.data.local.LocalAccountRepositoryInterface
 import com.merajavier.cineme.data.local.UserSessionEntity
+import com.merajavier.cineme.login.account.AccountDetailsResponse
 import com.merajavier.cineme.login.authentication.*
 import com.merajavier.cineme.movies.SingleLiveData
 import com.merajavier.cineme.network.NetworkAccountRepositoryInterface
@@ -71,13 +72,27 @@ class LoginViewModel(
                                         is TMDBApiResult.Success -> {
                                             val sessionResponse = sessionResult.data as CreateSessionResponse
                                             if(sessionResponse.success){
-                                                val accountResponse = accountRepository.getAccountDetails(sessionResponse.sessionId)
-                                                localAccountRepositoryInterface.createSession(
-                                                    UserSessionEntity(accountResponse.username, sessionResponse.sessionId, accountResponse.id)
-                                                )
+                                                when(val accountResult = accountRepository.getAccountDetails(sessionResponse.sessionId)){
+                                                    is TMDBApiResult.Success -> {
+                                                        val accountResponse = accountResult.data as AccountDetailsResponse
+                                                        localAccountRepositoryInterface.createSession(
+                                                            UserSessionEntity(accountResponse.username, sessionResponse.sessionId, accountResponse.id)
+                                                        )
 
-                                                _userSession = UserSession(sessionResponse.sessionId, accountResponse.id, accountResponse.username)
-                                                _isLogged.postValue(true)
+                                                        _userSession = UserSession(sessionResponse.sessionId, accountResponse.id, accountResponse.username)
+                                                        _isLogged.postValue(true)
+                                                    }
+                                                    is TMDBApiResult.Failure ->{
+
+                                                        val failureResponse = accountResult.data as ErrorResponse
+                                                        Timber.i(failureResponse.statusMessage)
+                                                        _snackbarMessage.postValue("Unable to login. Try again")
+                                                    }
+                                                    is TMDBApiResult.Error -> {
+                                                        Timber.i(accountResult.message)
+                                                        _snackbarMessage.postValue("Unable to login. Try again")
+                                                    }
+                                                }
                                             }
                                         }
                                         is TMDBApiResult.Failure ->{
