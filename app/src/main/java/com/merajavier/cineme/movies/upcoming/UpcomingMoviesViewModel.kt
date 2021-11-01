@@ -26,11 +26,18 @@ class UpcomingMoviesViewModel(
     val upcomingMovies: LiveData<List<UpcomingMovieDataItem>>
     get() = _upcomingMovies
 
-    fun getUpcomingMovies(pageNumber: Int){
+    private var _pageNumber = 0
+
+    private var _maxPages = 1
+    val maxPages: Int
+    get() = _maxPages
+
+    fun getUpcomingMovies(){
         viewModelScope.launch {
             try{
                 _loading.postValue(true)
-                when(val response = networkMovieRepository.getUpcoming(pageNumber)) {
+                _pageNumber = _pageNumber.inc()
+                when(val response = networkMovieRepository.getUpcoming(_pageNumber)) {
                     is TMDBApiResult.Success -> {
                         val upcomingMovies = response.data as UpcomingMovieResponse
                         if(_upcomingMovies.value?.any() == true){
@@ -39,6 +46,8 @@ class UpcomingMoviesViewModel(
                         }else{
                             _upcomingMovies.postValue(upcomingMovies.movies)
                         }
+
+                        _maxPages = upcomingMovies.totalPages
                     }
                     is TMDBApiResult.Error -> {
                         Timber.i("Unable to get upcoming movies: ${response.message}")
@@ -48,17 +57,20 @@ class UpcomingMoviesViewModel(
                         Timber.i(upcomingMoviesfailure.statusMessage)
                     }
                 }
-
             }catch(exception: Exception){
                 Timber.i(exception.localizedMessage)
             }finally {
                 _loading.postValue(false)
             }
-
         }
+    }
+
+    fun canFetchMovies() : Boolean {
+        return _pageNumber >= _maxPages
     }
 
     fun resetList() {
         _upcomingMovies.value = listOf()
+        _pageNumber = 0
     }
 }
