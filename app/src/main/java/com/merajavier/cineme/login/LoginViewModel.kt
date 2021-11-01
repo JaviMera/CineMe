@@ -39,9 +39,9 @@ class LoginViewModel(
     val userSession: UserSession
     get() = _userSession
 
-    private var _snackbarMessage = SingleLiveData<String>()
-    val snackbarMessage: LiveData<String>
-    get() = _snackbarMessage
+    private var _snackMessage = SingleLiveData<String>()
+    val snackMessage: LiveData<String>
+    get() = _snackMessage
 
     fun signInAsUser(username: String, password: String) {
         viewModelScope.launch {
@@ -77,11 +77,11 @@ class LoginViewModel(
 
                                                         val failureResponse = accountResult.data as ErrorResponse
                                                         Timber.i(failureResponse.statusMessage)
-                                                        _snackbarMessage.postValue("Unable to login. Try again")
+                                                        _snackMessage.postValue("Unable to login. Try again")
                                                     }
                                                     is TMDBApiResult.Error -> {
                                                         Timber.i(accountResult.message)
-                                                        _snackbarMessage.postValue("Unable to login. Try again")
+                                                        _snackMessage.postValue("Unable to login. Try again")
                                                     }
                                                 }
                                             }
@@ -90,11 +90,11 @@ class LoginViewModel(
 
                                             val failureResponse = authenticationResult.data as ErrorResponse
                                             Timber.i(failureResponse.statusMessage)
-                                            _snackbarMessage.postValue("Unable to login. Try again")
+                                            _snackMessage.postValue("Unable to login. Try again")
                                         }
                                         is TMDBApiResult.Error -> {
                                             Timber.i(sessionResult.message)
-                                            _snackbarMessage.postValue("Unable to login. Try again")
+                                            _snackMessage.postValue("Unable to login. Try again")
                                         }
                                     }
                                 }
@@ -102,11 +102,11 @@ class LoginViewModel(
                             is TMDBApiResult.Failure ->{
                                 val failureResponse = authenticationResult.data as ErrorResponse
                                 Timber.i(failureResponse.statusMessage)
-                                _snackbarMessage.postValue(failureResponse.statusMessage)
+                                _snackMessage.postValue(failureResponse.statusMessage)
                             }
                             is TMDBApiResult.Error -> {
                                 Timber.i(authenticationResult.message)
-                                _snackbarMessage.postValue("Unable to login. Try again")
+                                _snackMessage.postValue("Unable to login. Try again")
                             }
                         }
                     }
@@ -114,11 +114,11 @@ class LoginViewModel(
                 is TMDBApiResult.Failure ->{
                     val failureResponse = tokenResult.data as ErrorResponse
                     Timber.i(failureResponse.statusMessage)
-                    _snackbarMessage.postValue("Unable to login. Try again")
+                    _snackMessage.postValue("Unable to login. Try again")
                 }
                 is TMDBApiResult.Error -> {
                     Timber.i(tokenResult.message)
-                    _snackbarMessage.postValue("Unable to login. Try again")
+                    _snackMessage.postValue("Unable to login. Try again")
                 }
             }
         }
@@ -146,14 +146,16 @@ class LoginViewModel(
                         }
                     }
                     is TMDBApiResult.Failure ->{
-
+                        val failureResponse = deleteSessionResult.data as ErrorResponse
+                        _snackMessage.postValue(failureResponse.statusMessage)
+                        Timber.i("Unable to logout: ${failureResponse.statusMessage}")
                     }
                     is TMDBApiResult.Error -> {
-
+                        throw Exception("Message: $deleteSessionResult.message\nStatus Code: ${deleteSessionResult.statusCode}")
                     }
                 }
             }catch(exception: Exception){
-                Timber.i("Unable to log out: ${exception.localizedMessage}")
+                Timber.i(exception.localizedMessage)
             }
         }
     }
@@ -183,14 +185,11 @@ class LoginViewModel(
 
     fun saveLogin() {
 
-        if(!loginSharedPreferences.contains(LOGIN_USERNAME_KEY)){
+        val editor = loginSharedPreferences
+            .edit()
 
-            val editor = loginSharedPreferences
-                .edit()
-
-            editor.putString(LOGIN_USERNAME_KEY, userSession.username)
-            editor.apply()
-        }
+        editor.putString(LOGIN_USERNAME_KEY, userSession.username)
+        editor.apply()
     }
 
     companion object {

@@ -53,7 +53,7 @@ class LoginFragment : Fragment() {
             binding.loginPassword.setText(BuildConfig.password)
         }
 
-        loginViewModel.snackbarMessage.observe(viewLifecycleOwner, Observer { message ->
+        loginViewModel.snackMessage.observe(viewLifecycleOwner, Observer { message ->
             message?.let{
                 Snackbar.make(
                     binding.fragmentLoginConstraintLayout,
