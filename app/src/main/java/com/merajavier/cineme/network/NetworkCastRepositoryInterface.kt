@@ -1,25 +1,51 @@
 package com.merajavier.cineme.network
 
+import com.google.gson.Gson
 import com.merajavier.cineme.cast.ActorDataItem
+import com.merajavier.cineme.cast.ActorsResponse
 import com.merajavier.cineme.cast.CrewDataItem
+import com.merajavier.cineme.common.ErrorResponse
+import com.merajavier.cineme.common.TMDBApiResult
+import com.merajavier.cineme.movies.MoviesResponse
+import retrofit2.awaitResponse
 
-interface NetworkCastRepositoryInterface<TActor, TCrew> {
-    suspend fun getActors(movieId: Int) : List<TActor>
-    suspend fun getCrew(movieId: Int) : List<TCrew>
+interface NetworkCastRepositoryInterface {
+    suspend fun getActors(movieId: Int) : TMDBApiResult<*>
+    suspend fun getCrew(movieId: Int) : TMDBApiResult<*>
 }
 
 class NetworkMovieActorRepository(
     private val apiInterface: TMDBApiCastInterface
-) : NetworkCastRepositoryInterface<ActorDataItem, CrewDataItem>{
+) : NetworkCastRepositoryInterface{
 
-    override suspend fun getActors(movieId: Int): List<ActorDataItem> {
-        return apiInterface.getMovieCast(movieId)
-            .cast
-            .sortedBy { actor -> actor.order }
+    override suspend fun getActors(movieId: Int): TMDBApiResult<*> {
+
+        return try{
+            val response = apiInterface.getMovieCast(movieId).awaitResponse()
+            if(response.isSuccessful){
+                val actorsResponse = Gson().fromJson(response.body(), ActorsResponse::class.java)
+                TMDBApiResult.Success(actorsResponse.cast.sortedBy { cast -> cast.order })
+            }
+            else{
+                TMDBApiResult.Failure(Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java))
+            }
+        }catch (exception: Exception){
+            TMDBApiResult.Error(exception.localizedMessage)
+        }
     }
 
-    override suspend fun getCrew(movieId: Int): List<CrewDataItem> {
-        return apiInterface.getMovieCast(movieId)
-            .crew
+    override suspend fun getCrew(movieId: Int): TMDBApiResult<*> {
+        return try{
+            val response = apiInterface.getMovieCast(movieId).awaitResponse()
+            if(response.isSuccessful){
+                val actorsResponse = Gson().fromJson(response.body(), ActorsResponse::class.java)
+                TMDBApiResult.Success(actorsResponse.crew)
+            }
+            else{
+                TMDBApiResult.Failure(Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java))
+            }
+        }catch (exception: Exception){
+            TMDBApiResult.Error(exception.localizedMessage)
+        }
     }
 }
