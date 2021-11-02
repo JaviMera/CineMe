@@ -32,9 +32,9 @@ class MoviesRecyclerAdapter(
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
 
-        var movie = getItem(position)
+        val movie = getItem(position)
         holder.itemView.setOnClickListener{
-            movie?.id?.let { it1 -> onMovieClickListener.onClick(it1) }
+            movie?.id?.let { movieId -> onMovieClickListener.onClick(movieId) }
         }
 
         movie?.let { holder.bind(it) }

@@ -13,6 +13,7 @@ import com.merajavier.cineme.databinding.UpcomingMovieItemBinding
 import com.merajavier.cineme.movies.MovieDataItem
 
 class SearchMoviesAdapter(
+    private val onMovieClickListener: OnMovieClickListener
 ) : PagingDataAdapter<MovieDataItem, SearchMoviesAdapter.SearchMovieViewHolder>(DiffCallback){
 
     class SearchMovieViewHolder(
@@ -22,6 +23,10 @@ class SearchMoviesAdapter(
         fun bind(movie: MovieDataItem) {
             binding.movie = movie
         }
+    }
+
+    class OnMovieClickListener(val clickListener: (movieId: Int) -> Unit){
+        fun onClick(movieId: Int) = clickListener(movieId)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SearchMovieViewHolder {
@@ -36,7 +41,12 @@ class SearchMoviesAdapter(
     }
 
     override fun onBindViewHolder(holder: SearchMovieViewHolder, position: Int) {
-        var movie = getItem(position)
+        val movie = getItem(position)
+        holder.itemView.setOnClickListener {
+            movie?.id?.let{ movieId ->
+                onMovieClickListener.onClick(movieId)
+            }
+        }
         movie?.let { holder.bind(it) }
     }
 

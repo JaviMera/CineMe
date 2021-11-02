@@ -58,7 +58,9 @@ class Application : Application(), KoinComponent, Configuration.Provider {
             }
 
             viewModel {
-                SearchMoviesViewModel(get() as NetworkSearchRepositoryInterface)
+                SearchMoviesViewModel(
+                    get() as NetworkSearchRepositoryInterface,
+                    get() as NetworkMoviesRepositoryInterface)
             }
 
             single {

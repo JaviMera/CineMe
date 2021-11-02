@@ -15,6 +15,7 @@ import androidx.work.*
 import com.merajavier.cineme.databinding.ActivityCinemaBinding
 import com.merajavier.cineme.login.LoginViewModel
 import com.merajavier.cineme.movies.search.SearchMoviesFragment
+import com.merajavier.cineme.movies.search.SearchMoviesViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
@@ -23,6 +24,8 @@ class CinemaActivity : AppCompatActivity() {
 
     private lateinit var _binding: ActivityCinemaBinding
     private val loginViewModel: LoginViewModel by viewModel()
+    private val searchViewModel: SearchMoviesViewModel by viewModel()
+
     private val navHostFragment: NavHostFragment by lazy {supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_cinema) as NavHostFragment}
     val binding: ActivityCinemaBinding
     get() = _binding
@@ -71,13 +74,14 @@ class CinemaActivity : AppCompatActivity() {
         }
 
         binding.fragmentSearchEditText.doOnTextChanged { text, start, before, count ->
-            val fragment = navHostFragment.childFragmentManager.fragments[0] as SearchMoviesFragment
-            fragment.searchMovies(text)
+            searchViewModel.queryTitle(text.toString())
         }
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = navHostFragment.navController
+
+
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
