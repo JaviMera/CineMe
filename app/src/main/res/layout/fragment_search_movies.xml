@@ -41,8 +41,8 @@
 
                     <ImageView
                         android:id="@+id/search_icon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="8dp"
@@ -52,14 +52,18 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/search_text"
-                        android:layout_width="wrap_content"
+                    <EditText
+                        android:id="@+id/fragment_search_edit_text"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="16dp"
-                        android:text="@string/search_movies_value"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:hint="@string/search_movies_value"
+                        android:textColorHint="@color/colorPrimaryDark"
                         app:layout_constraintBottom_toBottomOf="@+id/search_icon"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toEndOf="@+id/search_icon"
                         app:layout_constraintTop_toTopOf="@+id/search_icon" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
