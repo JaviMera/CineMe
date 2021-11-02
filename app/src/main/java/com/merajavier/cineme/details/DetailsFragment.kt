@@ -11,6 +11,7 @@ import android.view.animation.Transformation
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import androidx.paging.ExperimentalPagingApi
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.merajavier.cineme.R
@@ -27,6 +28,7 @@ import com.merajavier.cineme.movies.favorites.MarkFavoriteRequest
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+@ExperimentalPagingApi
 class DetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentDetailsBinding
@@ -116,13 +118,6 @@ class DetailsFragment : Fragment() {
                     loginViewModel.userSession.sessionId,
                     args.movie.id,
                     isFavorite)
-
-                if(!isFavorite){
-
-                    accountViewModel.deleteFavoriteMovieFromDb(
-                        args.movie.toFavoriteMovieEntity()
-                    )
-                }
 
                 displayFavoriteIcon(isFavorite)
             }else{

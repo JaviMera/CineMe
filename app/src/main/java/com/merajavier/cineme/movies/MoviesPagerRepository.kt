@@ -2,8 +2,11 @@ package com.merajavier.cineme.movies
 
 import androidx.lifecycle.LiveData
 import androidx.paging.*
+import com.merajavier.cineme.movies.favorites.FavoriteMovieDataItem
+import com.merajavier.cineme.movies.favorites.FavoriteMoviesPagingSource
 import com.merajavier.cineme.movies.search.SearchMoviesPagingSource
 import com.merajavier.cineme.movies.upcoming.UpcomingMoviesPagingSource
+import com.merajavier.cineme.network.NetworkAccountRepositoryInterface
 import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
 import com.merajavier.cineme.network.NetworkSearchRepositoryInterface
 import kotlinx.coroutines.flow.Flow
@@ -26,6 +29,17 @@ class MoviesPagerRepository(){
         return Pager(
             config = getDefaultPageConfig(),
             pagingSourceFactory = { UpcomingMoviesPagingSource(networkMoviesRepositoryInterface) }
+        ).liveData
+    }
+
+    fun favoriteMoviesPagingData(
+        networkAccountRepositoryInterface: NetworkAccountRepositoryInterface,
+        sessionId: String,
+        accountId: Int
+    ) : LiveData<PagingData<FavoriteMovieDataItem>>{
+        return Pager(
+            config = getDefaultPageConfig(),
+            pagingSourceFactory = { FavoriteMoviesPagingSource(networkAccountRepositoryInterface, sessionId, accountId) }
         ).liveData
     }
 

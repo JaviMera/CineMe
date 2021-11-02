@@ -22,6 +22,7 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
+import kotlin.math.log
 
 @ExperimentalPagingApi
 class UserFragment : Fragment() {
@@ -43,7 +44,6 @@ class UserFragment : Fragment() {
 
         favoriteMoviesAdapter = FavoriteMoviesAdapter(FavoriteMoviesAdapter.OnFavoriteRemoveClickListener {
             accountViewModel.addMovieToFavorites(loginViewModel.userSession.sessionId,it.id,false)
-            accountViewModel.deleteFavoriteMovieFromDb(it.toFavoriteMovieEntity())
         })
 
         binding.recycleViewMovies.adapter = favoriteMoviesAdapter
@@ -55,20 +55,14 @@ class UserFragment : Fragment() {
             }
         }
 
-        accountViewModel.getFavoriteMovies(
-            loginViewModel.userSession.accountId,
-            loginViewModel.userSession.sessionId
-        )
-
-        accountViewModel.favoriteMovies.observe(viewLifecycleOwner, Observer {
-            it?.let {
-                accountViewModel.addFavoriteMovieToLocalDb(it)
-            }
-        })
-
-        accountViewModel.localFavoriteMovies.observe(viewLifecycleOwner, Observer {
-            it?.let{ movieEntities ->
-                favoriteMoviesAdapter.submitList(movieEntities)
+        accountViewModel.fetchMovies(
+            loginViewModel.userSession.sessionId,
+            loginViewModel.userSession.accountId
+        ).observe(viewLifecycleOwner, Observer {
+            lifecycleScope.launch {
+                it?.let{ movies ->
+                    favoriteMoviesAdapter.submitData(movies)
+                }
             }
         })
 
@@ -84,18 +78,7 @@ class UserFragment : Fragment() {
             }else{
                 when(it){
                     MarkFavoriteStatus.DONE -> {
-
-                        accountViewModel.getFavoriteMovies(
-                            loginViewModel.userSession.accountId,
-                            loginViewModel.userSession.sessionId
-                        )
-
-                        Snackbar.make(
-                            binding.favoriteMoviesConstraintLayout,
-                            "Favorites Updated!",
-                            Snackbar.LENGTH_SHORT
-                        )
-                            .show()
+                        favoriteMoviesAdapter.refresh()
                     }
                     MarkFavoriteStatus.FAILED -> {
                         Snackbar.make(

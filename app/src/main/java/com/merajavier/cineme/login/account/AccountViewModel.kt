@@ -1,14 +1,17 @@
 package com.merajavier.cineme.login.account
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import androidx.paging.map
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.data.local.FavoriteMovieEntity
 import com.merajavier.cineme.data.local.LocalAccountRepositoryInterface
 import com.merajavier.cineme.data.local.toFavoriteMovieEnties
+import com.merajavier.cineme.movies.MovieDataItem
+import com.merajavier.cineme.movies.MoviesPagerRepository
 import com.merajavier.cineme.movies.SingleLiveData
 import com.merajavier.cineme.movies.favorites.FavoriteMovieDataItem
 import com.merajavier.cineme.movies.favorites.FavoriteMoviesResponse
@@ -24,6 +27,7 @@ enum class MarkFavoriteStatus{
     FAILED
 }
 
+@ExperimentalPagingApi
 class AccountViewModel(
     private val accountRepositoryInterface: NetworkAccountRepositoryInterface,
     private val localAccountRepositoryInterface: LocalAccountRepositoryInterface
@@ -45,45 +49,22 @@ class AccountViewModel(
     val isFavoriteMovie: LiveData<Boolean>
     get() = _isFavoriteMovie
 
-    val localFavoriteMovies = localAccountRepositoryInterface.favoriteMovies
-
-    fun getFavoriteMovies(accountId: Int, sessionId: String){
-        viewModelScope.launch {
-
-            try {
-                _loading.postValue(true)
-                when(val favoriteMoviesResult = accountRepositoryInterface.getFavoriteMovies(accountId, sessionId)){
-                    is TMDBApiResult.Success ->{
-                        val favoriteMoviesResponse = favoriteMoviesResult.data as FavoriteMoviesResponse
-                        _favoriteMovies.postValue(favoriteMoviesResponse.movies)
-                    }
-                    is TMDBApiResult.Failure -> {
-
-                        val failureResponse = favoriteMoviesResult.data as ErrorResponse
-                        Timber.i(failureResponse.statusMessage)
-                    }
-                    is TMDBApiResult.Error -> {
-                        Timber.i(favoriteMoviesResult.message)
-                    }
-                }
-            }catch(exception: Exception){
-                Timber.i(exception.localizedMessage)
-            }finally {
-                _loading.postValue(false)
+    fun fetchMovies(sessionId: String, accountId: Int) : LiveData<PagingData<FavoriteMovieDataItem>> {
+        return MoviesPagerRepository()
+            .favoriteMoviesPagingData(
+                accountRepositoryInterface,
+                sessionId,
+                accountId
+            )
+            .map {
+                it.map { movie -> movie }
             }
-        }
-    }
-
-    fun addFavoriteMovieToLocalDb(movies: List<FavoriteMovieDataItem>) {
-        viewModelScope.launch {
-            localAccountRepositoryInterface.addFavoriteMovies(movies.toFavoriteMovieEnties())
-        }
+            .cachedIn(viewModelScope)
     }
 
     fun addMovieToFavorites(sessionId:String, movieId: Int, isFavorite: Boolean){
         viewModelScope.launch {
             try{
-
                 when(val markFavoriteResult = accountRepositoryInterface.markFavorite(
                     sessionId,
                     MarkFavoriteRequest("movie", movieId, isFavorite)
@@ -116,7 +97,7 @@ class AccountViewModel(
 
         viewModelScope.launch {
             try {
-                when(val favoriteMoviesResult = accountRepositoryInterface.getFavoriteMovies(accountId, sessionId)){
+                when(val favoriteMoviesResult = accountRepositoryInterface.getFavoriteMovies(accountId, sessionId, 1)){
                     is TMDBApiResult.Success -> {
                         val response = favoriteMoviesResult.data as FavoriteMoviesResponse
                         val movie = response.movies.find { m -> m.id == movieId }
@@ -134,12 +115,6 @@ class AccountViewModel(
                 Timber.i(exception.localizedMessage)
                 _isFavoriteMovie.postValue(false)
             }
-        }
-    }
-
-    fun deleteFavoriteMovieFromDb(movie: FavoriteMovieEntity) {
-        viewModelScope.launch {
-            localAccountRepositoryInterface.deleteFavoriteMovie(movie)
         }
     }
 }

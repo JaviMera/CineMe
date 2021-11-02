@@ -3,6 +3,7 @@ package com.merajavier.cineme.movies.favorites
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
+import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,7 @@ import com.merajavier.cineme.databinding.UserFavoriteMovieItemBinding
 
 class FavoriteMoviesAdapter(
     private val onFavoriteRemoveListener: OnFavoriteRemoveClickListener
-) : ListAdapter<FavoriteMovieDataItem, FavoriteMoviesAdapter.FavoriteMovieViewHolder>(DiffCallback){
+) : PagingDataAdapter<FavoriteMovieDataItem, FavoriteMoviesAdapter.FavoriteMovieViewHolder>(DiffCallback){
 
     class FavoriteMovieViewHolder(
         private val binding: UserFavoriteMovieItemBinding
@@ -37,7 +38,7 @@ class FavoriteMoviesAdapter(
 
     override fun onBindViewHolder(holder: FavoriteMovieViewHolder, position: Int) {
         val movie = getItem(position)
-        holder.bind(movie, onFavoriteRemoveListener)
+        movie?.let { holder.bind(it, onFavoriteRemoveListener) }
     }
 
     companion object DiffCallback : DiffUtil.ItemCallback<FavoriteMovieDataItem>() {

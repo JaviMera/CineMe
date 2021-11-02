@@ -22,6 +22,7 @@ interface TMDBApiAccountInterface{
     @GET("account/{account_id}/favorite/movies")
     fun getFavoriteMovies(
         @Path("account_id") accountId: Int,
-        @Query("session_id") sessionId: String
+        @Query("session_id") sessionId: String,
+        @Query("page") pageNumber: Int
     ) : Call<String>
 }

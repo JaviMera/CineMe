@@ -12,7 +12,7 @@ import retrofit2.awaitResponse
 interface NetworkAccountRepositoryInterface {
     suspend fun getAccountDetails(sessionId: String) : TMDBApiResult<*>
     suspend fun markFavorite(sessionId: String, request: MarkFavoriteRequest) : TMDBApiResult<*>
-    suspend fun getFavoriteMovies(accountId: Int, sessionId: String) : TMDBApiResult<*>
+    suspend fun getFavoriteMovies(accountId: Int, sessionId: String, pageNumber: Int) : TMDBApiResult<*>
 }
 
 class NetworkAccountRepository(
@@ -50,9 +50,9 @@ class NetworkAccountRepository(
         }
     }
 
-    override suspend fun getFavoriteMovies(accountId: Int, sessionId: String): TMDBApiResult<*> {
+    override suspend fun getFavoriteMovies(accountId: Int, sessionId: String, pageNumber: Int): TMDBApiResult<*> {
         return try{
-            val response = apiInterface.getFavoriteMovies(accountId, sessionId).awaitResponse()
+            val response = apiInterface.getFavoriteMovies(accountId, sessionId, pageNumber).awaitResponse()
             if(response.isSuccessful){
                 TMDBApiResult.Success(Gson().fromJson(response.body(), FavoriteMoviesResponse::class.java))
             }else{
