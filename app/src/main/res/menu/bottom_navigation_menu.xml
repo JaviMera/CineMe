@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/navigation_movies"
-        android:title="@string/menu_item_movies_title" />
+        android:title="@string/menu_item_movies_title"
+        android:icon="@drawable/menu_item_movies_icon"/>
     <item
         android:id="@+id/navigation_search_movies"
-        android:title="@string/menu_item_search_movies_title" />
+        android:title="@string/menu_item_search_movies_title"
+        android:icon="@drawable/menu_item_search_icon"
+        />
 
     <item
         android:id="@+id/navigation_login"
-        android:title="@string/navigation_login_title" />
+        android:title="@string/navigation_login_title"
+        android:icon="@drawable/menu_item_account_icon"/>
 </menu>

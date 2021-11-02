@@ -39,7 +39,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:contentDescription="@string/search_movies_icon_description"
-                    android:src="@drawable/search_movies_icon" />
+                    android:src="@drawable/menu_item_search_icon" />
 
                 <EditText
                     android:id="@+id/fragment_search_edit_text"
