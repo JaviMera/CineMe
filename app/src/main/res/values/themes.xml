@@ -16,5 +16,6 @@
     <style name="Theme.CineMe.NoActionBar" parent="Theme.CineMe">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorControlNormal">@color/white</item>
     </style>
 </resources>

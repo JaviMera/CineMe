@@ -49,4 +49,7 @@
     <string name="search_movies_value">Search movies by title...</string>
     <string name="search_cancel_text">Cancel</string>
     <string name="search_movies_icon_description">Search movies icon</string>
+    <string name="fragment_user_logout_text">Logout</string>
+    <string name="fragment_log_in_title">Account</string>
+    <string name="fragment_details_title">Movie Details</string>
 </resources>

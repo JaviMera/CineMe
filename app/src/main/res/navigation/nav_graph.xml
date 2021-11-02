@@ -28,7 +28,7 @@
     <fragment
         android:id="@+id/navigation_login"
         android:name="com.merajavier.cineme.login.LoginFragment"
-        android:label="LoginFragment"
+        android:label="@string/fragment_log_in_title"
         tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_navigation_login_to_userFragment"
@@ -58,7 +58,7 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.merajavier.cineme.details.DetailsFragment"
-        android:label="DetailsFragment"
+        android:label="@string/fragment_details_title"
         tools:layout="@layout/fragment_details">
         <argument
             android:name="movie"
