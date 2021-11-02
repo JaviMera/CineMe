@@ -18,6 +18,7 @@ val networkModule = module{
     factory { provideTmdbCastApi(get())}
     factory {provideTmdbAuthenticationApi(get())}
     factory{ provideTmdbAccountApi(get())}
+    factory { provideTmdbSearchApi(get(), TMDBApiSearchInterface::class.java) }
     single{provideMoshi()}
     single{provideRetrofit(get(), get())}
 }
@@ -57,4 +58,8 @@ fun provideTmdbAuthenticationApi(retrofit: Retrofit) : TMDBApiAuthenticationInte
 
 fun provideTmdbAccountApi(retrofit: Retrofit) : TMDBApiAccountInterface {
     return retrofit.create(TMDBApiAccountInterface::class.java)
+}
+
+fun provideTmdbSearchApi(retrofit: Retrofit, java: Class<*>) : Any? {
+    return retrofit.create(java)
 }

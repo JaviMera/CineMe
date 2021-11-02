@@ -22,7 +22,7 @@
     </fragment>
     <fragment
         android:id="@+id/navigation_search_movies"
-        android:name="com.merajavier.cineme.shows.TVShowListFragment"
+        android:name="com.merajavier.cineme.movies.search.SearchMoviesFragment"
         android:label="@string/search_movies_fragment_title"
         tools:layout="@layout/fragment_search_movies" />
     <fragment

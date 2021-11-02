@@ -53,8 +53,6 @@ class UserFragment : Fragment() {
             }
         }
 
-        Timber.i(loginViewModel.userSession.toString())
-
         accountViewModel.getFavoriteMovies(
             loginViewModel.userSession.accountId,
             loginViewModel.userSession.sessionId

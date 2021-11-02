@@ -72,6 +72,10 @@ class Application : Application(), KoinComponent, Configuration.Provider {
                 NetworkAccountRepository(get() as TMDBApiAccountInterface) as NetworkAccountRepositoryInterface
             }
 
+            single {
+                NetworkSearchRepository(get() as TMDBApiSearchInterface) as NetworkSearchRepositoryInterface
+            }
+
             single{
                 LocalAccountRepository(
                     get() as FavoriteMovieDao,
