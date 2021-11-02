@@ -7,6 +7,7 @@ import com.merajavier.cineme.movies.MovieDataItem
 import com.merajavier.cineme.movies.MoviesResponse
 import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
 import com.merajavier.cineme.network.NetworkSearchRepositoryInterface
+import timber.log.Timber
 
 class SearchMoviesPagingSource(
     private val apiInterface: NetworkSearchRepositoryInterface,
@@ -18,7 +19,7 @@ class SearchMoviesPagingSource(
         return try {
             val page = params.key ?: 1
             if(page <= maxPages) {
-                when (val result = apiInterface.searchMoviesByTitle(title)) {
+                when (val result = apiInterface.searchMoviesByTitle(title, page)) {
                     is TMDBApiResult.Success -> {
                         val response = result.data as MoviesResponse
                         maxPages = response.totalPages

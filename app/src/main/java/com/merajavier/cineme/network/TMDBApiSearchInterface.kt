@@ -7,6 +7,7 @@ import retrofit2.http.Query
 interface TMDBApiSearchInterface{
     @GET("search/movie")
     fun moviesByTitle(
-        @Query("query") query: String
+        @Query("query") query: String,
+        @Query("page") pageNumber: Int
     ) : Call<String>
 }

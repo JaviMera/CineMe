@@ -5,16 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.paging.ExperimentalPagingApi
-import com.merajavier.cineme.CinemaActivity
+import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.databinding.FragmentSearchMoviesBinding
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
+@ExperimentalPagingApi
 class SearchMoviesFragment : Fragment() {
 
     private lateinit var binding: FragmentSearchMoviesBinding
+    private lateinit var searchMoviesAdapter: SearchMoviesAdapter
 
     @ExperimentalPagingApi
     private val searchViewModel: SearchMoviesViewModel by viewModel()
@@ -30,11 +34,19 @@ class SearchMoviesFragment : Fragment() {
 
         binding = FragmentSearchMoviesBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
+        binding.viewModel = searchViewModel
 
+        searchMoviesAdapter = SearchMoviesAdapter()
+        binding.fragmentSearchRecyclerView.adapter = searchMoviesAdapter.withLoadStateFooter(SearchMoviesFooterAdapter())
         return binding.root
     }
 
     fun searchMovies(text: CharSequence?) {
-        Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()
+        searchViewModel.fetchMovies(text.toString()).observe(viewLifecycleOwner, Observer {
+            lifecycleScope.launch {
+                searchMoviesAdapter.submitData(it)
+            }
+        })
     }
 }
+

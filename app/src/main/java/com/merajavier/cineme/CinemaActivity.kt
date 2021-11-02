@@ -10,6 +10,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.paging.ExperimentalPagingApi
 import androidx.work.*
 import com.merajavier.cineme.databinding.ActivityCinemaBinding
 import com.merajavier.cineme.login.LoginViewModel
@@ -17,6 +18,7 @@ import com.merajavier.cineme.movies.search.SearchMoviesFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
+@ExperimentalPagingApi
 class CinemaActivity : AppCompatActivity() {
 
     private lateinit var _binding: ActivityCinemaBinding

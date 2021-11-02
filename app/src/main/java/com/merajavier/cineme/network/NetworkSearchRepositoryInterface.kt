@@ -7,16 +7,16 @@ import com.merajavier.cineme.movies.MoviesResponse
 import retrofit2.awaitResponse
 
 interface NetworkSearchRepositoryInterface {
-    suspend fun searchMoviesByTitle(title: String) : TMDBApiResult<*>
+    suspend fun searchMoviesByTitle(title: String, pageNumber: Int) : TMDBApiResult<*>
 }
 
 class NetworkSearchRepository(
     private val apiInterface: TMDBApiSearchInterface
 ) : NetworkSearchRepositoryInterface{
 
-    override suspend fun searchMoviesByTitle(title: String): TMDBApiResult<*> {
+    override suspend fun searchMoviesByTitle(title: String, pageNumber: Int): TMDBApiResult<*> {
         return try{
-            val response = apiInterface.moviesByTitle(title).awaitResponse()
+            val response = apiInterface.moviesByTitle(title, pageNumber).awaitResponse()
             if(response.isSuccessful){
                 val actorsResponse = Gson().fromJson(response.body(), MoviesResponse::class.java)
                 TMDBApiResult.Success(actorsResponse)
