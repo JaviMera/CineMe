@@ -9,12 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
-import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.databinding.FragmentSearchMoviesBinding
+import com.merajavier.cineme.movies.MoviesFooterAdapter
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 @ExperimentalPagingApi
 class SearchMoviesFragment : Fragment() {
@@ -42,7 +40,9 @@ class SearchMoviesFragment : Fragment() {
             searchViewModel.getMovieDetails(it)
         })
 
-        binding.fragmentSearchRecyclerView.adapter = searchMoviesAdapter.withLoadStateFooter(SearchMoviesFooterAdapter())
+        binding.fragmentSearchRecyclerView.adapter = searchMoviesAdapter.withLoadStateFooter(
+            MoviesFooterAdapter()
+        )
 
         searchViewModel.movieSelected.observe(viewLifecycleOwner, Observer {
             it?.let{ movie ->

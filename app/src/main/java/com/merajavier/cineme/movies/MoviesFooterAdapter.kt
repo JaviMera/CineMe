@@ -1,4 +1,4 @@
-package com.merajavier.cineme.movies.search
+package com.merajavier.cineme.movies
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.RecyclerViewProgressBarBinding
 
-class SearchMoviesFooterAdapter(
-) : LoadStateAdapter<SearchMoviesFooterAdapter.SearchMoviesFooterViewHolder>(){
+class MoviesFooterAdapter(
+) : LoadStateAdapter<MoviesFooterAdapter.SearchMoviesFooterViewHolder>(){
 
     class SearchMoviesFooterViewHolder(
         private val binding: RecyclerViewProgressBarBinding

@@ -11,6 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.R
 import com.merajavier.cineme.cancelNotification
 import com.merajavier.cineme.databinding.ActivityUpcomingMoviesBinding
+import com.merajavier.cineme.movies.MoviesFooterAdapter
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,7 +29,7 @@ class UpcomingMoviesActivity : AppCompatActivity() {
 
         binding.lifecycleOwner = this
         adapter = UpcomingMoviesAdapter()
-        binding.recyclerUpcomingMovies.adapter = adapter
+        binding.recyclerUpcomingMovies.adapter = adapter.withLoadStateFooter(MoviesFooterAdapter())
         val notificationId = intent.getIntExtra(getString(R.string.notification_id_key), -1)
         if(notificationId != -1){
             cancelNotification(this, notificationId)
