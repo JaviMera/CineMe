@@ -37,7 +37,7 @@ class CinemaActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         val appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.navigation_movies, R.id.navigation_tv_shows, R.id.navigation_login, R.id.userFragment
+                R.id.navigation_movies, R.id.navigation_search_movies, R.id.navigation_login, R.id.userFragment
             )
         )
 

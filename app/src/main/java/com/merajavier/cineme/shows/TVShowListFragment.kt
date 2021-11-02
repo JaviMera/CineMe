@@ -6,11 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.merajavier.cineme.R
-import com.merajavier.cineme.databinding.FragmentTVShowListBinding
+import com.merajavier.cineme.databinding.FragmentSearchMoviesBinding
 
 class TVShowListFragment : Fragment() {
 
-    private lateinit var _binding: FragmentTVShowListBinding
+    private lateinit var _binding: FragmentSearchMoviesBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +21,7 @@ class TVShowListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentTVShowListBinding.inflate(inflater, container, false)
+        _binding = FragmentSearchMoviesBinding.inflate(inflater, container, false)
 
         return _binding.root
     }

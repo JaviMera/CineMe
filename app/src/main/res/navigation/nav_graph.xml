@@ -21,10 +21,10 @@
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
-        android:id="@+id/navigation_tv_shows"
+        android:id="@+id/navigation_search_movies"
         android:name="com.merajavier.cineme.shows.TVShowListFragment"
-        android:label="@string/tv_shows_fragment_title"
-        tools:layout="@layout/fragment_t_v_show_list" />
+        android:label="@string/search_movies_fragment_title"
+        tools:layout="@layout/fragment_search_movies" />
     <fragment
         android:id="@+id/navigation_login"
         android:name="com.merajavier.cineme.login.LoginFragment"
