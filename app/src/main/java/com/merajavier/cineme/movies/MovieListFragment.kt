@@ -40,24 +40,11 @@ class MovieListFragment : Fragment() {
             viewModel.getMovieDetails(it)
         })
 
-        binding.recycleViewMovies.adapter = moviesAdapter
+        binding.recycleViewMovies.adapter = moviesAdapter.withLoadStateFooter(MoviesFooterAdapter())
 
         viewModel.fetchMovies().observe(viewLifecycleOwner, Observer { pagingData ->
             lifecycleScope.launch {
                 moviesAdapter.submitData(pagingData)
-            }
-        })
-
-        viewModel.loading.observe(viewLifecycleOwner, Observer {
-            it.let {
-                when(it){
-                    true -> {
-                        binding.loadingIndicator.visibility = View.VISIBLE
-                    }
-                    false -> {
-                        binding.loadingIndicator.visibility = View.GONE
-                    }
-                }
             }
         })
 
