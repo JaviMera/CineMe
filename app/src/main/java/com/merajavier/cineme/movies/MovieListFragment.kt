@@ -42,9 +42,15 @@ class MovieListFragment : Fragment() {
 
         binding.recycleViewMovies.adapter = moviesAdapter.withLoadStateFooter(MoviesFooterAdapter())
 
-        viewModel.fetchMovies().observe(viewLifecycleOwner, Observer { pagingData ->
+//        viewModel.fetchMovies().observe(viewLifecycleOwner, Observer { pagingData ->
+//            lifecycleScope.launch {
+//                moviesAdapter.submitData(pagingData)
+//            }
+//        })
+
+        viewModel.fetchMoviesWithDb().observe(viewLifecycleOwner, Observer {
             lifecycleScope.launch {
-                moviesAdapter.submitData(pagingData)
+                moviesAdapter.submitData(it)
             }
         })
 

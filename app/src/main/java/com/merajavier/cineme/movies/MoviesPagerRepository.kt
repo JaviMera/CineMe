@@ -2,6 +2,9 @@ package com.merajavier.cineme.movies
 
 import androidx.lifecycle.LiveData
 import androidx.paging.*
+import com.merajavier.cineme.data.local.MovieEntity
+import com.merajavier.cineme.data.local.NowPlayingMoviesDao
+import com.merajavier.cineme.data.local.RemoteKeysDao
 import com.merajavier.cineme.movies.favorites.FavoriteMovieDataItem
 import com.merajavier.cineme.movies.favorites.FavoriteMoviesPagingSource
 import com.merajavier.cineme.movies.search.SearchMoviesPagingSource
@@ -20,6 +23,18 @@ class MoviesPagerRepository(){
         return Pager(
             config = getDefaultPageConfig(),
             pagingSourceFactory = { MoviesPagingSource(networkMoviesRepositoryInterface) }
+        ).liveData
+    }
+
+    fun nowPlayingMoviesDb(
+        networkMoviesRepositoryInterface: NetworkMoviesRepositoryInterface,
+        moviesDao: NowPlayingMoviesDao,
+        remoteKeysDao: RemoteKeysDao
+    ) : LiveData<PagingData<MovieEntity>> {
+        return Pager(
+            config = getDefaultPageConfig(),
+            pagingSourceFactory = { moviesDao.getMovies() },
+            remoteMediator = NowPlayingMoviesMediator(networkMoviesRepositoryInterface, moviesDao, remoteKeysDao)
         ).liveData
     }
 

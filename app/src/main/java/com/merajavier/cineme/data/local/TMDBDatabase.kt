@@ -1,19 +1,20 @@
 package com.merajavier.cineme.data.local
 
 import android.content.Context
-import androidx.room.AutoMigration
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(
-    entities = [FavoriteMovieEntity::class, UserSessionEntity::class],
-    version = 4,
+    entities = [FavoriteMovieEntity::class, UserSessionEntity::class, MovieEntity::class, RemoteKeysEntity::class],
+    version = 5,
     exportSchema = false)
 abstract class TMDBDatabase : RoomDatabase(){
 
     abstract val favoriteMovieDao: FavoriteMovieDao
     abstract val userSessionDao: UserSessionDao
+    abstract val nowPlayingMoviesDao: NowPlayingMoviesDao
+    abstract val remoteKeysDao: RemoteKeysDao
 
     companion object {
         @Volatile

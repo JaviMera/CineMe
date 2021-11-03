@@ -31,7 +31,9 @@ class Application : Application(), KoinComponent, Configuration.Provider {
 
         val viewModelModule = module {
             viewModel{
-                MovieListViewModel(get() as NetworkMoviesRepositoryInterface)
+                MovieListViewModel(get() as NetworkMoviesRepositoryInterface,
+                get() as NowPlayingMoviesDao,
+                get() as RemoteKeysDao)
             }
 
             viewModel{
@@ -95,6 +97,14 @@ class Application : Application(), KoinComponent, Configuration.Provider {
 
             single {
                 TMDBDatabase.getInstance(this@Application).userSessionDao
+            }
+
+            single {
+                TMDBDatabase.getInstance(this@Application).nowPlayingMoviesDao
+            }
+
+            single {
+                TMDBDatabase.getInstance(this@Application).remoteKeysDao
             }
 
             worker {UpcomingMoviesWorker(get(), get(), get() as NetworkMoviesRepositoryInterface)}
