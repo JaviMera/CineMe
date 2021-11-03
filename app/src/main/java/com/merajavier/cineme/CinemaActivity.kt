@@ -1,22 +1,29 @@
 package com.merajavier.cineme
 
+import android.net.ConnectivityManager
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.work.*
+import com.merajavier.cineme.data.local.NowPlayingMoviesDao
 import com.merajavier.cineme.databinding.ActivityCinemaBinding
 import com.merajavier.cineme.login.LoginViewModel
 import com.merajavier.cineme.movies.search.SearchMoviesFragment
 import com.merajavier.cineme.movies.search.SearchMoviesViewModel
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 @ExperimentalPagingApi
@@ -65,6 +72,18 @@ class CinemaActivity : AppCompatActivity() {
                 request
             )
 
+        val nowPlayingMoviesRequest = PeriodicWorkRequestBuilder<NowPlayingMoviesWorker>(1, TimeUnit.DAYS)
+            .setConstraints(constraints)
+            .build()
+
+        WorkManager
+            .getInstance(applicationContext)
+            .enqueueUniquePeriodicWork(
+                NowPlayingMoviesWorker.WORKER_NAME,
+                ExistingPeriodicWorkPolicy.KEEP,
+                nowPlayingMoviesRequest
+            )
+
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             if(destination.id == R.id.navigation_search_movies){
                 binding.fragmentSearchCardView.visibility = View.VISIBLE
@@ -80,8 +99,6 @@ class CinemaActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = navHostFragment.navController
-
-
         return navController.navigateUp() || super.onSupportNavigateUp()
     }
 

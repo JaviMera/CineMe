@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 
 @Database(
     entities = [FavoriteMovieEntity::class, UserSessionEntity::class, MovieEntity::class, RemoteKeysEntity::class],
-    version = 5,
+    version = 7,
     exportSchema = false)
 abstract class TMDBDatabase : RoomDatabase(){
 

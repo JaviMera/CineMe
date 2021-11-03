@@ -8,9 +8,7 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
-import com.merajavier.cineme.data.local.NowPlayingMoviesDao
-import com.merajavier.cineme.data.local.RemoteKeysDao
-import com.merajavier.cineme.data.local.toMovieDataItem
+import com.merajavier.cineme.data.local.TMDBDatabase
 import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -52,8 +50,7 @@ class SingleLiveData<T> : MutableLiveData<T>() {
 @ExperimentalPagingApi
 class MovieListViewModel(
     private val networkMovieRepository: NetworkMoviesRepositoryInterface,
-    private val moviesDao: NowPlayingMoviesDao,
-    private val remoteKeysDao: RemoteKeysDao)
+    private val tmdbDatabase: TMDBDatabase)
     : ViewModel() {
 
     private val _selectedMovie = SingleLiveData<MovieDataItem>()
@@ -69,10 +66,10 @@ class MovieListViewModel(
             .cachedIn(viewModelScope)
     }
 
-    fun fetchMoviesWithDb() : LiveData<PagingData<MovieDataItem>> {
+    fun fetchLocalMovies() : LiveData<PagingData<MovieDataItem>> {
         return MoviesPagerRepository()
-            .nowPlayingMoviesDb(networkMovieRepository, moviesDao, remoteKeysDao)
-            .map { it.map { movie -> movie.toMovieDataItem() }
+            .localMoviesPagingData(tmdbDatabase)
+            .map { it.map{movie -> movie}
             }
             .cachedIn(viewModelScope)
     }

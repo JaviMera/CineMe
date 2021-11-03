@@ -11,6 +11,7 @@ import com.merajavier.cineme.koin.modules.sharedPreferencesModule
 import com.merajavier.cineme.login.LoginViewModel
 import com.merajavier.cineme.login.account.AccountViewModel
 import com.merajavier.cineme.movies.MovieListViewModel
+import com.merajavier.cineme.movies.search.SearchMoviesFragmentDirections
 import com.merajavier.cineme.movies.search.SearchMoviesViewModel
 import com.merajavier.cineme.movies.upcoming.UpcomingMoviesViewModel
 import com.merajavier.cineme.network.*
@@ -32,8 +33,7 @@ class Application : Application(), KoinComponent, Configuration.Provider {
         val viewModelModule = module {
             viewModel{
                 MovieListViewModel(get() as NetworkMoviesRepositoryInterface,
-                get() as NowPlayingMoviesDao,
-                get() as RemoteKeysDao)
+                get() as TMDBDatabase)
             }
 
             viewModel{
@@ -107,7 +107,12 @@ class Application : Application(), KoinComponent, Configuration.Provider {
                 TMDBDatabase.getInstance(this@Application).remoteKeysDao
             }
 
+            single {
+                TMDBDatabase.getInstance(this@Application) as TMDBDatabase
+            }
+
             worker {UpcomingMoviesWorker(get(), get(), get() as NetworkMoviesRepositoryInterface)}
+            worker { NowPlayingMoviesWorker(get(), get(), get() as NetworkMoviesRepositoryInterface, get() as TMDBDatabase) }
         }
 
         startKoin {

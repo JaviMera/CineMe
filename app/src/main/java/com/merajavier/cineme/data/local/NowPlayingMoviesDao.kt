@@ -13,7 +13,7 @@ interface NowPlayingMoviesDao{
     suspend fun addMovies(movieEntity: List<MovieEntity>)
 
     @Query("SELECT * FROM now_playing_movies")
-    fun getMovies() : PagingSource<Int, MovieEntity>
+    fun getMovieEntities() : List<MovieEntity>
 
     @Query("DELETE FROM now_playing_movies")
     suspend fun clearAll()

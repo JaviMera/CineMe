@@ -48,6 +48,10 @@ fun MovieEntity.toMovieDataItem() : MovieDataItem {
     )
 }
 
+fun List<MovieEntity>.toMovieDataItems() : List<MovieDataItem> {
+    return this.map { movieEntity -> movieEntity.toMovieDataItem() }
+}
+
 fun List<MovieDataItem>.toMovieEntities() : List<MovieEntity>{
     return this.map { movie ->
         MovieEntity(
