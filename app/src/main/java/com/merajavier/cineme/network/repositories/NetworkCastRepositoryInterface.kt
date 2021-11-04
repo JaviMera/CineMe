@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.merajavier.cineme.cast.ActorsResponse
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
-import com.merajavier.cineme.network.TMDBApiCastInterface
+import com.merajavier.cineme.network.api.TMDBApiCastInterface
 import retrofit2.awaitResponse
 
 interface NetworkCastRepositoryInterface {

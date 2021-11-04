@@ -4,7 +4,7 @@ import com.google.gson.Gson
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.login.authentication.*
-import com.merajavier.cineme.network.TMDBApiAuthenticationInterface
+import com.merajavier.cineme.network.api.TMDBApiAuthenticationInterface
 import retrofit2.awaitResponse
 
 interface NetworkAuthenticationRepositoryInterface {

@@ -1,4 +1,4 @@
-package com.merajavier.cineme.network
+package com.merajavier.cineme.network.api
 
 import com.merajavier.cineme.cast.ActorsResponse
 import retrofit2.Call

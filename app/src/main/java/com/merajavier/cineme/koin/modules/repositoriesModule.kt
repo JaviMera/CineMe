@@ -1,6 +1,6 @@
 package com.merajavier.cineme.koin.modules
 
-import com.merajavier.cineme.network.*
+import com.merajavier.cineme.network.api.*
 import com.merajavier.cineme.network.repositories.*
 import org.koin.dsl.module
 

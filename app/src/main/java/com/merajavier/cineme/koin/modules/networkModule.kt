@@ -2,6 +2,7 @@ package com.merajavier.cineme.koin.modules
 
 import com.merajavier.cineme.BuildConfig
 import com.merajavier.cineme.network.*
+import com.merajavier.cineme.network.api.*
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import okhttp3.OkHttpClient
@@ -43,11 +44,11 @@ fun provideRetrofit(moshi: Moshi, okHttpClient: OkHttpClient) : Retrofit {
         .build()
 }
 
-fun provideTmdbMoviesApi(retrofit: Retrofit) : TMDBApMoviesiInterface{
+fun provideTmdbMoviesApi(retrofit: Retrofit) : TMDBApMoviesiInterface {
     return retrofit.create(TMDBApMoviesiInterface::class.java)
 }
 
-fun provideTmdbCastApi(retrofit: Retrofit) : TMDBApiCastInterface{
+fun provideTmdbCastApi(retrofit: Retrofit) : TMDBApiCastInterface {
     return retrofit.create(TMDBApiCastInterface::class.java)
 }
 

@@ -1,4 +1,4 @@
-package com.merajavier.cineme.network
+package com.merajavier.cineme.network.api
 
 import com.merajavier.cineme.login.authentication.*
 import retrofit2.Call

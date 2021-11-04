@@ -1,4 +1,4 @@
-package com.merajavier.cineme.network
+package com.merajavier.cineme.network.api
 
 import retrofit2.Call
 import retrofit2.http.GET
