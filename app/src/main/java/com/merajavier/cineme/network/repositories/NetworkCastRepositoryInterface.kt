@@ -1,9 +1,10 @@
-package com.merajavier.cineme.network
+package com.merajavier.cineme.network.repositories
 
 import com.google.gson.Gson
 import com.merajavier.cineme.cast.ActorsResponse
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
+import com.merajavier.cineme.network.TMDBApiCastInterface
 import retrofit2.awaitResponse
 
 interface NetworkCastRepositoryInterface {
@@ -13,7 +14,7 @@ interface NetworkCastRepositoryInterface {
 
 class NetworkMovieActorRepository(
     private val apiInterface: TMDBApiCastInterface
-) : NetworkCastRepositoryInterface{
+) : NetworkCastRepositoryInterface {
 
     override suspend fun getActors(movieId: Int): TMDBApiResult<*> {
 

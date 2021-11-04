@@ -2,18 +2,14 @@ package com.merajavier.cineme.movies
 
 import androidx.lifecycle.LiveData
 import androidx.paging.*
-import com.merajavier.cineme.data.local.MovieEntity
-import com.merajavier.cineme.data.local.NowPlayingMoviesDao
-import com.merajavier.cineme.data.local.RemoteKeysDao
 import com.merajavier.cineme.data.local.TMDBDatabase
 import com.merajavier.cineme.movies.favorites.FavoriteMovieDataItem
 import com.merajavier.cineme.movies.favorites.FavoriteMoviesPagingSource
 import com.merajavier.cineme.movies.search.SearchMoviesPagingSource
 import com.merajavier.cineme.movies.upcoming.UpcomingMoviesPagingSource
-import com.merajavier.cineme.network.NetworkAccountRepositoryInterface
-import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
-import com.merajavier.cineme.network.NetworkSearchRepositoryInterface
-import kotlinx.coroutines.flow.Flow
+import com.merajavier.cineme.network.repositories.NetworkAccountRepositoryInterface
+import com.merajavier.cineme.network.repositories.NetworkMoviesRepositoryInterface
+import com.merajavier.cineme.network.repositories.NetworkSearchRepositoryInterface
 
 @ExperimentalPagingApi
 class MoviesPagerRepository(){

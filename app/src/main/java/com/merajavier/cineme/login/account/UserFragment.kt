@@ -11,18 +11,12 @@ import androidx.paging.ExperimentalPagingApi
 import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.CinemaActivity
 import com.merajavier.cineme.R
-import com.merajavier.cineme.data.local.FavoriteMovieEntity
-import com.merajavier.cineme.data.local.toFavoriteMovieEntity
 import com.merajavier.cineme.databinding.FragmentUserBinding
 import com.merajavier.cineme.login.LoginViewModel
-import com.merajavier.cineme.movies.favorites.FavoriteMovieDataItem
 import com.merajavier.cineme.movies.favorites.FavoriteMoviesAdapter
-import com.merajavier.cineme.movies.favorites.MarkFavoriteRequest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
-import kotlin.math.log
 
 @ExperimentalPagingApi
 class UserFragment : Fragment() {

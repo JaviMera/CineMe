@@ -1,9 +1,10 @@
-package com.merajavier.cineme.data.local
+package com.merajavier.cineme.data.local.daos
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.merajavier.cineme.data.local.entities.RemoteKeysEntity
 
 @Dao
 interface RemoteKeysDao{

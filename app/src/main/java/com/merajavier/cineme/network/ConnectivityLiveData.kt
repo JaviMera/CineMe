@@ -13,7 +13,7 @@ import androidx.lifecycle.LiveData
 import androidx.paging.ExperimentalPagingApi
 import timber.log.Timber
 
-
+// Credit to navczydev in github for this sample code to check connectivity changes
 @ExperimentalPagingApi
 class ConnectivityLiveData private constructor(private val connectivityManager: ConnectivityManager) :
     LiveData<Boolean>() {

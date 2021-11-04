@@ -1,4 +1,4 @@
-package com.merajavier.cineme.data.local
+package com.merajavier.cineme.data.local.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

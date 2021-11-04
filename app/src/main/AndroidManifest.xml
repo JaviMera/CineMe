@@ -19,6 +19,7 @@
             android:label="@string/activity_upcoming_movies_title"
             android:exported="false" />
 
+        <!--Disable default work manager initialization to allow Koin to inject workers-->
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"
             android:authorities="${applicationId}.workmanager-init"

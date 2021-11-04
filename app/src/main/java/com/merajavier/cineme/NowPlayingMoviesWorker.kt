@@ -9,7 +9,7 @@ import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.data.local.TMDBDatabase
 import com.merajavier.cineme.data.local.toMovieEntities
 import com.merajavier.cineme.movies.MoviesResponse
-import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
+import com.merajavier.cineme.network.repositories.NetworkMoviesRepositoryInterface
 import org.koin.core.component.KoinComponent
 import timber.log.Timber
 import java.lang.Exception

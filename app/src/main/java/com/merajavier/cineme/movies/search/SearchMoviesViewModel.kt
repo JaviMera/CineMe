@@ -10,8 +10,8 @@ import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.movies.MovieDataItem
 import com.merajavier.cineme.movies.MoviesPagerRepository
 import com.merajavier.cineme.movies.SingleLiveData
-import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
-import com.merajavier.cineme.network.NetworkSearchRepositoryInterface
+import com.merajavier.cineme.network.repositories.NetworkMoviesRepositoryInterface
+import com.merajavier.cineme.network.repositories.NetworkSearchRepositoryInterface
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception

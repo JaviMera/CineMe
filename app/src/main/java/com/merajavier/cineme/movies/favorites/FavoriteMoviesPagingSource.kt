@@ -3,7 +3,7 @@ package com.merajavier.cineme.movies.favorites
 import androidx.paging.PagingSource
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
-import com.merajavier.cineme.network.NetworkAccountRepositoryInterface
+import com.merajavier.cineme.network.repositories.NetworkAccountRepositoryInterface
 
 class FavoriteMoviesPagingSource (
     private val networkAccountRepositoryInterface: NetworkAccountRepositoryInterface,

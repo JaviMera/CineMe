@@ -7,7 +7,7 @@ import androidx.paging.cachedIn
 import androidx.paging.map
 import com.merajavier.cineme.movies.MovieDataItem
 import com.merajavier.cineme.movies.MoviesPagerRepository
-import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
+import com.merajavier.cineme.network.repositories.NetworkMoviesRepositoryInterface
 
 @ExperimentalPagingApi
 class UpcomingMoviesViewModel(

@@ -2,7 +2,6 @@ package com.merajavier.cineme.movies
 
 import androidx.paging.PagingSource
 import androidx.room.withTransaction
-import com.merajavier.cineme.data.local.NowPlayingMoviesDao
 import com.merajavier.cineme.data.local.TMDBDatabase
 import com.merajavier.cineme.data.local.toMovieDataItems
 

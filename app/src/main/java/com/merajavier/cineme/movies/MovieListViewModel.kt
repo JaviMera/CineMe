@@ -9,7 +9,7 @@ import androidx.paging.map
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.data.local.TMDBDatabase
-import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
+import com.merajavier.cineme.network.repositories.NetworkMoviesRepositoryInterface
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception

@@ -8,12 +8,12 @@ import androidx.lifecycle.viewModelScope
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.data.local.LocalAccountRepositoryInterface
-import com.merajavier.cineme.data.local.UserSessionEntity
+import com.merajavier.cineme.data.local.entities.UserSessionEntity
 import com.merajavier.cineme.login.account.AccountDetailsResponse
 import com.merajavier.cineme.login.authentication.*
 import com.merajavier.cineme.movies.SingleLiveData
-import com.merajavier.cineme.network.NetworkAccountRepositoryInterface
-import com.merajavier.cineme.network.NetworkAuthenticationRepositoryInterface
+import com.merajavier.cineme.network.repositories.NetworkAccountRepositoryInterface
+import com.merajavier.cineme.network.repositories.NetworkAuthenticationRepositoryInterface
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import java.lang.Exception

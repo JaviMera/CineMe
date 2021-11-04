@@ -1,10 +1,8 @@
 package com.merajavier.cineme.adapters
 
-import android.os.Build
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.annotation.RequiresApi
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -12,7 +10,6 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.merajavier.cineme.BuildConfig
 import com.merajavier.cineme.R
 import com.merajavier.cineme.common.toPercentAverage
-import com.merajavier.cineme.network.NetworkCastRepositoryInterface
 import java.text.SimpleDateFormat
 import java.util.*
 

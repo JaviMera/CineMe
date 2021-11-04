@@ -5,9 +5,7 @@ import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.movies.MovieDataItem
 import com.merajavier.cineme.movies.MoviesResponse
-import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
-import com.merajavier.cineme.network.NetworkSearchRepositoryInterface
-import timber.log.Timber
+import com.merajavier.cineme.network.repositories.NetworkSearchRepositoryInterface
 
 class SearchMoviesPagingSource(
     private val apiInterface: NetworkSearchRepositoryInterface,

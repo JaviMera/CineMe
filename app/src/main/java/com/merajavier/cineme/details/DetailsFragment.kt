@@ -1,6 +1,7 @@
 package com.merajavier.cineme.details
 
 import android.animation.ValueAnimator
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -18,13 +19,10 @@ import com.merajavier.cineme.R
 import com.merajavier.cineme.cast.ActorsRecyclerAdapter
 import com.merajavier.cineme.cast.CastListViewModel
 import com.merajavier.cineme.common.toPercentAverage
-import com.merajavier.cineme.data.local.toFavoriteMovieEntity
 import com.merajavier.cineme.databinding.FragmentDetailsBinding
 import com.merajavier.cineme.genre.GenresRecyclerAdapter
 import com.merajavier.cineme.login.LoginViewModel
 import com.merajavier.cineme.login.account.AccountViewModel
-import com.merajavier.cineme.movies.favorites.FavoriteMovieDataItem
-import com.merajavier.cineme.movies.favorites.MarkFavoriteRequest
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

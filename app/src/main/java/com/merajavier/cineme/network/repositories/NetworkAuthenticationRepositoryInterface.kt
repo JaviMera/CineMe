@@ -1,9 +1,10 @@
-package com.merajavier.cineme.network
+package com.merajavier.cineme.network.repositories
 
 import com.google.gson.Gson
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.login.authentication.*
+import com.merajavier.cineme.network.TMDBApiAuthenticationInterface
 import retrofit2.awaitResponse
 
 interface NetworkAuthenticationRepositoryInterface {
@@ -15,7 +16,7 @@ interface NetworkAuthenticationRepositoryInterface {
 
 class NetworkAuthenticationRepository(
     private val apiInterface: TMDBApiAuthenticationInterface
-) : NetworkAuthenticationRepositoryInterface{
+) : NetworkAuthenticationRepositoryInterface {
 
     override suspend fun createToken(): TMDBApiResult<*> {
         return try{

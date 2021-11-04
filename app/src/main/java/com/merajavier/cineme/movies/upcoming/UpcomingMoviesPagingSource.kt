@@ -5,7 +5,7 @@ import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.movies.MovieDataItem
 import com.merajavier.cineme.movies.MoviesResponse
-import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
+import com.merajavier.cineme.network.repositories.NetworkMoviesRepositoryInterface
 
 class UpcomingMoviesPagingSource(
     private val apiInterface: NetworkMoviesRepositoryInterface

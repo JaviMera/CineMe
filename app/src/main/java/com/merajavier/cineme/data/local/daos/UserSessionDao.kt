@@ -1,11 +1,11 @@
-package com.merajavier.cineme.data.local
+package com.merajavier.cineme.data.local.daos
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
+import com.merajavier.cineme.data.local.entities.UserSessionEntity
 
 @Dao
 interface UserSessionDao{

@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
-import com.merajavier.cineme.network.NetworkMovieActorRepository
+import com.merajavier.cineme.network.repositories.NetworkMovieActorRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
 

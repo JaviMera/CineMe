@@ -1,16 +1,10 @@
 package com.merajavier.cineme.movies
 
 import androidx.paging.PagingSource
-import androidx.room.RoomDatabase
-import androidx.room.withTransaction
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
-import com.merajavier.cineme.data.local.NowPlayingMoviesDao
-import com.merajavier.cineme.data.local.TMDBDatabase
-import com.merajavier.cineme.data.local.toMovieEntities
-import com.merajavier.cineme.network.NetworkMoviesRepositoryInterface
+import com.merajavier.cineme.network.repositories.NetworkMoviesRepositoryInterface
 import timber.log.Timber
-import kotlin.math.max
 
 class MoviesPagingSource(
     private val apiInterface: NetworkMoviesRepositoryInterface

@@ -1,4 +1,4 @@
-package com.merajavier.cineme.network
+package com.merajavier.cineme.network.repositories
 
 import com.google.gson.Gson
 import com.merajavier.cineme.common.ErrorResponse
@@ -7,6 +7,7 @@ import com.merajavier.cineme.login.account.AccountDetailsResponse
 import com.merajavier.cineme.movies.favorites.FavoriteMoviesResponse
 import com.merajavier.cineme.movies.favorites.MarkFavoriteRequest
 import com.merajavier.cineme.movies.favorites.MarkFavoriteResponse
+import com.merajavier.cineme.network.TMDBApiAccountInterface
 import retrofit2.awaitResponse
 
 interface NetworkAccountRepositoryInterface {

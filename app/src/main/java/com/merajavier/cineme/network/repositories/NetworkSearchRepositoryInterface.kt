@@ -1,9 +1,10 @@
-package com.merajavier.cineme.network
+package com.merajavier.cineme.network.repositories
 
 import com.google.gson.Gson
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.movies.MoviesResponse
+import com.merajavier.cineme.network.TMDBApiSearchInterface
 import retrofit2.awaitResponse
 
 interface NetworkSearchRepositoryInterface {
@@ -12,7 +13,7 @@ interface NetworkSearchRepositoryInterface {
 
 class NetworkSearchRepository(
     private val apiInterface: TMDBApiSearchInterface
-) : NetworkSearchRepositoryInterface{
+) : NetworkSearchRepositoryInterface {
 
     override suspend fun searchMoviesByTitle(title: String, pageNumber: Int): TMDBApiResult<*> {
         return try{

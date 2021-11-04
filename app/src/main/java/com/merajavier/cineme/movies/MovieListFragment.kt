@@ -5,18 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import com.google.android.material.snackbar.Snackbar
-import com.merajavier.cineme.data.local.NowPlayingMoviesDao
 import com.merajavier.cineme.databinding.FragmentMoviesBinding
 import com.merajavier.cineme.network.ConnectivityLiveData
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
-import timber.log.Timber
 
 @ExperimentalPagingApi
 class MovieListFragment : Fragment() {
@@ -47,22 +44,25 @@ class MovieListFragment : Fragment() {
 
         binding.recycleViewMovies.adapter = moviesAdapter.withLoadStateFooter(MoviesFooterAdapter())
 
-        viewModel.movieSelected.observe(viewLifecycleOwner, Observer {
-            it.let {
-                findNavController().navigate(MovieListFragmentDirections.actionNavigationMoviesToDetailsFragment(it))
-            }
-        })
-
         val connectivityLiveData = ConnectivityLiveData(requireActivity().application)
         connectivityLiveData.observe(viewLifecycleOwner, Observer {
-            it?.let{
-                if(it){
+            it?.let{ isConnected ->
+                if(isConnected){
 
+                    // Remove observer that pulls data from the database
                     viewModel.fetchLocalMovies().removeObservers(viewLifecycleOwner)
+
+                    // Add any observers from live data objects that deal with network calls
                     viewModel.fetchMovies().observe(viewLifecycleOwner, Observer { pagingData ->
                         lifecycleScope.launch {
                             binding.recycleViewMovies.scrollToPosition(0)
                             moviesAdapter.submitData(pagingData)
+                        }
+
+                    })
+                    viewModel.movieSelected.observe(viewLifecycleOwner, Observer {
+                        it.let {
+                            findNavController().navigate(MovieListFragmentDirections.actionNavigationMoviesToDetailsFragment(it))
                         }
                     })
                 }else{
@@ -72,7 +72,11 @@ class MovieListFragment : Fragment() {
 
                     snackbar.show()
 
+                    // Remove any observers from live data objects that deal with network calls
                     viewModel.fetchMovies().removeObservers(viewLifecycleOwner)
+                    viewModel.movieSelected.removeObservers(viewLifecycleOwner)
+
+                    // Add observer that pulls data from the database
                     viewModel.fetchLocalMovies().observe(viewLifecycleOwner, Observer {
                         lifecycleScope.launch {
                             binding.recycleViewMovies.scrollToPosition(0)
