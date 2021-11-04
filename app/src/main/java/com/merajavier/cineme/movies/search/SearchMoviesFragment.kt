@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
+import androidx.paging.PagingData
 import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.databinding.FragmentSearchMoviesBinding
 import com.merajavier.cineme.movies.MoviesFooterAdapter
@@ -58,11 +59,18 @@ class SearchMoviesFragment : Fragment() {
                 if(isConnected){
                     searchViewModel.queryTitle.observe(viewLifecycleOwner, Observer { text ->
                         text?.let{ title ->
-                            searchViewModel.fetchMovies(title).observe(viewLifecycleOwner, Observer {
+
+                            if(title.isEmpty()){
                                 lifecycleScope.launch {
-                                    searchMoviesAdapter.submitData(it)
+                                    searchMoviesAdapter.submitData(PagingData.empty())
                                 }
-                            })
+                            }else{
+                                searchViewModel.fetchMovies(title).observe(viewLifecycleOwner, Observer {
+                                    lifecycleScope.launch {
+                                        searchMoviesAdapter.submitData(it)
+                                    }
+                                })
+                            }
                         }
                     })
                 }else{

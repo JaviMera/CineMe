@@ -88,6 +88,11 @@ class CinemaActivity : AppCompatActivity() {
         binding.fragmentSearchEditText.doOnTextChanged { text, start, before, count ->
             searchViewModel.queryTitle(text.toString())
         }
+
+        binding.cancelSearchIcon.setOnClickListener {
+            binding.fragmentSearchEditText.setText("")
+        }
+
         val connectivityLiveData = ConnectivityLiveData(this.application)
         connectivityLiveData.observe(this, Observer {
             it?.let { isConnected ->

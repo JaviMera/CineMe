@@ -4,8 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/javie/Desktop/Capstone/CineMe/app/src/main/res/layout/fragment_movies.xml" value="0.290625" />
+        <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/drawable-anydpi-v24/cancel_search_icon.xml" value="0.4083333333333333" />
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/drawable-anydpi-v24/cineme_icon.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/drawable-anydpi-v24/ic_cineme_notification_icon.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/drawable-anydpi-v24/menu_item_search_icon.xml" value="0.26458333333333334" />
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/drawable-anydpi/movie_favorite_not_selected.xml" value="0.29270833333333335" />
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/drawable-anydpi/movie_favorite_not_selected_purple.xml" value="0.3203125" />
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/drawable-anydpi/movie_favorite_selected.xml" value="0.3203125" />

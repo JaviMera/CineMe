@@ -52,4 +52,5 @@
     <string name="fragment_user_logout_text">Logout</string>
     <string name="fragment_log_in_title">Account</string>
     <string name="fragment_details_title">Movie Details</string>
+    <string name="cancel_search_movies_icon_description">remove search title</string>
 </resources>

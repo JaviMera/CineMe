@@ -17,7 +17,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:titleTextColor="@color/white"
         >
 
         <androidx.cardview.widget.CardView
@@ -39,7 +38,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:contentDescription="@string/search_movies_icon_description"
-                    android:src="@drawable/menu_item_search_icon" />
+                    android:src="@drawable/search_icon" />
 
                 <EditText
                     android:id="@+id/fragment_search_edit_text"
@@ -50,6 +49,14 @@
                     android:backgroundTint="@color/colorPrimaryDark"
                     android:minHeight="48dp"
                     android:textColorHint="@color/colorPrimaryDark" />
+
+                <ImageView
+                    android:id="@+id/cancel_search_icon"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:contentDescription="@string/cancel_search_movies_icon_description"
+                    android:src="@drawable/cancel_search_icon" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </com.google.android.material.appbar.MaterialToolbar>

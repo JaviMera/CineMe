@@ -8,7 +8,7 @@
     <item
         android:id="@+id/navigation_search_movies"
         android:title="@string/menu_item_search_movies_title"
-        android:icon="@drawable/menu_item_search_icon"
+        android:icon="@drawable/search_icon"
         />
 
     <item
