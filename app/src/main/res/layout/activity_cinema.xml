@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        >
+        app:titleTextColor="@color/white">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/fragment_search_card_view"
@@ -38,6 +38,7 @@
                     android:layout_height="30dp"
                     android:layout_gravity="center"
                     android:contentDescription="@string/search_movies_icon_description"
+                    android:layout_marginStart="10dp"
                     android:src="@drawable/search_icon" />
 
                 <EditText
@@ -55,6 +56,7 @@
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_gravity="center"
+                    android:layout_marginEnd="10dp"
                     android:contentDescription="@string/cancel_search_movies_icon_description"
                     android:src="@drawable/cancel_search_icon" />
             </LinearLayout>

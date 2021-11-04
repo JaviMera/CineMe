@@ -98,12 +98,7 @@ class CinemaActivity : AppCompatActivity() {
             it?.let { isConnected ->
                 binding.fragmentSearchEditText.isEnabled = isConnected
 
-                if(isConnected){
-                    val snackBar: Snackbar = Snackbar
-                        .make(binding.navView,
-                            "Connected!", Snackbar.LENGTH_SHORT)
-                    snackBar.show()
-                }else{
+                if(!isConnected){
                     val snackBar: Snackbar = Snackbar
                         .make(binding.navView,
                             "Connection Lost", Snackbar.LENGTH_SHORT)
