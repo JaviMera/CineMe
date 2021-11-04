@@ -9,8 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
+import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.databinding.FragmentSearchMoviesBinding
 import com.merajavier.cineme.movies.MoviesFooterAdapter
+import com.merajavier.cineme.network.ConnectivityLiveData
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
@@ -50,13 +52,22 @@ class SearchMoviesFragment : Fragment() {
             }
         })
 
-        searchViewModel.queryTitle.observe(viewLifecycleOwner, Observer {
-            it?.let{ title ->
-                searchViewModel.fetchMovies(title).observe(viewLifecycleOwner, Observer {
-                    lifecycleScope.launch {
-                        searchMoviesAdapter.submitData(it)
-                    }
-                })
+        val connectivityLiveData = ConnectivityLiveData(requireActivity().application)
+        connectivityLiveData.observe(viewLifecycleOwner, Observer {
+            it?.let { isConnected ->
+                if(isConnected){
+                    searchViewModel.queryTitle.observe(viewLifecycleOwner, Observer { text ->
+                        text?.let{ title ->
+                            searchViewModel.fetchMovies(title).observe(viewLifecycleOwner, Observer {
+                                lifecycleScope.launch {
+                                    searchMoviesAdapter.submitData(it)
+                                }
+                            })
+                        }
+                    })
+                }else{
+                    searchViewModel.queryTitle.removeObservers(viewLifecycleOwner)
+                }
             }
         })
 

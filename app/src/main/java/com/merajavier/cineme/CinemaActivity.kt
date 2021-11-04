@@ -4,15 +4,18 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.widget.doOnTextChanged
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.work.*
+import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.databinding.ActivityCinemaBinding
 import com.merajavier.cineme.login.LoginViewModel
 import com.merajavier.cineme.movies.search.SearchMoviesViewModel
+import com.merajavier.cineme.network.ConnectivityLiveData
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
@@ -85,15 +88,29 @@ class CinemaActivity : AppCompatActivity() {
         binding.fragmentSearchEditText.doOnTextChanged { text, start, before, count ->
             searchViewModel.queryTitle(text.toString())
         }
+        val connectivityLiveData = ConnectivityLiveData(this.application)
+        connectivityLiveData.observe(this, Observer {
+            it?.let { isConnected ->
+                binding.fragmentSearchEditText.isEnabled = isConnected
+
+                if(isConnected){
+                    val snackBar: Snackbar = Snackbar
+                        .make(binding.navView,
+                            "Connected!", Snackbar.LENGTH_SHORT)
+                    snackBar.show()
+                }else{
+                    val snackBar: Snackbar = Snackbar
+                        .make(binding.navView,
+                            "Connection Lost", Snackbar.LENGTH_SHORT)
+                    snackBar.show()
+                }
+            }
+        })
     }
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = navHostFragment.navController
         return navController.navigateUp() || super.onSupportNavigateUp()
-    }
-
-    // Disable base back press functionality
-    override fun onBackPressed() {
     }
 
     override fun onPause() {

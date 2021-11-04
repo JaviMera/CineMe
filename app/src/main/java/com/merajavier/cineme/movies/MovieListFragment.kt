@@ -61,16 +61,11 @@ class MovieListFragment : Fragment() {
 
                     })
                     viewModel.movieSelected.observe(viewLifecycleOwner, Observer {
-                        it.let {
-                            findNavController().navigate(MovieListFragmentDirections.actionNavigationMoviesToDetailsFragment(it))
+                        it?.let { movie ->
+                            findNavController().navigate(MovieListFragmentDirections.actionNavigationMoviesToDetailsFragment(movie))
                         }
                     })
                 }else{
-                    val snackbar: Snackbar = Snackbar
-                        .make(binding.recycleViewMovies,
-                            "Connection Lost", Snackbar.LENGTH_SHORT)
-
-                    snackbar.show()
 
                     // Remove any observers from live data objects that deal with network calls
                     viewModel.fetchMovies().removeObservers(viewLifecycleOwner)
