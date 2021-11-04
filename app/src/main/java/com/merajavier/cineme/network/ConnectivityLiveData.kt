@@ -11,6 +11,7 @@ import androidx.annotation.RequiresApi
 import androidx.annotation.RequiresPermission
 import androidx.lifecycle.LiveData
 import androidx.paging.ExperimentalPagingApi
+import timber.log.Timber
 
 
 @ExperimentalPagingApi
@@ -26,10 +27,12 @@ class ConnectivityLiveData private constructor(private val connectivityManager: 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
 
         override fun onAvailable(network: Network) {
+            Timber.i("Network available")
             postValue(true)
         }
 
         override fun onLost(network: Network) {
+            Timber.i("Network not available")
             postValue(false)
         }
     }
