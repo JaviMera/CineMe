@@ -73,13 +73,13 @@ class DetailsFragment : Fragment() {
         val progressPercentAnimator = ValueAnimator.ofInt(0, percentAverage.toInt())
         progressPercentAnimator.duration = 2000
         progressPercentAnimator.addUpdateListener { animation ->
-            binding.detailsMovieUserScorePercentage.text = animation.animatedValue.toString()
+            binding.detailsMovieUserScorePercentage?.text = animation.animatedValue.toString()
         }
         progressPercentAnimator.start()
 
         val listener = AppBarLayout.OnOffsetChangedListener{ unsued, verticalOffset ->
-            val seekPosition = -verticalOffset / binding.appbarLayout.totalScrollRange.toFloat()
-            binding.motionLayout.progress = seekPosition
+            val seekPosition = -verticalOffset / binding.appbarLayout?.totalScrollRange?.toFloat()!!
+            binding.motionLayout?.progress = seekPosition
         }
 
         castListViewModel.actors.observe(viewLifecycleOwner, Observer {
@@ -105,7 +105,7 @@ class DetailsFragment : Fragment() {
             }
         })
 
-        binding.appbarLayout.addOnOffsetChangedListener(listener)
+        binding.appbarLayout?.addOnOffsetChangedListener(listener)
 
         binding.detailsMovieFavorite.setOnClickListener {
 
