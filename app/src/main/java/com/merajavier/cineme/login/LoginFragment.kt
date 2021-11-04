@@ -48,9 +48,6 @@ class LoginFragment : Fragment() {
             binding.loginSignIn.setOnClickListener {
                 loginViewModel.signInAsUser(binding.loginUsername.text.toString(), binding.loginPassword.text.toString())
             }
-
-            binding.loginUsername.setText(BuildConfig.username)
-            binding.loginPassword.setText(BuildConfig.password)
         }
 
         loginViewModel.snackMessage.observe(viewLifecycleOwner, Observer { message ->
