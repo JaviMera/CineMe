@@ -1,7 +1,6 @@
 package com.merajavier.cineme.details
 
 import android.animation.ValueAnimator
-import android.content.pm.ActivityInfo
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -23,6 +22,7 @@ import com.merajavier.cineme.databinding.FragmentDetailsBinding
 import com.merajavier.cineme.genre.GenresRecyclerAdapter
 import com.merajavier.cineme.login.LoginViewModel
 import com.merajavier.cineme.login.account.AccountViewModel
+import com.merajavier.cineme.movies.MovieListViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -34,6 +34,7 @@ class DetailsFragment : Fragment() {
     private lateinit var actorsAdapter: ActorsRecyclerAdapter
     private val castListViewModel: CastListViewModel by viewModel()
     private val accountViewModel: AccountViewModel by viewModel()
+    private val moviesViewModel: MovieListViewModel by viewModel()
     private val loginViewModel: LoginViewModel by sharedViewModel()
 
     private val args: DetailsFragmentArgs by navArgs()
@@ -110,7 +111,7 @@ class DetailsFragment : Fragment() {
         binding.detailsMovieFavorite.setOnClickListener {
 
             if(loginViewModel.isLogged.value == true){
-                val isFavorite = !(accountViewModel.isFavoriteMovie.value)!!
+                val isFavorite = !(moviesViewModel.isMovieFavorite.value)!!
 
                 accountViewModel.addMovieToFavorites(
                     loginViewModel.userSession.sessionId,
@@ -125,16 +126,18 @@ class DetailsFragment : Fragment() {
             }
         }
 
-        accountViewModel.getFavoriteMovie(args.movie.id, loginViewModel.userSession.accountId, loginViewModel.userSession.sessionId)
-        accountViewModel.isFavoriteMovie.observe(viewLifecycleOwner, Observer {
+        if(loginViewModel.isLogged.value == true){
+            moviesViewModel.isMovieFavorite(args.movie.id, loginViewModel.userSession.sessionId)
+            moviesViewModel.isMovieFavorite.observe(viewLifecycleOwner, Observer {
 
-            if(it == null){
-                binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_not_selected)
-            }else{
+                if(it == null){
+                    binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_not_selected)
+                }else{
 
-                displayFavoriteIcon(it)
-            }
-        })
+                    displayFavoriteIcon(it)
+                }
+            })
+        }
 
         return binding.root
     }

@@ -20,5 +20,11 @@ interface TMDBApMoviesiInterface {
     fun getUpcomingMovies(
         @Query("page") pageNumber: Int
     ) : Call<String>
+
+    @GET("movie/{movie_id}/account_states")
+    fun getAccountState(
+        @Path("movie_id") movieId: Int,
+        @Query("session_id") sessionId: String
+    ) : Call<String>
 }
 

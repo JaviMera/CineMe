@@ -9,6 +9,9 @@ import androidx.paging.map
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.data.local.TMDBDatabase
+import com.merajavier.cineme.login.account.MarkFavoriteStatus
+import com.merajavier.cineme.movies.favorites.FavoriteMoviesResponse
+import com.merajavier.cineme.movies.favorites.MarkFavoriteResponse
 import com.merajavier.cineme.network.repositories.NetworkMoviesRepositoryInterface
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -57,6 +60,10 @@ class MovieListViewModel(
     val movieSelected: LiveData<MovieDataItem>
     get() = _selectedMovie
 
+    private val _isMovieFavorite = SingleLiveData<Boolean>()
+    val isMovieFavorite: LiveData<Boolean>
+        get() = _isMovieFavorite
+
     fun fetchMovies() : LiveData<PagingData<MovieDataItem>>{
         return MoviesPagerRepository()
             .nowPlayingMoviesPagingData(networkMovieRepository)
@@ -92,6 +99,30 @@ class MovieListViewModel(
                 }
             }catch(exception: Exception){
                 Timber.i("Problem selecting movie: ${exception.localizedMessage}")
+            }
+        }
+    }
+
+    fun isMovieFavorite(movieId: Int, sessionId: String) {
+        viewModelScope.launch {
+            try {
+                when(val accountStateResult = networkMovieRepository.getAccountState(movieId, sessionId)){
+                    is TMDBApiResult.Success ->{
+                        val favoriteMoviesResponse = accountStateResult.data as AccountStateResponse
+                        _isMovieFavorite.postValue(favoriteMoviesResponse.favorite)
+                    }
+                    is TMDBApiResult.Failure -> {
+
+                        val failureResponse = accountStateResult.data as ErrorResponse
+                        Timber.i(failureResponse.statusMessage)
+                    }
+                    is TMDBApiResult.Error -> {
+                        Timber.i(accountStateResult.message)
+                    }
+                }
+            }catch(exception: Exception){
+                Timber.i("There was a problem removing the movie from your favorite list.")
+                _isMovieFavorite.postValue(false)
             }
         }
     }
