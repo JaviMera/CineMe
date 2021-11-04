@@ -8,15 +8,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
+import androidx.paging.LoadState
+import androidx.paging.map
 import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.CinemaActivity
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentUserBinding
 import com.merajavier.cineme.login.LoginViewModel
+import com.merajavier.cineme.movies.MoviesFooterAdapter
 import com.merajavier.cineme.movies.favorites.FavoriteMoviesAdapter
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 @ExperimentalPagingApi
 class UserFragment : Fragment() {
@@ -40,7 +45,7 @@ class UserFragment : Fragment() {
             accountViewModel.addMovieToFavorites(loginViewModel.userSession.sessionId,it.id,false)
         })
 
-        binding.recycleViewMovies.adapter = favoriteMoviesAdapter
+        binding.recycleViewMovies?.adapter = favoriteMoviesAdapter.withLoadStateFooter(MoviesFooterAdapter())
 
         val activity = requireActivity() as CinemaActivity
         activity.supportActionBar.let{
@@ -59,6 +64,14 @@ class UserFragment : Fragment() {
                 }
             }
         })
+
+        favoriteMoviesAdapter.addLoadStateListener { loadState ->
+            if (loadState.source.refresh is LoadState.NotLoading && loadState.append.endOfPaginationReached && favoriteMoviesAdapter.itemCount < 1) {
+                binding.fragmentUserNoDataText.visibility = View.VISIBLE
+            } else {
+                binding.fragmentUserNoDataText.visibility = View.GONE
+            }
+        }
 
         accountViewModel.movieUpdated.observe(viewLifecycleOwner, Observer {
 

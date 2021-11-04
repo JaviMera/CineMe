@@ -53,4 +53,5 @@
     <string name="fragment_log_in_title">Account</string>
     <string name="fragment_details_title">Movie Details</string>
     <string name="cancel_search_movies_icon_description">remove search title</string>
+    <string name="no_data_text">No Data</string>
 </resources>

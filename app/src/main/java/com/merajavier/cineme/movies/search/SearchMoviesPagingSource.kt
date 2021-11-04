@@ -12,34 +12,29 @@ class SearchMoviesPagingSource(
     private val title: String
 ) : PagingSource<Int, MovieDataItem>() {
 
-    private var maxPages: Int = 1
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieDataItem> {
         return try {
             val page = params.key ?: 1
-            if(page <= maxPages) {
-                when (val result = apiInterface.searchMoviesByTitle(title, page)) {
-                    is TMDBApiResult.Success -> {
-                        val response = result.data as MoviesResponse
-                        maxPages = response.totalPages
-                        LoadResult.Page(
-                            response.movies,
-                            if (page == 1) null else page - 1,
-                            if (response.movies.isEmpty()) null else page.inc()
-                        )
-                    }
-                    is TMDBApiResult.Failure -> {
-                        val failureResponse = result.data as ErrorResponse
-                        LoadResult.Error(Exception(failureResponse.statusMessage))
-                    }
-                    is TMDBApiResult.Error -> {
-                        LoadResult.Error(Exception(result.message))
-                    }
-                    TMDBApiResult.Init -> LoadResult.Page(
-                        listOf(), null, null
+            when (val result = apiInterface.searchMoviesByTitle(title, page)) {
+                is TMDBApiResult.Success -> {
+                    val response = result.data as MoviesResponse
+
+                    LoadResult.Page(
+                        response.movies,
+                        if (page == 1) null else page - 1,
+                        if (response.movies.isEmpty()) null else page.inc(),
                     )
                 }
-            }else{
-                throw Exception("You've reached the end!")
+                is TMDBApiResult.Failure -> {
+                    val failureResponse = result.data as ErrorResponse
+                    LoadResult.Error(Exception(failureResponse.statusMessage))
+                }
+                is TMDBApiResult.Error -> {
+                    LoadResult.Error(Exception(result.message))
+                }
+                TMDBApiResult.Init -> LoadResult.Page(
+                    listOf(), null, null
+                )
             }
         } catch (exception: Exception) {
             LoadResult.Error(exception)

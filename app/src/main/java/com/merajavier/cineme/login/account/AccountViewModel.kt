@@ -26,17 +26,8 @@ enum class MarkFavoriteStatus{
 
 @ExperimentalPagingApi
 class AccountViewModel(
-    private val accountRepositoryInterface: NetworkAccountRepositoryInterface,
-    private val localAccountRepositoryInterface: LocalAccountRepositoryInterface
+    private val accountRepositoryInterface: NetworkAccountRepositoryInterface
 ) : ViewModel(){
-
-    private val _favoriteMovies = MutableLiveData<List<FavoriteMovieDataItem>>()
-    val favoriteMovies: LiveData<List<FavoriteMovieDataItem>>
-    get() = _favoriteMovies
-
-    private val _loading = MutableLiveData<Boolean>()
-    val loading: LiveData<Boolean>
-    get() = _loading
 
     private val _movieUpdated = MutableLiveData<MarkFavoriteStatus>()
     val movieUpdated: LiveData<MarkFavoriteStatus>

@@ -38,8 +38,7 @@ val viewModelsModule = module{
 
     viewModel {
         AccountViewModel(
-            get() as NetworkAccountRepositoryInterface,
-            get() as LocalAccountRepositoryInterface
+            get() as NetworkAccountRepositoryInterface
         )
     }
 
