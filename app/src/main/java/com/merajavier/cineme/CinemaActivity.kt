@@ -101,11 +101,7 @@ class CinemaActivity : AppCompatActivity() {
                 binding.fragmentSearchEditText.isEnabled = isConnected
 
                 if(!isConnected){
-                    val snackBar: Snackbar = Snackbar
-                        .make(binding.navView,
-                            getString(R.string.connection_error), Snackbar.LENGTH_LONG)
-                        .setAnchorView(binding.navView)
-                    snackBar.show()
+                    showSnackBar(getString(R.string.connection_error))
                 }
             }
         })
