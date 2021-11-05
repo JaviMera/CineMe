@@ -10,6 +10,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 </data>
 
 <androidx.cardview.widget.CardView
+    android:id="@+id/recycler_view_movie_item_constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="10dp"
