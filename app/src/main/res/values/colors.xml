@@ -5,6 +5,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorPrimary">#673ab7</color>
+    <color name="colorPrimaryDarkTHeme">#e6ceff</color>
     <color name="colorPrimaryLight">#9a67ea</color>
     <color name="colorPrimaryDark">#320b86</color>
     <color name="colorSecondary">#00838f</color>

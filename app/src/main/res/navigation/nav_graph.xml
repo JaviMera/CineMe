@@ -61,6 +61,12 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/navigation_login"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_userFragment_to_navigation_movies"
+            app:destination="@id/navigation_movies"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/navigation_movies"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"
