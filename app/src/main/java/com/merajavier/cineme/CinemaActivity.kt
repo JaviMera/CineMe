@@ -3,6 +3,7 @@ package com.merajavier.cineme
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment
@@ -25,6 +26,7 @@ class CinemaActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityCinemaBinding
     private val loginViewModel: LoginViewModel by viewModel()
     private val searchViewModel: SearchMoviesViewModel by viewModel()
+    private val messageViewModel: MessageViewModel by viewModel()
 
     private val navHostFragment: NavHostFragment by lazy {supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_cinema) as NavHostFragment}
     val binding: ActivityCinemaBinding
@@ -101,11 +103,31 @@ class CinemaActivity : AppCompatActivity() {
                 if(!isConnected){
                     val snackBar: Snackbar = Snackbar
                         .make(binding.navView,
-                            "Connection Lost", Snackbar.LENGTH_SHORT)
+                            getString(R.string.connection_error), Snackbar.LENGTH_LONG)
+                        .setAnchorView(binding.navView)
                     snackBar.show()
                 }
             }
         })
+
+        messageViewModel.snackBarMessage.observe(this, Observer {
+            showSnackBar(it)
+        })
+
+        loginViewModel.snackMessage.observe(this, Observer {
+            showSnackBar(it)
+        })
+    }
+
+    private fun showSnackBar(message: String){
+        Snackbar
+            .make(binding.navView,
+                message,
+                Snackbar.LENGTH_LONG)
+            .setAnchorView(binding.navView)
+            .setTextColor(ContextCompat.getColor(this, R.color.white))
+            .setBackgroundTint(ContextCompat.getColor(this, R.color.colorPrimary))
+            .show()
     }
 
     override fun onSupportNavigateUp(): Boolean {

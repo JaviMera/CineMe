@@ -50,17 +50,6 @@ class LoginFragment : Fragment() {
             }
         }
 
-        loginViewModel.snackMessage.observe(viewLifecycleOwner, Observer { message ->
-            message?.let{
-                Snackbar.make(
-                    binding.fragmentLoginConstraintLayout,
-                    it,
-                    Snackbar.LENGTH_LONG
-                )
-                    .show()
-            }
-        })
-
         return binding.root
     }
 }

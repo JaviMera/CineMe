@@ -54,4 +54,8 @@
     <string name="fragment_details_title">Movie Details</string>
     <string name="cancel_search_movies_icon_description">remove search title</string>
     <string name="no_data_text">No Data</string>
+    <string name="shared_preferences_username_key">USERNAME</string>
+    <string name="shared_preferences_key">LOGIN_PREFERENCES</string>
+    <string name="remove_movie_error">Unable to remove movie</string>
+    <string name="connection_error">Connection Lost</string>
 </resources>

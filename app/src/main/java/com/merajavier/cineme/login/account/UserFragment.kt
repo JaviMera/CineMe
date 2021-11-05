@@ -14,6 +14,7 @@ import androidx.paging.LoadState
 import androidx.paging.map
 import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.CinemaActivity
+import com.merajavier.cineme.MessageViewModel
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentUserBinding
 import com.merajavier.cineme.login.LoginViewModel
@@ -29,6 +30,8 @@ import timber.log.Timber
 class UserFragment : Fragment() {
     private lateinit var binding: FragmentUserBinding
     private val loginViewModel: LoginViewModel by sharedViewModel()
+    private val messageViewModel: MessageViewModel by sharedViewModel()
+
     private val accountViewModel: AccountViewModel by viewModel()
     private lateinit var favoriteMoviesAdapter: FavoriteMoviesAdapter
 
@@ -78,24 +81,14 @@ class UserFragment : Fragment() {
         accountViewModel.movieUpdated.observe(viewLifecycleOwner, Observer {
 
             if(it == null){
-                Snackbar.make(
-                    binding.favoriteMoviesConstraintLayout,
-                    "Unable to remove movie",
-                    Snackbar.LENGTH_SHORT
-                )
-                    .show()
+                messageViewModel.setMessage(getString(R.string.remove_movie_error))
             }else{
                 when(it){
                     MarkFavoriteStatus.DONE -> {
                         favoriteMoviesAdapter.refresh()
                     }
                     MarkFavoriteStatus.FAILED -> {
-                        Snackbar.make(
-                            binding.favoriteMoviesConstraintLayout,
-                            "Unable to remove movie",
-                            Snackbar.LENGTH_SHORT
-                        )
-                            .show()
+                            messageViewModel.setMessage(getString(R.string.remove_movie_error))
                     }
                 }
             }
@@ -105,10 +98,10 @@ class UserFragment : Fragment() {
             if(it == false){
                 lifecycleScope.launchWhenResumed {
 
-                    val sharedPreferencesEditor = requireActivity().getSharedPreferences("LOGIN_PREFERENCES", MODE_PRIVATE)
+                    val sharedPreferencesEditor = requireActivity().getSharedPreferences(getString(R.string.shared_preferences_key), MODE_PRIVATE)
                         .edit()
 
-                    sharedPreferencesEditor.remove("USERNAME")
+                    sharedPreferencesEditor.remove(getString(R.string.shared_preferences_username_key))
                     sharedPreferencesEditor.apply()
 
                     findNavController().navigate(UserFragmentDirections.actionUserFragmentToNavigationLogin())
