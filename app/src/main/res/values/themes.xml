@@ -67,6 +67,7 @@
 
     <style name="MovieTitle.List" parent="MovieTitle">
         <item name="android:layout_margin">@dimen/small_margin_dimen</item>
+        <item name="android:textAlignment">center</item>
     </style>
 
     <style name="MovieTitle.Favorite" parent="MovieTitle">

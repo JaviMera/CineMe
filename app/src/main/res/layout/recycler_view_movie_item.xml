@@ -34,7 +34,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         <TextView
             android:id="@+id/upcoming_movie_title"
             style="@style/MovieTitle.List"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{movie.title}"
             app:layout_constraintBottom_toBottomOf="parent"
