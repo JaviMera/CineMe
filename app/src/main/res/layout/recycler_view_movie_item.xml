@@ -13,9 +13,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
     android:id="@+id/recycler_view_movie_item_constraint_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="5dp">
+    style="@style/CardViewMovie">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -24,7 +22,7 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
         <ImageView
             android:id="@+id/upcoming_movie_poster"
             android:layout_width="match_parent"
-            android:layout_height="250dp"
+            android:layout_height="@dimen/cardview_movie_poster_dimen"
             android:contentDescription="@string/favorite_movie_poster_content_description"
             android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
@@ -35,21 +33,15 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 
         <TextView
             android:id="@+id/upcoming_movie_title"
-            android:layout_width="0dp"
+            style="@style/MovieTitle.List"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:text="@{movie.title}"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="12sp"
-            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/upcoming_movie_poster"
-            app:layout_constraintEnd_toEndOf="parent"
             tools:text="Venom the ultimate battle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

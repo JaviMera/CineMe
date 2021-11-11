@@ -17,5 +17,78 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorControlNormal">@color/white</item>
+        <item name="movieTitle">@color/colorPrimaryDark</item>
+        <item name="movieBackground">@color/colorPrimaryLight</item>
+        <item name="cardCornerRadius">@dimen/cardview_corner_radius</item>
+        <item name="cardMargin">@dimen/cardview_margin</item>
+        <item name="materialButtonTextColor">@color/colorPrimaryDark</item>
+        <item name="materialButtonIconTint">@color/colorPrimaryDark</item>
+    </style>
+
+    <style name="MovieTitle" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">?movieTitle</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MovieReleaseDate" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">?movieTitle</item>
+    </style>
+
+    <style name="MovieOverview" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">?movieTitle</item>
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginTop">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginEnd">@dimen/small_margin_dimen</item>
+        <item name="android:maxLines">3</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="BaseMaterialButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="iconGravity">start</item>
+        <item name="iconSize">@dimen/favorite_icon_size</item>
+        <item name="android:textSize">@dimen/medium_text_dimen</item>
+        <item name="android:textColor">?materialButtonTextColor</item>
+    </style>
+
+    <style name="BaseMaterialButton.Favorite" parent="BaseMaterialButton">
+        <item name="iconTint">@color/favorite_icon_color_tint</item>
+        <item name="icon">@drawable/movie_favorite_selected</item>
+        <item name="android:clickable">false</item>
+        <item name="android:text">@string/favorite_movie_favorite</item>
+    </style>
+
+    <style name="BaseMaterialButton.Remove" parent="BaseMaterialButton">
+        <item name="iconTint">?materialButtonIconTint</item>
+        <item name="icon">@android:drawable/ic_delete</item>
+        <item name="android:clickable">true</item>
+        <item name="android:text">@string/favorite_movie_remove</item>
+        <item name="android:layout_marginEnd">@dimen/large_margin_dimen</item>
+    </style>
+
+    <style name="MovieTitle.List" parent="MovieTitle">
+        <item name="android:layout_margin">@dimen/small_margin_dimen</item>
+    </style>
+
+    <style name="MovieTitle.Favorite" parent="MovieTitle">
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginTop">@dimen/small_margin_dimen</item>
+    </style>
+
+    <style name="MovieReleaseDate.Favorite" parent="MovieReleaseDate">
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginTop">@dimen/x_small_margin_dimen</item>
+        <item name="android:textSize">@dimen/medium_text_dimen</item>
+    </style>
+
+    <style name="CardViewMovie" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">?movieBackground</item>
+        <item name="cardCornerRadius">?cardCornerRadius</item>
+        <item name="android:layout_margin">?cardMargin</item>
+    </style>
+
+    <style name="CardViewFavoriteMovie" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">?movieBackground</item>
+        <item name="cardCornerRadius">?cardCornerRadius</item>
+        <item name="android:layout_margin">?cardMargin</item>
     </style>
 </resources>

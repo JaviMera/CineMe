@@ -13,9 +13,7 @@
         android:id="@+id/upcoming_movie_item_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp">
+        style="@style/CardViewMovie">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -36,15 +34,10 @@
 
             <TextView
                 android:id="@+id/upcoming_movie_title"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
                 android:text="@{movie.title}"
-                android:textAlignment="center"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold"
+                style="@style/MovieTitle.List"
                 app:layout_constraintBottom_toTopOf="@+id/upcoming_movie_release_date"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
@@ -54,15 +47,10 @@
 
             <TextView
                 android:id="@+id/upcoming_movie_release_date"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
                 android:textAlignment="center"
-                android:textColor="@color/colorPrimary"
-                android:textSize="12sp"
+                style="@style/MovieTitle.List"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

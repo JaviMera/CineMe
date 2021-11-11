@@ -13,9 +13,7 @@
         android:id="@+id/user_favorite_movie_item_constraint_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="5dp">
+        style="@style/CardViewFavoriteMovie">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -24,7 +22,7 @@
             <ImageView
                 android:id="@+id/favorite_movie_poster"
                 android:layout_width="100dp"
-                android:layout_height="150dp"
+                android:layout_height="160dp"
                 android:scaleType="centerCrop"
                 android:contentDescription="@string/favorite_movie_poster_content_description"
                 app:layout_constraintStart_toStartOf="parent"
@@ -36,10 +34,7 @@
                 android:id="@+id/favorite_movie_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/colorPrimaryDark"
-                android:textStyle="bold"
+                style="@style/MovieTitle.Favorite"
                 android:text="@{movie.title}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/favorite_movie_poster"
@@ -50,9 +45,7 @@
                 android:id="@+id/favorite_movie_release_date"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:textColor="@color/colorPrimaryLight"
-                android:textSize="12sp"
+                style="@style/MovieReleaseDate.Favorite"
                 app:showReleaseDate="@{movie.releaseDate}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/favorite_movie_poster"
@@ -63,13 +56,8 @@
                 android:id="@+id/favorite_movie_overview"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:ellipsize="end"
-                android:maxLines="3"
-                android:scrollHorizontally="true"
                 android:text="@{movie.overview}"
+                style="@style/MovieOverview"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/favorite_movie_poster"
                 app:layout_constraintTop_toBottomOf="@id/favorite_movie_release_date"
@@ -77,38 +65,21 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/favorite_movie_marked_favorite"
-                style="?attr/borderlessButtonStyle"
+                style="@style/BaseMaterialButton.Favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/favorite_movie_favorite"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="12sp"
-                android:clickable="false"
-                app:icon="@drawable/movie_favorite_selected"
-                app:iconGravity="start"
-                app:iconSize="20dp"
-                app:iconTint="#DD35D5"
-                app:layout_constraintBottom_toBottomOf="@id/favorite_movie_poster"
-                app:layout_constraintStart_toEndOf="@id/favorite_movie_poster"
-                app:layout_constraintTop_toBottomOf="@id/favorite_movie_overview" />
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@id/favorite_movie_poster"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/favorite_movie_remove"
-                style="?attr/borderlessButtonStyle"
+                style="@style/BaseMaterialButton.Remove"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:text="@string/favorite_movie_remove"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="12sp"
-                app:icon="@android:drawable/ic_delete"
-                app:iconGravity="start"
-                app:iconSize="20dp"
-                app:iconTint="@color/black"
-                app:layout_constraintTop_toTopOf="@id/favorite_movie_marked_favorite"
-                app:layout_constraintBottom_toBottomOf="@id/favorite_movie_marked_favorite"
                 app:layout_constraintBaseline_toBaselineOf="@+id/favorite_movie_marked_favorite"
-                app:layout_constraintStart_toEndOf="@id/favorite_movie_marked_favorite" />
+                app:layout_constraintBottom_toBottomOf="@id/favorite_movie_marked_favorite"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/favorite_movie_marked_favorite" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

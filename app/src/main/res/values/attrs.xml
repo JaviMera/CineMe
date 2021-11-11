@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="movieTitle" format="color" />
+    <attr name="materialButtonTextColor" format="color" />
+    <attr name="materialButtonIconTint" format="color" />
+    <attr name="movieBackground" format="color" />
+    <attr name="cardCornerRadius" format="dimension"/>
+    <attr name="cardMargin" format="dimension"/>
+</resources>
