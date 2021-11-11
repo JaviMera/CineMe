@@ -24,9 +24,7 @@
             android:id="@+id/fragment_search_card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginEnd="4dp"
-            app:cardCornerRadius="5dp">
+            style="@style/CardViewSearch">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -35,31 +33,18 @@
 
                 <ImageView
                     android:id="@+id/search_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/search_movies_icon_description"
-                    android:layout_marginStart="10dp"
-                    android:src="@drawable/search_icon" />
+                    style="@style/CardViewSearch.Icon.Search"/>
 
                 <EditText
                     android:id="@+id/fragment_search_edit_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
-                    android:hint="@string/search_movies_value"
-                    android:backgroundTint="@color/colorPrimaryDark"
-                    android:minHeight="48dp"
-                    android:textColorHint="@color/colorPrimaryDark" />
+                    style="@style/CardViewSearch.EditText"/>
 
                 <ImageView
                     android:id="@+id/cancel_search_icon"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="center"
-                    android:layout_marginEnd="10dp"
-                    android:contentDescription="@string/cancel_search_movies_icon_description"
-                    android:src="@drawable/cancel_search_icon" />
+                    style="@style/CardViewSearch.Icon.Remove" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </com.google.android.material.appbar.MaterialToolbar>
