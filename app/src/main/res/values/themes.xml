@@ -99,7 +99,7 @@
     </style>
 
     <style name="CardViewGenre" parent="Widget.MaterialComponents.CardView">
-        <item name="cardBackgroundColor">?baseColor</item>
+        <item name="cardBackgroundColor">?movieBackground</item>
         <item name="android:layout_margin">?cardMarginSmall</item>
         <item name="cardCornerRadius">@dimen/cardview_genre_corner_radius</item>
     </style>
@@ -113,7 +113,7 @@
     </style>
 
     <style name="CardViewGenre.BaseText.Text" parent="CardViewGenre.BaseText">
-        <item name="android:textColor">@color/colorPrimaryLight</item>
+        <item name="android:textColor">?baseColor</item>
     </style>
 
     <style name="CardViewSearch" parent="Widget.MaterialComponents.CardView">
