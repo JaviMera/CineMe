@@ -17,27 +17,23 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="colorControlNormal">@color/white</item>
-        <item name="movieTitle">@color/colorPrimaryDark</item>
+        <item name="baseColor">@color/colorPrimaryDark</item>
         <item name="movieBackground">@color/colorPrimaryLight</item>
         <item name="cardCornerRadius">@dimen/cardview_corner_radius</item>
         <item name="cardMarginSmall">@dimen/cardview_margin</item>
         <item name="cardMarginXSmall">@dimen/x_small_margin_dimen</item>
-        <item name="materialButtonTextColor">@color/colorPrimaryDark</item>
-        <item name="materialButtonIconTint">@color/colorPrimaryDark</item>
-        <item name="searchBackground">@color/colorPrimaryDark</item>
     </style>
 
     <style name="MovieTitle" parent="TextAppearance.MaterialComponents.Body2">
-        <item name="android:textColor">?movieTitle</item>
+        <item name="android:textColor">?attr/baseColor</item>
         <item name="android:textStyle">bold</item>
     </style>
 
     <style name="MovieReleaseDate" parent="TextAppearance.MaterialComponents.Body2">
-        <item name="android:textColor">?movieTitle</item>
+        <item name="android:textColor">?attr/baseColor</item>
     </style>
 
-    <style name="MovieOverview" parent="TextAppearance.MaterialComponents.Body2">
-        <item name="android:textColor">?movieTitle</item>
+    <style name="BaseMovieOverview" parent="TextAppearance.MaterialComponents.Body2">
         <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
         <item name="android:layout_marginTop">@dimen/small_margin_dimen</item>
         <item name="android:layout_marginEnd">@dimen/small_margin_dimen</item>
@@ -45,11 +41,15 @@
         <item name="android:ellipsize">end</item>
     </style>
 
+    <style name="MovieOverview" parent="BaseMovieOverview">
+        <item name="android:textColor">?baseColor</item>
+    </style>
+
     <style name="BaseMaterialButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="iconGravity">start</item>
         <item name="iconSize">@dimen/favorite_icon_size</item>
         <item name="android:textSize">@dimen/medium_text_dimen</item>
-        <item name="android:textColor">?materialButtonTextColor</item>
+        <item name="android:textColor">?baseColor</item>
     </style>
 
     <style name="BaseMaterialButton.Favorite" parent="BaseMaterialButton">
@@ -59,12 +59,15 @@
         <item name="android:text">@string/favorite_movie_favorite</item>
     </style>
 
-    <style name="BaseMaterialButton.Remove" parent="BaseMaterialButton">
-        <item name="iconTint">?materialButtonIconTint</item>
+    <style name="BaseMaterialButton.BaseRemove" parent="BaseMaterialButton">
         <item name="icon">@android:drawable/ic_delete</item>
         <item name="android:clickable">true</item>
         <item name="android:text">@string/favorite_movie_remove</item>
         <item name="android:layout_marginEnd">@dimen/large_margin_dimen</item>
+    </style>
+
+    <style name="BaseMaterialButton.BaseRemove.Remove" parent="BaseMaterialButton.BaseRemove">
+        <item name="iconTint">?baseColor</item>
     </style>
 
     <style name="MovieTitle.List" parent="MovieTitle">
@@ -86,13 +89,31 @@
     <style name="CardViewMovie" parent="Widget.MaterialComponents.CardView">
         <item name="cardBackgroundColor">?movieBackground</item>
         <item name="cardCornerRadius">?cardCornerRadius</item>
-        <item name="android:layout_margin">?attr/cardMarginSmall</item>
+        <item name="android:layout_margin">?cardMarginSmall</item>
     </style>
 
     <style name="CardViewFavoriteMovie" parent="Widget.MaterialComponents.CardView">
         <item name="cardBackgroundColor">?movieBackground</item>
         <item name="cardCornerRadius">?cardCornerRadius</item>
-        <item name="android:layout_margin">?attr/cardMarginSmall</item>
+        <item name="android:layout_margin">?cardMarginSmall</item>
+    </style>
+
+    <style name="CardViewGenre" parent="Widget.MaterialComponents.CardView">
+        <item name="cardBackgroundColor">?baseColor</item>
+        <item name="android:layout_margin">?cardMarginSmall</item>
+        <item name="cardCornerRadius">@dimen/cardview_genre_corner_radius</item>
+    </style>
+
+    <style name="CardViewGenre.BaseText" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textSize">@dimen/medium_text_dimen</item>
+        <item name="android:paddingTop">@dimen/x_small_margin_dimen</item>
+        <item name="android:paddingBottom">@dimen/x_small_margin_dimen</item>
+        <item name="android:paddingStart">@dimen/small_margin_dimen</item>
+        <item name="android:paddingEnd">@dimen/small_margin_dimen</item>
+    </style>
+
+    <style name="CardViewGenre.BaseText.Text" parent="CardViewGenre.BaseText">
+        <item name="android:textColor">@color/colorPrimaryLight</item>
     </style>
 
     <style name="CardViewSearch" parent="Widget.MaterialComponents.CardView">
@@ -121,7 +142,30 @@
     <style name="CardViewSearch.EditText">
         <item name="android:minHeight">@dimen/search_min_height</item>
         <item name="android:hint">@string/search_movies_value</item>
-        <item name="android:backgroundTint">?searchBackground</item>
-        <item name="android:textColorHint">?searchBackground</item>
+        <item name="android:backgroundTint">?baseColor</item>
+        <item name="android:textColorHint">?baseColor</item>
+    </style>
+
+    <style name="BaseActor.BaseContainer" parent="Widget.MaterialComponents.CardView">
+        <item name="android:layout_margin">@dimen/cardview_margin</item>
+        <item name="cardCornerRadius">?cardCornerRadius</item>
+    </style>
+
+    <style name="BaseActor.Container" parent="BaseActor.BaseContainer">
+        <item name="cardBackgroundColor">?movieBackground</item>
+    </style>
+
+    <style name="BaseActor" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">@dimen/medium_text_dimen</item>
+    </style>
+
+    <style name="BaseActor.Name" parent="BaseActor">
+        <item name="android:textColor">?baseColor</item>
+    </style>
+
+    <style name="BaseActor.Name.Character" parent="BaseActor.Name">
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginBottom">@dimen/x_small_margin_dimen</item>
     </style>
 </resources>

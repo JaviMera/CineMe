@@ -10,49 +10,51 @@
             type="com.merajavier.cineme.cast.ActorDataItem" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/details_movie_actor_constraint_layout"
+    <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp">
+        style="@style/BaseActor.Container">
 
-        <ImageView
-            android:id="@+id/cast_item_photo"
-            android:layout_width="100dp"
-            android:layout_height="150dp"
-            android:scaleType="fitCenter"
-            android:contentDescription="@string/details_movie_cast_item_picture"
-            showPoster="@{actor.photo}"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            tools:srcCompat="@drawable/cast_photo" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/details_movie_actor_constraint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/cast_item_actor_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="Rebecca Ferguson"
-            android:textSize="12sp"
-            android:textAlignment="center"
-            android:textColor="@color/colorPrimaryDark"
-            android:text="@{actor.name}"
-            app:layout_constraintStart_toStartOf="@id/cast_item_photo"
-            app:layout_constraintTop_toBottomOf="@+id/cast_item_photo"
-            app:layout_constraintEnd_toEndOf="@id/cast_item_photo" />
+            <ImageView
+                android:id="@+id/cast_item_photo"
+                android:layout_width="@dimen/actor_item_width"
+                android:layout_height="@dimen/actor_item_image_height"
+                android:scaleType="fitCenter"
+                android:contentDescription="@string/details_movie_cast_item_picture"
+                showPoster="@{actor.photo}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:srcCompat="@drawable/cast_photo" />
 
-        <TextView
-            android:id="@+id/cast_item_character"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="12sp"
-            android:textColor="@color/colorPrimaryLight"
-            android:text="@{actor.character}"
-            app:layout_constraintStart_toStartOf="@+id/cast_item_actor_name"
-            app:layout_constraintTop_toBottomOf="@id/cast_item_actor_name"
-            app:layout_constraintEnd_toEndOf="@id/cast_item_actor_name"
-            tools:text="Lady Jessica Atreides"/>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/cast_item_actor_name"
+                android:layout_width="@dimen/actor_item_width"
+                android:layout_height="wrap_content"
+                tools:text="Rebecca Ferguson"
+                style="@style/BaseActor.Name"
+                android:text="@{actor.name}"
+                app:layout_constraintStart_toStartOf="@id/cast_item_photo"
+                app:layout_constraintTop_toBottomOf="@+id/cast_item_photo"
+                app:layout_constraintEnd_toEndOf="@id/cast_item_photo" />
 
+            <TextView
+                android:id="@+id/cast_item_character"
+                android:layout_width="@dimen/actor_item_width"
+                android:layout_height="wrap_content"
+                style="@style/BaseActor.Name.Character"
+                android:text="@{actor.character}"
+                app:layout_constraintStart_toStartOf="@+id/cast_item_actor_name"
+                app:layout_constraintTop_toBottomOf="@id/cast_item_actor_name"
+                app:layout_constraintEnd_toEndOf="@id/cast_item_actor_name"
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="Lady Jessica Atreides"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 </layout>

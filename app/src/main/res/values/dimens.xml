@@ -9,7 +9,10 @@
     <dimen name="medium_text_dimen">12sp</dimen>
     <dimen name="cardview_margin">10dp</dimen>
     <dimen name="cardview_corner_radius">5dp</dimen>
+    <dimen name="cardview_genre_corner_radius">20dp</dimen>
     <dimen name="favorite_icon_size">20dp</dimen>
     <dimen name="search_icon_size">30dp</dimen>
     <dimen name="search_min_height">48dp</dimen>
+    <dimen name="actor_item_width">100dp</dimen>
+    <dimen name="actor_item_image_height">150dp</dimen>
 </resources>

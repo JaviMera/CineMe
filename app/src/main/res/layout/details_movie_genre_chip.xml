@@ -13,22 +13,13 @@
         android:id="@+id/details_movie_genre_constraint_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        app:cardCornerRadius="20dp">
+        style="@style/CardViewGenre">
 
         <TextView
             android:id="@+id/movie_genre_chip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/colorPrimary"
-            android:textColor="@color/white"
-            android:textSize="12sp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
+            style="@style/CardViewGenre.BaseText.Text"
             android:text="@{genre.name}"
             tools:text="Drama" />
     </androidx.cardview.widget.CardView>
