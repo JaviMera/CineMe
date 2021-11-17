@@ -25,12 +25,18 @@
     </style>
 
     <style name="MovieTitle" parent="TextAppearance.MaterialComponents.Body2">
-        <item name="android:textColor">?attr/baseColor</item>
+        <item name="android:textColor">?baseColor</item>
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="MovieTitle.Landscape" parent="MovieTitle">
+        <item name="android:textSize">@dimen/large_text_dimen</item>
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginTop">@dimen/small_margin_dimen</item>
+    </style>
+
     <style name="MovieReleaseDate" parent="TextAppearance.MaterialComponents.Body2">
-        <item name="android:textColor">?attr/baseColor</item>
+        <item name="android:textColor">?baseColor</item>
     </style>
 
     <style name="BaseMovieOverview" parent="TextAppearance.MaterialComponents.Body2">
@@ -45,6 +51,9 @@
         <item name="android:textColor">?baseColor</item>
     </style>
 
+    <style name="MovieOverview.Landscape" parent="MovieOverview">
+        <item name="maxLines">6</item>
+    </style>
     <style name="BaseMaterialButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="iconGravity">start</item>
         <item name="iconSize">@dimen/favorite_icon_size</item>
@@ -100,7 +109,7 @@
 
     <style name="CardViewGenre" parent="Widget.MaterialComponents.CardView">
         <item name="cardBackgroundColor">?movieBackground</item>
-        <item name="android:layout_margin">?cardMarginSmall</item>
+        <item name="android:layout_marginEnd">?cardMarginSmall</item>
         <item name="cardCornerRadius">@dimen/cardview_genre_corner_radius</item>
     </style>
 
@@ -158,6 +167,8 @@
     <style name="BaseActor" parent="TextAppearance.MaterialComponents.Body2">
         <item name="android:textAlignment">center</item>
         <item name="android:textSize">@dimen/medium_text_dimen</item>
+        <item name="android:paddingStart">@dimen/x_small_margin_dimen</item>
+        <item name="android:paddingEnd">@dimen/x_small_margin_dimen</item>
     </style>
 
     <style name="BaseActor.Name" parent="BaseActor">
@@ -166,6 +177,59 @@
 
     <style name="BaseActor.Name.Character" parent="BaseActor.Name">
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="BaseTitle" parent="TextAppearance.MaterialComponents.Headline6">
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_marginTop">@dimen/medium_margin_dimen</item>
+    </style>
+
+    <style name="BaseTitle.Details" parent="BaseTitle">
+        <item name="android:textColor">?baseColor</item>
+    </style>
+
+    <style name="BaseTitle.Details.Landscape" parent="BaseTitle.Details">
+        <item name="android:layout_marginStart">@dimen/medium_margin_dimen</item>
+        <item name="android:layout_marginTop">@dimen/medium_margin_dimen</item>
+    </style>
+
+    <style name="MovieInformation">
+        <item name="android:textColor">?baseColor</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="MovieInformation.Votes" parent="MovieInformation">
+        <item name="android:layout_marginEnd">@dimen/large_margin_dimen</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="MovieInformation.UserScore" parent="MovieInformation">
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="FavoriteIcon">
+        <item name="android:src">@drawable/movie_favorite_not_selected</item>
+    </style>
+
+    <style name="MovieInformation.Directors" parent="MovieInformation">
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+    </style>
+
+    <style name="MovieInformation.Writers" parent="MovieInformation">
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+    </style>
+
+    <style name="MovieInformation.Directors.Landscape" parent="MovieInformation">
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:layout_marginStart">@dimen/large_margin_dimen</item>
+    </style>
+
+    <style name="MovieInformation.Writers.Landscape" parent="MovieInformation">
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:layout_marginStart">@dimen/large_margin_dimen</item>
         <item name="android:layout_marginBottom">@dimen/x_small_margin_dimen</item>
     </style>
 </resources>

@@ -12,7 +12,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="220dp"
         style="@style/BaseActor.Container">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -22,38 +22,42 @@
 
             <ImageView
                 android:id="@+id/cast_item_photo"
+                showPoster="@{actor.photo}"
                 android:layout_width="@dimen/actor_item_width"
                 android:layout_height="@dimen/actor_item_image_height"
-                android:scaleType="fitCenter"
                 android:contentDescription="@string/details_movie_cast_item_picture"
-                showPoster="@{actor.photo}"
+                android:scaleType="fitCenter"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
                 tools:srcCompat="@drawable/cast_photo" />
 
             <TextView
                 android:id="@+id/cast_item_actor_name"
+                style="@style/BaseActor.Name"
                 android:layout_width="@dimen/actor_item_width"
                 android:layout_height="wrap_content"
-                tools:text="Rebecca Ferguson"
-                style="@style/BaseActor.Name"
                 android:text="@{actor.name}"
+                app:layout_constraintBottom_toTopOf="@+id/cast_item_character"
+                app:layout_constraintEnd_toEndOf="@id/cast_item_photo"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="@id/cast_item_photo"
                 app:layout_constraintTop_toBottomOf="@+id/cast_item_photo"
-                app:layout_constraintEnd_toEndOf="@id/cast_item_photo" />
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="Ben Kingsley" />
 
             <TextView
                 android:id="@+id/cast_item_character"
+                style="@style/BaseActor.Name.Character"
                 android:layout_width="@dimen/actor_item_width"
                 android:layout_height="wrap_content"
-                style="@style/BaseActor.Name.Character"
                 android:text="@{actor.character}"
-                app:layout_constraintStart_toStartOf="@+id/cast_item_actor_name"
-                app:layout_constraintTop_toBottomOf="@id/cast_item_actor_name"
-                app:layout_constraintEnd_toEndOf="@id/cast_item_actor_name"
                 app:layout_constraintBottom_toBottomOf="parent"
-                tools:text="Lady Jessica Atreides"/>
+                app:layout_constraintEnd_toEndOf="@id/cast_item_actor_name"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="@+id/cast_item_actor_name"
+                app:layout_constraintTop_toBottomOf="@+id/cast_item_actor_name"
+                tools:text="Trevoer Slattery" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>

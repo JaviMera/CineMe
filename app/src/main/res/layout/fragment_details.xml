@@ -8,7 +8,7 @@
             name="movie"
             type="com.merajavier.cineme.movies.MovieDataItem" />
     </data>
-    
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -72,10 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/detail_movies_overview_title"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
+                    style="@style/BaseTitle.Details"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -84,12 +81,8 @@
                     android:id="@+id/details_movie_overview"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:text="@{movie.overview}"
-                    android:textColor="@color/colorPrimary"
-                    android:scrollHorizontally="true"
-                    android:ellipsize="end"
-                    android:maxLines="3"
+                    style="@style/MovieOverview"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detail_movies_overview_title"
@@ -131,8 +124,7 @@
                     android:id="@+id/details_movie_user_score_percentage"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="12sp"
+                    style="@style/MovieInformation.UserScore"
                     app:showVoteAverage="@{movie.voteAverage}"
                     app:layout_constraintBottom_toBottomOf="@+id/details_movie_user_score_progress"
                     app:layout_constraintEnd_toEndOf="@+id/details_movie_user_score_progress"
@@ -145,8 +137,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/detail_movies_user_score_text"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorPrimaryDark"
+                    style="@style/MovieInformation"
                     app:layout_constraintEnd_toEndOf="@id/details_movie_user_score_progress"
                     app:layout_constraintStart_toStartOf="@id/details_movie_user_score_progress"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_user_score_progress" />
@@ -156,7 +147,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/details_movie_favorite_description"
-                    android:src="@drawable/movie_favorite_not_selected"
+                    style="@style/FavoriteIcon"
                     app:layout_constraintBottom_toBottomOf="@+id/details_movie_user_score_progress"
                     app:layout_constraintEnd_toStartOf="@+id/details_movie_user_votes"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -168,8 +159,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/details_movie_user_favorite_text"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorPrimaryDark"
+                    style="@style/MovieInformation"
                     app:layout_constraintEnd_toEndOf="@id/details_movie_favorite"
                     app:layout_constraintStart_toStartOf="@id/details_movie_favorite"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_favorite" />
@@ -178,9 +168,8 @@
                     android:id="@+id/details_movie_user_votes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginEnd="24dp"
+                    style="@style/MovieInformation.Votes"
                     android:text="@{String.valueOf(movie.voteCount)}"
-                    android:textColor="@color/colorPrimary"
                     app:layout_constraintBottom_toBottomOf="@+id/details_movie_favorite"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
@@ -193,8 +182,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/details_movie_user_votes_text"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorPrimaryDark"
+                    style="@style/MovieInformation"
                     app:layout_constraintEnd_toEndOf="@id/details_movie_user_votes"
                     app:layout_constraintStart_toStartOf="@id/details_movie_user_votes"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_user_votes" />
@@ -203,12 +191,8 @@
                     android:id="@+id/detail_movies_top_cast_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:text="@string/detail_movies_top_cast_title"
-                    android:textAlignment="textStart"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
+                    style="@style/BaseTitle.Details"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_user_score_title" />
 
@@ -229,11 +213,8 @@
                     android:id="@+id/details_movie_director_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:text="@string/details_movie_director_title"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    style="@style/BaseTitle.Details"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_actors" />
 
@@ -241,8 +222,7 @@
                     android:id="@+id/details_movie_director"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:textColor="@color/colorPrimary"
+                    style="@style/MovieInformation.Directors"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_director_title"
                     app:layout_constraintStart_toStartOf="parent"
                     tools:text="David Fincher, Lio Messi, Francella" />
@@ -251,11 +231,8 @@
                     android:id="@+id/details_movie_writers_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
                     android:text="@string/details_movie_writers_title"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    style="@style/BaseTitle.Details"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_director" />
 
@@ -263,8 +240,7 @@
                     android:id="@+id/details_movie_writers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:textColor="@color/colorPrimary"
+                    style="@style/MovieInformation.Writers"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_writers_title"
                     tools:text="David Fincher, Lio Messi, Francella" />

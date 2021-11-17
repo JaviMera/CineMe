@@ -143,9 +143,9 @@ class DetailsFragment : Fragment() {
     }
 
     private fun displayFavoriteIcon(isFavorite: Boolean){
-        when(isFavorite){
-            true -> binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_selected)
-            false -> binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_not_selected)
+
+        if(isFavorite){
+            binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_selected)
         }
     }
 
