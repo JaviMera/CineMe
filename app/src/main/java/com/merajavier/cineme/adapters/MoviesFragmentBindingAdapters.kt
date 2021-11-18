@@ -10,6 +10,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.merajavier.cineme.BuildConfig
 import com.merajavier.cineme.R
 import com.merajavier.cineme.common.toPercentAverage
+import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -59,10 +60,8 @@ fun bindAverageScore(textView: TextView, average: Double){
 @BindingAdapter("showReleaseDate")
 fun bindReleaseDate(textView: TextView, releaseDate: String?){
 
-    if(releaseDate == null){
-        textView.text = textView.context.getString(R.string.movie_release_date_not_available_text)
-    }else{
-        releaseDate.let{
+    releaseDate?.let{
+        if(it.isNotEmpty()){
             val pattern = "MMM d, yyyy"
             val calendar = Calendar.getInstance()
             val values = releaseDate.split("-")
@@ -75,6 +74,8 @@ fun bindReleaseDate(textView: TextView, releaseDate: String?){
             }else{
                 textView.text = it
             }
+        }else{
+            Timber.i("Empty date: $it")
         }
     }
 }
