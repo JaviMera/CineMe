@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="LoginEditText.Username" parent="LoginEditText">
+        <item name="android:inputType">text</item>
+        <item name="android:hint">@string/login_username_hint</item>
+    </style>
+
+    <style name="LoginEditText.Password" parent="LoginEditText">
+        <item name="android:inputType">textPassword</item>
+        <item name="android:hint">@string/login_password_hint</item>
+    </style>
+</resources>
