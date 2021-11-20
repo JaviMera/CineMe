@@ -265,4 +265,11 @@
         <item name="strokeColor">?baseColor</item>
         <item name="strokeWidth">2dp</item>
     </style>
+
+    <style name="MovieOverviewFragment" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">?baseColor</item>
+        <item name="android:layout_marginTop">@dimen/medium_margin_dimen</item>
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginEnd">@dimen/small_margin_dimen</item>
+    </style>
 </resources>

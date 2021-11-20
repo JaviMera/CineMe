@@ -10,6 +10,7 @@ import android.view.animation.Animation
 import android.view.animation.Transformation
 import android.widget.Toast
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.ExperimentalPagingApi
 import com.google.android.material.appbar.AppBarLayout
@@ -139,6 +140,10 @@ class DetailsFragment : Fragment() {
             })
         }
 
+        binding.detailsMovieOverview.setOnClickListener {
+            findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToOverviewFragment(args.movie.overview))
+        }
+        
         return binding.root
     }
 
