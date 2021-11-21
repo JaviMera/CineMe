@@ -5,4 +5,5 @@
     <attr name="cardCornerRadius" format="dimension"/>
     <attr name="cardMarginSmall" format="dimension"/>
     <attr name="cardMarginXSmall" format="dimension"/>
+    <attr name="cardElevation" format="dimension" />
 </resources>

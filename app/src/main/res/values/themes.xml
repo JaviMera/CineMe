@@ -24,6 +24,7 @@
         <item name="cardCornerRadius">@dimen/cardview_corner_radius</item>
         <item name="cardMarginSmall">@dimen/cardview_margin</item>
         <item name="cardMarginXSmall">@dimen/x_small_margin_dimen</item>
+        <item name="cardElevation">@dimen/x_small_margin_dimen</item>
     </style>
 
     <style name="MovieTitle" parent="TextAppearance.MaterialComponents.Body2">
@@ -271,5 +272,35 @@
         <item name="android:layout_marginTop">@dimen/medium_margin_dimen</item>
         <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
         <item name="android:layout_marginEnd">@dimen/small_margin_dimen</item>
+    </style>
+
+    <style name="MovieReviewContainer" parent="Widget.MaterialComponents.CardView">
+        <item name="android:layout_margin">@dimen/x_small_margin_dimen</item>
+        <item name="cardCornerRadius">?cardCornerRadius</item>
+        <item name="cardBackgroundColor">?movieBackground</item>
+        <item name="cardElevation">?cardElevation</item>
+    </style>
+
+    <style name="MovieReviewContainer.Icon">
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="contentDescription">@string/review_item_icon_description</item>
+    </style>
+
+    <style name="MovieReviewContainer.Icon.Rate" parent="MovieReviewContainer.Icon">
+        <item name="android:src">@drawable/movie_rate_icon</item>
+    </style>
+
+    <style name="MovieReviewContainer.Score" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="android:textColor">?baseColor</item>
+    </style>
+
+    <style name="MovieReviewContainer.Content" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:layout_margin">@dimen/small_margin_dimen</item>
+        <item name="android:textColor">?baseColor</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:maxLines">5</item>
+        <item name="android:ellipsize">end</item>
     </style>
 </resources>

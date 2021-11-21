@@ -38,4 +38,8 @@
     <style name="FavoriteIcon">
         <item name="android:src">@drawable/movie_favorite_not_selected_dark</item>
     </style>
+
+    <style name="MovieReviewContainer.Icon.Rate" parent="MovieReviewContainer.Icon">
+        <item name="android:src">@drawable/movie_rate_icon_dark</item>
+    </style>
 </resources>
