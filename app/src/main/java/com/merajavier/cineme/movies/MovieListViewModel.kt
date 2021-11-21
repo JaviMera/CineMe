@@ -60,7 +60,7 @@ class MovieListViewModel(
     val movieSelected: LiveData<MovieDataItem>
     get() = _selectedMovie
 
-    private val _isMovieFavorite = SingleLiveData<Boolean>()
+    private val _isMovieFavorite = MutableLiveData<Boolean>()
     val isMovieFavorite: LiveData<Boolean>
         get() = _isMovieFavorite
 
@@ -109,6 +109,7 @@ class MovieListViewModel(
                 when(val accountStateResult = networkMovieRepository.getAccountState(movieId, sessionId)){
                     is TMDBApiResult.Success ->{
                         val favoriteMoviesResponse = accountStateResult.data as AccountStateResponse
+                        Timber.i("Favorite: ${favoriteMoviesResponse.favorite}")
                         _isMovieFavorite.postValue(favoriteMoviesResponse.favorite)
                     }
                     is TMDBApiResult.Failure -> {

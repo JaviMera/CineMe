@@ -1,6 +1,7 @@
 package com.merajavier.cineme.details
 
 import android.animation.ValueAnimator
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -15,6 +16,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.paging.ExperimentalPagingApi
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.merajavier.cineme.MessageViewModel
 import com.merajavier.cineme.R
 import com.merajavier.cineme.cast.ActorsRecyclerAdapter
 import com.merajavier.cineme.cast.CastListViewModel
@@ -23,9 +25,11 @@ import com.merajavier.cineme.databinding.FragmentDetailsBinding
 import com.merajavier.cineme.genre.GenresRecyclerAdapter
 import com.merajavier.cineme.login.LoginViewModel
 import com.merajavier.cineme.login.account.AccountViewModel
+import com.merajavier.cineme.login.account.MarkFavoriteStatus
 import com.merajavier.cineme.movies.MovieListViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 @ExperimentalPagingApi
 class DetailsFragment : Fragment() {
@@ -37,6 +41,7 @@ class DetailsFragment : Fragment() {
     private val accountViewModel: AccountViewModel by viewModel()
     private val moviesViewModel: MovieListViewModel by viewModel()
     private val loginViewModel: LoginViewModel by sharedViewModel()
+    private val messageViewModel: MessageViewModel by sharedViewModel()
 
     private val args: DetailsFragmentArgs by navArgs()
 
@@ -119,13 +124,21 @@ class DetailsFragment : Fragment() {
                     args.movie.id,
                     isFavorite)
 
-                displayFavoriteIcon(isFavorite)
+                messageViewModel.setMessage(
+                    when(isFavorite){
+                        true -> getString(R.string.added_to_favorites_text)
+                        false -> getString(R.string.removed_from_favorites_text)
+                    })
             }else{
-                Toast.makeText(
-                    requireContext(), "You need to sign in to add to favorites.", Toast.LENGTH_SHORT)
-                        .show()
+                messageViewModel.setMessage(getString(R.string.sign_in_error_message))
             }
         }
+
+        accountViewModel.movieUpdated.observe(viewLifecycleOwner, Observer {
+            if(it.equals(MarkFavoriteStatus.DONE)){
+                moviesViewModel.isMovieFavorite(args.movie.id, loginViewModel.userSession.sessionId)
+            }
+        })
 
         if(loginViewModel.isLogged.value == true){
             moviesViewModel.isMovieFavorite(args.movie.id, loginViewModel.userSession.sessionId)
@@ -134,7 +147,6 @@ class DetailsFragment : Fragment() {
                 if(it == null){
                     binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_not_selected)
                 }else{
-
                     displayFavoriteIcon(it)
                 }
             })
@@ -151,6 +163,8 @@ class DetailsFragment : Fragment() {
 
         if(isFavorite){
             binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_selected)
+        }else{
+            binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_not_selected_dark)
         }
     }
 

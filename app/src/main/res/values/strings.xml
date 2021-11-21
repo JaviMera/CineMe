@@ -59,4 +59,7 @@
     <string name="remove_movie_error">Unable to remove movie</string>
     <string name="connection_error">Connection Lost</string>
     <string name="test_movie_overview">This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test This is a test </string>
+    <string name="added_to_favorites_text">Added to favorites!</string>
+    <string name="removed_from_favorites_text">Removed from favorites</string>
+    <string name="sign_in_error_message">You need to sign in to add to favorites.</string>
 </resources>
