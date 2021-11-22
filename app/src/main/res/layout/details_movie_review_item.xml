@@ -4,11 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        
+        <variable
+            name="review"
+            type="com.merajavier.cineme.movies.reviews.ReviewDataItem" />
     </data>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         style="@style/MovieReviewContainer">
 
@@ -30,6 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/MovieReviewContainer.Score"
+                android:text="@{String.valueOf(review.authorDetails.rating)}"
                 app:layout_constraintBottom_toBottomOf="@id/review_item_icon"
                 app:layout_constraintStart_toEndOf="@id/review_item_icon"
                 tools:text="6.9" />
@@ -39,6 +42,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 style="@style/MovieReviewContainer.Content"
+                android:text="@{review.content}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"

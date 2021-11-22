@@ -26,5 +26,11 @@ interface TMDBApMoviesiInterface {
         @Path("movie_id") movieId: Int,
         @Query("session_id") sessionId: String
     ) : Call<String>
+
+    @GET("movie/{movie_id}/reviews")
+    fun getReviews(
+        @Path("movie_id") movieId: Int,
+        @Query("page") pageNumber: Int
+    ) : Call<String>
 }
 

@@ -7,8 +7,10 @@ import com.merajavier.cineme.movies.AccountStateResponse
 import com.merajavier.cineme.movies.MovieDataItem
 import com.merajavier.cineme.movies.MoviesResponse
 import com.merajavier.cineme.movies.favorites.FavoriteMoviesResponse
+import com.merajavier.cineme.movies.reviews.MovieReviewsResponse
 import com.merajavier.cineme.network.api.TMDBApMoviesiInterface
 import retrofit2.*
+import timber.log.Timber
 
 interface NetworkMoviesRepositoryInterface {
 
@@ -16,6 +18,7 @@ interface NetworkMoviesRepositoryInterface {
     suspend fun getDetails(movieId: Int) : TMDBApiResult<*>
     suspend fun  getUpcoming(pageNumber: Int) : TMDBApiResult<*>
     suspend fun getAccountState(movieId: Int, sessionId: String) : TMDBApiResult<*>
+    suspend fun getReviews(movieId: Int, pageNumber: Int) : TMDBApiResult<*>
 }
 
 class NetworkMoviesRepository(
@@ -70,6 +73,20 @@ class NetworkMoviesRepository(
                 TMDBApiResult.Failure(Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java))
             }
         }catch (exception: Exception){
+            TMDBApiResult.Error(exception.localizedMessage)
+        }
+    }
+
+    override suspend fun getReviews(movieId: Int, pageNumber: Int): TMDBApiResult<*> {
+        return try{
+            val response = apiMoviesiInterface.getReviews(movieId, pageNumber).awaitResponse()
+            if(response.isSuccessful){
+                Timber.i(response.body())
+                TMDBApiResult.Success(Gson().fromJson(response.body(), MovieReviewsResponse::class.java))
+            }else{
+                TMDBApiResult.Failure(Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java))
+            }
+        }catch(exception: Exception){
             TMDBApiResult.Error(exception.localizedMessage)
         }
     }

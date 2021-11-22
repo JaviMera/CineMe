@@ -1,4 +1,4 @@
-package com.merajavier.cineme.movies
+package com.merajavier.cineme.movies.reviews
 
 import androidx.paging.PagingSource
 import com.merajavier.cineme.common.ErrorResponse
@@ -6,21 +6,22 @@ import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.network.repositories.NetworkMoviesRepositoryInterface
 import timber.log.Timber
 
-class MoviesPagingSource(
-    private val apiInterface: NetworkMoviesRepositoryInterface
-) : PagingSource<Int, MovieDataItem>() {
+class MovieReviewsPagingSource(
+    private val apiInterface: NetworkMoviesRepositoryInterface,
+    private val movieId: Int
+) : PagingSource<Int, ReviewDataItem>() {
 
-    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, MovieDataItem> {
+    override suspend fun load(params: LoadParams<Int>): LoadResult<Int, ReviewDataItem> {
         return try {
             val page = params.key ?: 1
-            when (val result = apiInterface.getNowPlaying(page)) {
+            when (val result = apiInterface.getReviews(movieId, page)) {
                 is TMDBApiResult.Success -> {
-                    val response = result.data as MoviesResponse
+                    val response = result.data as MovieReviewsResponse
 
                     LoadResult.Page(
-                        response.movies,
+                        response.results!!,
                         if (page == 1) null else page - 1,
-                        if (response.movies.isEmpty()) null else page.inc()
+                        if (response.results.isEmpty()) null else page.inc()
                     )
                 }
                 is TMDBApiResult.Failure -> {
@@ -40,4 +41,3 @@ class MoviesPagingSource(
         }
     }
 }
-

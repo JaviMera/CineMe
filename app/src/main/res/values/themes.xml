@@ -24,7 +24,7 @@
         <item name="cardCornerRadius">@dimen/cardview_corner_radius</item>
         <item name="cardMarginSmall">@dimen/cardview_margin</item>
         <item name="cardMarginXSmall">@dimen/x_small_margin_dimen</item>
-        <item name="cardElevation">@dimen/x_small_margin_dimen</item>
+        <item name="cardElevation">@dimen/xx_small_margin_dimen</item>
     </style>
 
     <style name="MovieTitle" parent="TextAppearance.MaterialComponents.Body2">
@@ -298,9 +298,12 @@
 
     <style name="MovieReviewContainer.Content" parent="TextAppearance.MaterialComponents.Body2">
         <item name="android:layout_margin">@dimen/small_margin_dimen</item>
+        <item name="android:textSize">@dimen/medium_text_dimen</item>
         <item name="android:textColor">?baseColor</item>
         <item name="android:textStyle">bold</item>
         <item name="android:maxLines">5</item>
         <item name="android:ellipsize">end</item>
     </style>
+
+    <dimen name="xx_small_margin_dimen">2dp</dimen>
 </resources>

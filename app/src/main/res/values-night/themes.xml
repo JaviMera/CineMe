@@ -25,6 +25,7 @@
         <item name="cardCornerRadius">@dimen/cardview_corner_radius</item>
         <item name="cardMarginSmall">@dimen/cardview_margin</item>
         <item name="cardMarginXSmall">@dimen/x_small_margin_dimen</item>
+        <item name="cardElevation">@dimen/xx_small_margin_dimen</item>
     </style>
 
     <style name="CardViewSearch.Icon.Search" parent="CardViewSearch.Icon">

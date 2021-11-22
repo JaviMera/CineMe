@@ -9,6 +9,7 @@ import com.merajavier.cineme.data.local.TMDBDatabase
 import com.merajavier.cineme.login.LoginViewModel
 import com.merajavier.cineme.login.account.AccountViewModel
 import com.merajavier.cineme.movies.MovieListViewModel
+import com.merajavier.cineme.movies.reviews.MovieReviewsViewModel
 import com.merajavier.cineme.movies.search.SearchMoviesViewModel
 import com.merajavier.cineme.movies.upcoming.UpcomingMoviesViewModel
 import com.merajavier.cineme.network.*
@@ -56,5 +57,9 @@ val viewModelsModule = module{
 
     viewModel{
         MessageViewModel()
+    }
+
+    viewModel{
+        MovieReviewsViewModel(get() as NetworkMoviesRepositoryInterface)
     }
 }

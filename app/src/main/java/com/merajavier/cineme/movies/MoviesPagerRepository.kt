@@ -5,6 +5,8 @@ import androidx.paging.*
 import com.merajavier.cineme.data.local.TMDBDatabase
 import com.merajavier.cineme.movies.favorites.FavoriteMovieDataItem
 import com.merajavier.cineme.movies.favorites.FavoriteMoviesPagingSource
+import com.merajavier.cineme.movies.reviews.MovieReviewsPagingSource
+import com.merajavier.cineme.movies.reviews.ReviewDataItem
 import com.merajavier.cineme.movies.search.SearchMoviesPagingSource
 import com.merajavier.cineme.movies.upcoming.UpcomingMoviesPagingSource
 import com.merajavier.cineme.network.repositories.NetworkAccountRepositoryInterface
@@ -53,10 +55,6 @@ class MoviesPagerRepository(){
         ).liveData
     }
 
-    private fun getDefaultPageConfig(): PagingConfig {
-        return PagingConfig(pageSize = 1, enablePlaceholders = false)
-    }
-
     fun searchMoviesPagingData(
         networkMoviesRepositoryInterface: NetworkSearchRepositoryInterface,
         movieTitle: String): LiveData<PagingData<MovieDataItem>> {
@@ -64,5 +62,20 @@ class MoviesPagerRepository(){
             config = getDefaultPageConfig(),
             pagingSourceFactory = { SearchMoviesPagingSource(networkMoviesRepositoryInterface, movieTitle) }
         ).liveData
+    }
+
+    fun reviewsPagingData(
+        networkMoviesRepositoryInterface: NetworkMoviesRepositoryInterface,
+        movieId: Int
+    ) : LiveData<PagingData<ReviewDataItem>>{
+
+        return Pager(
+            config = getDefaultPageConfig(),
+            pagingSourceFactory = { MovieReviewsPagingSource(networkMoviesRepositoryInterface, movieId)}
+        ).liveData
+    }
+
+    private fun getDefaultPageConfig(): PagingConfig {
+        return PagingConfig(pageSize = 1, enablePlaceholders = false)
     }
 }
