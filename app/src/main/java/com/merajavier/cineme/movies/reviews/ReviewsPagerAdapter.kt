@@ -8,12 +8,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.DetailsMovieReviewItemBinding
+import com.merajavier.cineme.databinding.ReviewItemBinding
+import com.merajavier.cineme.databinding.ReviewItemBindingImpl
 
 class ReviewsPagerAdapter(
 ) : PagingDataAdapter<ReviewDataItem, ReviewsPagerAdapter.ReviewViewHolder>(DiffCallback){
 
     class ReviewViewHolder(
-        private val binding: DetailsMovieReviewItemBinding
+        private val binding: ReviewItemBinding
     ) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(reviewDataItem: ReviewDataItem){
@@ -28,7 +30,7 @@ class ReviewsPagerAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ReviewViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = DataBindingUtil.inflate(inflater, R.layout.details_movie_review_item, parent, false) as DetailsMovieReviewItemBinding
+        val binding = DataBindingUtil.inflate(inflater, R.layout.review_item, parent, false) as ReviewItemBinding
         return ReviewViewHolder(binding)
     }
 

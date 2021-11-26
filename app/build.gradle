@@ -7,12 +7,12 @@ plugins {
 }
 
 android {
-    compileSdk 30
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.merajavier.cineme"
         minSdk 23
-        targetSdk 30
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
@@ -117,5 +117,5 @@ dependencies {
     // Startup
     implementation "androidx.startup:startup-runtime:1.1.0"
 
-    implementation "androidx.paging:paging-runtime:3.0.0-alpha03"
+    implementation "androidx.paging:paging-runtime:3.1.0"
 }

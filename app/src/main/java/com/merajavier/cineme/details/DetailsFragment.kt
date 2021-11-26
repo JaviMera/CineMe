@@ -169,6 +169,10 @@ class DetailsFragment : Fragment() {
             reviewsAdapter.submitList(it)
         })
 
+        binding.detailsMovieSeeAllReviews?.setOnClickListener {
+            findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToReviewsFragment(args.movie.id))
+        }
+
         return binding.root
     }
 

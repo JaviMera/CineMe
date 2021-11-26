@@ -23,7 +23,7 @@
                 android:id="@+id/review_item_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/MovieReviewContainer.Icon.Rate"
+                style="@style/MovieDetailReviewContainer.Icon.Rate"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -31,7 +31,7 @@
                 android:id="@+id/review_item_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/MovieReviewContainer.Score"
+                style="@style/MovieDetailReviewContainer.Score"
                 android:text="@{String.valueOf(review.authorDetails.rating)}"
                 app:layout_constraintBottom_toBottomOf="@id/review_item_icon"
                 app:layout_constraintStart_toEndOf="@id/review_item_icon"
@@ -41,7 +41,7 @@
                 android:id="@+id/review_item_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                style="@style/MovieReviewContainer.Content"
+                style="@style/MovieDetailReviewContainer.Content"
                 android:text="@{review.content}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

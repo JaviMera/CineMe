@@ -1,8 +1,10 @@
 package com.merajavier.cineme.movies.reviews
 
 import androidx.paging.PagingSource
+import androidx.paging.PagingState
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
+import com.merajavier.cineme.movies.MovieDataItem
 import com.merajavier.cineme.network.repositories.NetworkMoviesRepositoryInterface
 import timber.log.Timber
 
@@ -38,6 +40,13 @@ class MovieReviewsPagingSource(
         } catch (exception: Exception) {
             Timber.i(exception.localizedMessage)
             LoadResult.Error(exception)
+        }
+    }
+
+    override fun getRefreshKey(state: PagingState<Int, ReviewDataItem>): Int? {
+        return state.anchorPosition?.let { anchorPosition ->
+            state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
+                ?: state.closestPageToPosition(anchorPosition)?.nextKey?.minus(1)
         }
     }
 }
