@@ -275,7 +275,7 @@
     </style>
 
     <style name="MovieReviewContainer" parent="Widget.MaterialComponents.CardView">
-        <item name="android:layout_margin">@dimen/x_small_margin_dimen</item>
+        <item name="android:layout_marginEnd">@dimen/x_small_margin_dimen</item>
         <item name="cardCornerRadius">?cardCornerRadius</item>
         <item name="cardBackgroundColor">?movieBackground</item>
         <item name="cardElevation">?cardElevation</item>
@@ -305,5 +305,10 @@
         <item name="android:ellipsize">end</item>
     </style>
 
-    <dimen name="xx_small_margin_dimen">2dp</dimen>
+    <style name="SeeAllReviews" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">?baseColor</item>
+        <item name="android:text">@string/details_movie_see_all_reviews_text</item>
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginTop">@dimen/medium_margin_dimen</item>
+    </style>
 </resources>

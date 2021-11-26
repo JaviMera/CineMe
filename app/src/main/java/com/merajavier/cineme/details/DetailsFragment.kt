@@ -1,7 +1,6 @@
 package com.merajavier.cineme.details
 
 import android.animation.ValueAnimator
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.Transformation
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -29,11 +27,11 @@ import com.merajavier.cineme.login.account.AccountViewModel
 import com.merajavier.cineme.login.account.MarkFavoriteStatus
 import com.merajavier.cineme.movies.MovieListViewModel
 import com.merajavier.cineme.movies.reviews.MovieReviewsViewModel
-import com.merajavier.cineme.movies.reviews.ReviewsRecyclerAdapter
+import com.merajavier.cineme.movies.reviews.ReviewsListAdapter
+import com.merajavier.cineme.movies.reviews.ReviewsPagerAdapter
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 @ExperimentalPagingApi
 class DetailsFragment : Fragment() {
@@ -41,7 +39,7 @@ class DetailsFragment : Fragment() {
     private lateinit var binding: FragmentDetailsBinding
     private lateinit var genresAdapter: GenresRecyclerAdapter
     private lateinit var actorsAdapter: ActorsRecyclerAdapter
-    private lateinit var reviewsAdapter: ReviewsRecyclerAdapter
+    private lateinit var reviewsAdapter: ReviewsListAdapter
 
     private val castListViewModel: CastListViewModel by viewModel()
     private val accountViewModel: AccountViewModel by viewModel()
@@ -67,7 +65,7 @@ class DetailsFragment : Fragment() {
         binding.lifecycleOwner = this
         genresAdapter = GenresRecyclerAdapter()
         actorsAdapter = ActorsRecyclerAdapter()
-        reviewsAdapter = ReviewsRecyclerAdapter()
+        reviewsAdapter = ReviewsListAdapter()
 
         binding.detailsMovieGenres.adapter = genresAdapter
         binding.detailsMovieActors.adapter = actorsAdapter
@@ -166,12 +164,11 @@ class DetailsFragment : Fragment() {
             findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToOverviewFragment(args.movie.overview))
         }
 
-        reviewsViewModel.fetchReviews(args.movie.id).observe(viewLifecycleOwner, Observer {
-            lifecycleScope.launch {
-                reviewsAdapter.submitData(it)
-            }
+        reviewsViewModel.getTopMovieReviews(args.movie.id)
+        reviewsViewModel.topMovieReviews.observe(viewLifecycleOwner, Observer {
+            reviewsAdapter.submitList(it)
         })
-        
+
         return binding.root
     }
 

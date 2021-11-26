@@ -277,6 +277,14 @@
                     app:layout_constraintTop_toBottomOf="@+id/details_movie_reviews_title"
                     tools:itemCount="2"
                     tools:listitem="@layout/details_movie_review_item" />
+
+                <TextView
+                    android:id="@+id/details_movie_see_all_reviews"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/SeeAllReviews"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/details_movie_reviews" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.DetailsMovieReviewItemBinding
 
-class ReviewsRecyclerAdapter(
-) : PagingDataAdapter<ReviewDataItem, ReviewsRecyclerAdapter.ReviewViewHolder>(DiffCallback){
+class ReviewsPagerAdapter(
+) : PagingDataAdapter<ReviewDataItem, ReviewsPagerAdapter.ReviewViewHolder>(DiffCallback){
 
     class ReviewViewHolder(
         private val binding: DetailsMovieReviewItemBinding
@@ -42,3 +42,4 @@ class ReviewsRecyclerAdapter(
         }
     }
 }
+
