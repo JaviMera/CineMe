@@ -340,13 +340,19 @@
     <style name="MovieDetailReviewContainer.Author" parent="TextAppearance.MaterialComponents.Body2">
         <item name="android:textSize">@dimen/medium_text_dimen</item>
         <item name="android:textColor">?baseColor</item>
-        <item name="android:layout_margin">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
     </style>
 
     <style name="MovieReviewContainer.Author" parent="TextAppearance.MaterialComponents.Body2">
         <item name="android:textSize">@dimen/medium_text_dimen</item>
         <item name="android:textColor">?baseColor</item>
-        <item name="android:layout_margin">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginTop">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginBottom">@dimen/small_margin_dimen</item>
+        <item name="android:textStyle">italic</item>
+    </style>
+
+    <style name="MovieReviewContainer.Author.Date" parent="MovieReviewContainer.Author">
+        <item name="android:layout_marginStart">@dimen/xx_small_margin_dimen</item>
     </style>
 
     <style name="SeeAllReviews" parent="TextAppearance.MaterialComponents.Body2">
