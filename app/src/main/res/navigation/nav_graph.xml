@@ -101,7 +101,7 @@
     <fragment
         android:id="@+id/overviewFragment"
         android:name="com.merajavier.cineme.movies.overview.OverviewFragment"
-        android:label="Plot Summary"
+        android:label="@string/fragment_overview_title"
         tools:layout="@layout/fragment_overview">
         <argument
             android:name="overview"
@@ -110,7 +110,7 @@
     <fragment
         android:id="@+id/reviewsFragment"
         android:name="com.merajavier.cineme.movies.reviews.ReviewsFragment"
-        android:label="ReviewsFragment"
+        android:label="@string/fragment_review_title"
         tools:layout="@layout/review_item">
         <argument
             android:name="movieId"

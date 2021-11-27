@@ -9,6 +9,7 @@ data class ReviewDataItem(
     val id: String,
     val author: String?,
     val content: String?,
-    @SerializedName("author_details") val authorDetails: AuthorDetails?
+    @SerializedName("author_details") val authorDetails: AuthorDetails?,
+    @SerializedName("created_at") val createdAt: String?
 ) : Parcelable
 

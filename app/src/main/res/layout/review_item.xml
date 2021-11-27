@@ -50,6 +50,32 @@
                 app:layout_constraintTop_toBottomOf="@id/review_item_score"
                 app:layout_constraintVertical_bias="0.0"
                 tools:text="@string/review_item_content_test" />
+
+            <TextView
+                android:id="@+id/review_item_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@id/review_item_content"
+                app:layout_constraintTop_toBottomOf="@id/review_item_content"
+                app:reviewAuthorName="@{review.authorDetails}"
+                tools:text="by Javier Mera" />
+
+            <TextView
+                android:id="@+id/review_item_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="italic"
+                app:layout_constraintBaseline_toBaselineOf="@+id/review_item_author"
+                app:layout_constraintStart_toEndOf="@id/review_item_author"
+                app:showReviewDate="@{review.createdAt}"
+                tools:text="on Nov 27, 2021" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

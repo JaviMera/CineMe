@@ -9,6 +9,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.merajavier.cineme.BuildConfig
 import com.merajavier.cineme.R
+import com.merajavier.cineme.common.toMovieDateFormat
 import com.merajavier.cineme.common.toPercentAverage
 import timber.log.Timber
 import java.text.SimpleDateFormat
@@ -59,23 +60,8 @@ fun bindAverageScore(textView: TextView, average: Double){
 
 @BindingAdapter("showReleaseDate")
 fun bindReleaseDate(textView: TextView, releaseDate: String?){
-
     releaseDate?.let{
-        if(it.isNotEmpty()){
-            val pattern = "MMM d, yyyy"
-            val calendar = Calendar.getInstance()
-            val values = releaseDate.split("-")
-
-            if(values.isNotEmpty()){
-                calendar.set(Calendar.YEAR, values[0].toInt())
-                calendar.set(Calendar.MONTH, values[1].toInt())
-                calendar.set(Calendar.DAY_OF_MONTH, values[2].toInt())
-                textView.text = SimpleDateFormat(pattern, Locale.getDefault()).format(calendar.time)
-            }else{
-                textView.text = it
-            }
-        }else{
-            Timber.i("Empty date: $it")
-        }
+        val movieDateFormat = it.toMovieDateFormat()
+        textView.text = movieDateFormat
     }
 }

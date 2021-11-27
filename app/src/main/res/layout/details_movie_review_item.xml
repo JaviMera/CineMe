@@ -15,12 +15,12 @@
         style="@style/MovieDetailReviewContainer">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/review_item_constraint_layout"
+            android:id="@+id/detail_movie_review_item_constraint_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <ImageView
-                android:id="@+id/review_item_icon"
+                android:id="@+id/detail_movie_review_item_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/MovieDetailReviewContainer.Icon.Rate"
@@ -28,17 +28,17 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/review_item_score"
+                android:id="@+id/detail_movie_review_item_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/MovieDetailReviewContainer.Score"
                 android:text="@{String.valueOf(review.authorDetails.rating)}"
-                app:layout_constraintBottom_toBottomOf="@id/review_item_icon"
-                app:layout_constraintStart_toEndOf="@id/review_item_icon"
+                app:layout_constraintBottom_toBottomOf="@id/detail_movie_review_item_icon"
+                app:layout_constraintStart_toEndOf="@id/detail_movie_review_item_icon"
                 tools:text="6.9" />
 
             <TextView
-                android:id="@+id/review_item_content"
+                android:id="@+id/detail_movie_review_item_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 style="@style/MovieDetailReviewContainer.Content"
@@ -47,9 +47,25 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/review_item_score"
+                app:layout_constraintTop_toBottomOf="@id/detail_movie_review_item_score"
                 app:layout_constraintVertical_bias="0.0"
                 tools:text="@string/review_item_content_test" />
+
+            <TextView
+                android:id="@+id/detail_movie_review_item_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:reviewAuthorName="@{review.authorDetails}"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="italic"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@id/detail_movie_review_item_content"
+                app:layout_constraintStart_toStartOf="@id/detail_movie_review_item_content"
+                app:layout_constraintTop_toBottomOf="@id/detail_movie_review_item_content"
+                tools:text="by Javier Mera" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>
