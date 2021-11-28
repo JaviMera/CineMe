@@ -91,10 +91,7 @@
         <action
             android:id="@+id/action_detailsFragment_to_reviewsFragment"
             app:destination="@id/reviewsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
+
             app:popUpTo="@id/reviewsFragment"
             app:popUpToInclusive="true" />
     </fragment>

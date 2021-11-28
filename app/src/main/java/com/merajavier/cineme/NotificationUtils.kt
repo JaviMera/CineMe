@@ -3,6 +3,7 @@ package com.merajavier.cineme
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.app.PendingIntent.FLAG_UPDATE_CURRENT
 import android.content.Context
 import android.content.Intent
@@ -46,7 +47,7 @@ fun sendNotification(context: Context, upcomingTitles: List<String>) {
         .addAction(
             R.drawable.ic_notifications_black_24dp,
             context.getString(R.string.notification_action_text),
-            PendingIntent.getActivity(context, 0, intent, FLAG_UPDATE_CURRENT)
+            PendingIntent.getActivity(context, 0, intent, FLAG_IMMUTABLE or FLAG_UPDATE_CURRENT)
         )
         .setStyle(NotificationCompat.BigTextStyle()
             .bigText(context.getString(R.string.notification_text, upcomingTitles.joinToString())))
