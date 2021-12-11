@@ -69,20 +69,20 @@
 
                 <TextView
                     android:id="@+id/detail_movies_overview_title"
+                    style="@style/BaseTitle.Details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/detail_movies_overview_title"
-                    style="@style/BaseTitle.Details"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/details_movie_overview"
+                    style="@style/MovieOverview"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@{movie.overview}"
-                    style="@style/MovieOverview"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detail_movies_overview_title"
@@ -103,72 +103,93 @@
 
                 <com.google.android.material.progressindicator.CircularProgressIndicator
                     android:id="@+id/details_movie_user_score_progress"
+                    showAverageProgress="@{movie.voteAverage}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="24dp"
                     android:indeterminate="false"
                     android:max="100"
-                    showAverageProgress="@{movie.voteAverage}"
                     app:indicatorColor="@color/track_color"
                     app:indicatorDirectionCircular="clockwise"
-                    app:layout_constraintEnd_toStartOf="@+id/details_movie_favorite"
+                    app:layout_constraintEnd_toStartOf="@+id/details_movie_rate"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="spread_inside"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/details_movie_genres"
+                    app:layout_constraintTop_toBottomOf="@+id/details_movie_genres"
                     app:trackColor="@color/colorSecondaryDark"
                     tools:progress="60" />
 
                 <TextView
                     android:id="@+id/details_movie_user_score_percentage"
+                    style="@style/MovieInformation.UserScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/MovieInformation.UserScore"
-                    app:showVoteAverage="@{movie.voteAverage}"
                     app:layout_constraintBottom_toBottomOf="@+id/details_movie_user_score_progress"
                     app:layout_constraintEnd_toEndOf="@+id/details_movie_user_score_progress"
                     app:layout_constraintStart_toStartOf="@+id/details_movie_user_score_progress"
                     app:layout_constraintTop_toTopOf="@+id/details_movie_user_score_progress"
+                    app:showVoteAverage="@{movie.voteAverage}"
                     tools:text="60%" />
 
                 <TextView
                     android:id="@+id/details_movie_user_score_title"
+                    style="@style/MovieInformation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/detail_movies_user_score_text"
-                    style="@style/MovieInformation"
-                    app:layout_constraintEnd_toEndOf="@id/details_movie_user_score_progress"
+                    app:layout_constraintEnd_toEndOf="@+id/details_movie_user_score_progress"
                     app:layout_constraintStart_toStartOf="@id/details_movie_user_score_progress"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_user_score_progress" />
 
                 <ImageView
+                    android:id="@+id/details_movie_rate"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/movie_rate_icon_not_filled"
+                    app:layout_constraintBottom_toBottomOf="@+id/details_movie_user_score_progress"
+                    app:layout_constraintEnd_toStartOf="@+id/details_movie_favorite"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toEndOf="@+id/details_movie_user_score_progress"
+                    app:layout_constraintTop_toTopOf="@+id/details_movie_user_score_progress" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/details_movies_rate_this_text"
+                    android:textColor="@color/colorPrimaryDark"
+                    app:layout_constraintEnd_toEndOf="@+id/details_movie_rate"
+                    app:layout_constraintStart_toStartOf="@+id/details_movie_rate"
+                    app:layout_constraintTop_toBottomOf="@id/details_movie_rate" />
+
+                <ImageView
                     android:id="@+id/details_movie_favorite"
+                    style="@style/FavoriteIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="@string/details_movie_favorite_description"
-                    style="@style/FavoriteIcon"
-                    app:layout_constraintBottom_toBottomOf="@+id/details_movie_user_score_progress"
+                    app:layout_constraintBottom_toBottomOf="@+id/details_movie_rate"
                     app:layout_constraintEnd_toStartOf="@+id/details_movie_user_votes"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/details_movie_user_score_progress"
-                    app:layout_constraintTop_toTopOf="@id/details_movie_user_score_progress" />
+                    app:layout_constraintStart_toEndOf="@+id/details_movie_rate"
+                    app:layout_constraintTop_toTopOf="@+id/details_movie_rate" />
 
                 <TextView
                     android:id="@+id/details_movie_user_favorite_title"
+                    style="@style/MovieInformation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/details_movie_user_favorite_text"
-                    style="@style/MovieInformation"
-                    app:layout_constraintEnd_toEndOf="@id/details_movie_favorite"
-                    app:layout_constraintStart_toStartOf="@id/details_movie_favorite"
+                    app:layout_constraintEnd_toEndOf="@+id/details_movie_favorite"
+                    app:layout_constraintStart_toStartOf="@+id/details_movie_favorite"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_favorite" />
 
                 <TextView
                     android:id="@+id/details_movie_user_votes"
+                    style="@style/MovieInformation.Votes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/MovieInformation.Votes"
+                    android:layout_marginEnd="16dp"
                     android:text="@{String.valueOf(movie.voteCount)}"
                     app:layout_constraintBottom_toBottomOf="@+id/details_movie_favorite"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -179,20 +200,20 @@
 
                 <TextView
                     android:id="@+id/details_movie_user_votes_title"
+                    style="@style/MovieInformation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/details_movie_user_votes_text"
-                    style="@style/MovieInformation"
                     app:layout_constraintEnd_toEndOf="@id/details_movie_user_votes"
-                    app:layout_constraintStart_toStartOf="@id/details_movie_user_votes"
+                    app:layout_constraintStart_toStartOf="@+id/details_movie_user_votes"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_user_votes" />
 
                 <TextView
                     android:id="@+id/detail_movies_top_cast_title"
+                    style="@style/BaseTitle.Details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/detail_movies_top_cast_title"
-                    style="@style/BaseTitle.Details"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_user_score_title" />
 
@@ -211,36 +232,36 @@
 
                 <TextView
                     android:id="@+id/details_movie_director_title"
+                    style="@style/BaseTitle.Details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/details_movie_director_title"
-                    style="@style/BaseTitle.Details"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_actors" />
 
                 <TextView
                     android:id="@+id/details_movie_director"
+                    style="@style/MovieInformation.Directors"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/MovieInformation.Directors"
-                    app:layout_constraintTop_toBottomOf="@id/details_movie_director_title"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/details_movie_director_title"
                     tools:text="David Fincher, Lio Messi, Francella" />
 
                 <TextView
                     android:id="@+id/details_movie_writers_title"
+                    style="@style/BaseTitle.Details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/details_movie_writers_title"
-                    style="@style/BaseTitle.Details"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_director" />
 
                 <TextView
                     android:id="@+id/details_movie_writers"
+                    style="@style/MovieInformation.Writers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/MovieInformation.Writers"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_writers_title"
                     tools:text="David Fincher, Lio Messi, Francella" />
@@ -257,12 +278,12 @@
 
                 <TextView
                     android:id="@+id/details_movie_reviews_title"
+                    style="@style/BaseTitle.Details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/details_movie_reviews_title"
-                    style="@style/BaseTitle.Details"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/details_movie_reviews_linebreak"/>
+                    app:layout_constraintTop_toBottomOf="@id/details_movie_reviews_linebreak" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/details_movie_reviews"
@@ -280,9 +301,9 @@
 
                 <TextView
                     android:id="@+id/details_movie_see_all_reviews"
+                    style="@style/SeeAllReviews"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/SeeAllReviews"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_reviews" />
             </androidx.constraintlayout.widget.ConstraintLayout>

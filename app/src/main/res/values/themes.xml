@@ -302,11 +302,11 @@
     </style>
 
     <style name="MovieDetailReviewContainer.Icon.Rate" parent="MovieDetailReviewContainer.Icon">
-        <item name="android:src">@drawable/movie_rate_icon</item>
+        <item name="android:src">@drawable/movie_rate_icon_filled</item>
     </style>
 
     <style name="MovieReviewContainer.Icon.Rate" parent="MovieReviewContainer.Icon">
-        <item name="android:src">@drawable/movie_rate_icon</item>
+        <item name="android:src">@drawable/movie_rate_icon_filled</item>
     </style>
 
     <style name="MovieDetailReviewContainer.Score" parent="TextAppearance.MaterialComponents.Body2">

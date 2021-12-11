@@ -41,6 +41,6 @@
     </style>
 
     <style name="MovieReviewContainer.Icon.Rate" parent="MovieDetailReviewContainer.Icon">
-        <item name="android:src">@drawable/movie_rate_icon_dark</item>
+        <item name="android:src">@drawable/movie_rate_icon_filled_dark</item>
     </style>
 </resources>

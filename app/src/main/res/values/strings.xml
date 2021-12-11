@@ -70,4 +70,5 @@
     <string name="movie_review_date">on %1$s</string>
     <string name="fragment_review_title">Reviews</string>
     <string name="fragment_overview_title">Plot Summary</string>
+    <string name="details_movies_rate_this_text">Rate this</string>
 </resources>

@@ -173,6 +173,10 @@ class DetailsFragment : Fragment() {
             findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToReviewsFragment(args.movie.id))
         }
 
+        binding.detailsMovieRate?.setOnClickListener {
+            findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToRateFragment(args.movie))
+        }
+
         return binding.root
     }
 

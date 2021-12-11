@@ -94,6 +94,15 @@
 
             app:popUpTo="@id/reviewsFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_detailsFragment_to_rateFragment"
+            app:destination="@id/rateFragment"
+            app:popUpTo="@id/rateFragment"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"/>
     </fragment>
     <fragment
         android:id="@+id/overviewFragment"
@@ -112,5 +121,14 @@
         <argument
             android:name="movieId"
             app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/rateFragment"
+        android:name="com.merajavier.cineme.movies.rate.RateFragment"
+        android:label="Rate"
+        tools:layout="@layout/fragment_rate">
+        <argument
+            android:name="movie"
+            app:argType="com.merajavier.cineme.movies.MovieDataItem" />
     </fragment>
 </navigation>
