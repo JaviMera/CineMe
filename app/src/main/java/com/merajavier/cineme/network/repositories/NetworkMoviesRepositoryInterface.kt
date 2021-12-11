@@ -7,6 +7,8 @@ import com.merajavier.cineme.movies.AccountStateResponse
 import com.merajavier.cineme.movies.MovieDataItem
 import com.merajavier.cineme.movies.MoviesResponse
 import com.merajavier.cineme.movies.favorites.FavoriteMoviesResponse
+import com.merajavier.cineme.movies.rate.RateMovieRequest
+import com.merajavier.cineme.movies.rate.RateMovieResponse
 import com.merajavier.cineme.movies.reviews.MovieReviewsResponse
 import com.merajavier.cineme.network.api.TMDBApMoviesiInterface
 import retrofit2.*
@@ -19,6 +21,7 @@ interface NetworkMoviesRepositoryInterface {
     suspend fun  getUpcoming(pageNumber: Int) : TMDBApiResult<*>
     suspend fun getAccountState(movieId: Int, sessionId: String) : TMDBApiResult<*>
     suspend fun getReviews(movieId: Int, pageNumber: Int) : TMDBApiResult<*>
+    suspend fun rate(movieId: Int, rateMovieRequest: RateMovieRequest, sessionId: String) : TMDBApiResult<*>
 }
 
 class NetworkMoviesRepository(
@@ -83,6 +86,20 @@ class NetworkMoviesRepository(
             if(response.isSuccessful){
                 Timber.i(response.body())
                 TMDBApiResult.Success(Gson().fromJson(response.body(), MovieReviewsResponse::class.java))
+            }else{
+                TMDBApiResult.Failure(Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java))
+            }
+        }catch(exception: Exception){
+            TMDBApiResult.Error(exception.localizedMessage)
+        }
+    }
+
+    override suspend fun rate(movieId: Int, rateMovieRequest: RateMovieRequest, sessionId: String): TMDBApiResult<*> {
+        return try{
+            val response = apiMoviesiInterface.rate(movieId, rateMovieRequest, sessionId).awaitResponse()
+            if(response.isSuccessful){
+                Timber.i(response.body())
+                TMDBApiResult.Success(Gson().fromJson(response.body(), RateMovieResponse::class.java))
             }else{
                 TMDBApiResult.Failure(Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java))
             }

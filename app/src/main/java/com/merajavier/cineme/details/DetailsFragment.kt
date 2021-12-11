@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.Transformation
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.ExperimentalPagingApi
@@ -25,11 +24,9 @@ import com.merajavier.cineme.genre.GenresRecyclerAdapter
 import com.merajavier.cineme.login.LoginViewModel
 import com.merajavier.cineme.login.account.AccountViewModel
 import com.merajavier.cineme.login.account.MarkFavoriteStatus
-import com.merajavier.cineme.movies.MovieListViewModel
+import com.merajavier.cineme.movies.MoviesViewModel
 import com.merajavier.cineme.movies.reviews.MovieReviewsViewModel
 import com.merajavier.cineme.movies.reviews.ReviewsListAdapter
-import com.merajavier.cineme.movies.reviews.ReviewsPagerAdapter
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -43,7 +40,7 @@ class DetailsFragment : Fragment() {
 
     private val castListViewModel: CastListViewModel by viewModel()
     private val accountViewModel: AccountViewModel by viewModel()
-    private val moviesViewModel: MovieListViewModel by viewModel()
+    private val moviesViewModel: MoviesViewModel by viewModel()
     private val reviewsViewModel: MovieReviewsViewModel by viewModel()
 
     private val loginViewModel: LoginViewModel by sharedViewModel()

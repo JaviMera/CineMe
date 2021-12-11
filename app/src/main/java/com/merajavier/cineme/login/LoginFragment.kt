@@ -29,6 +29,8 @@ class LoginFragment : Fragment() {
     ): View? {
         binding = FragmentLoginBinding.inflate(inflater, container,false)
         binding.lifecycleOwner = this
+        binding.loginUsername.setText(BuildConfig.username)
+        binding.loginPassword.setText(BuildConfig.passowrd)
 
         if(loginViewModel.isLogged.value == true){
             lifecycleScope.launch {

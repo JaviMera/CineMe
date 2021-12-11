@@ -1,9 +1,8 @@
 package com.merajavier.cineme.network.api
 
+import com.merajavier.cineme.movies.rate.RateMovieRequest
 import retrofit2.Call
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface TMDBApMoviesiInterface {
     @GET("movie/{movie_id}")
@@ -31,6 +30,13 @@ interface TMDBApMoviesiInterface {
     fun getReviews(
         @Path("movie_id") movieId: Int,
         @Query("page") pageNumber: Int
+    ) : Call<String>
+
+    @POST("movie/{movie_id}/rating")
+    fun rate(
+        @Path("movie_id") movieId: Int,
+        @Body() rateMovieRequest: RateMovieRequest,
+        @Query("session_id") guestSessionId: String,
     ) : Call<String>
 }
 

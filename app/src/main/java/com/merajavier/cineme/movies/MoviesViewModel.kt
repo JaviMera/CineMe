@@ -9,9 +9,8 @@ import androidx.paging.map
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.data.local.TMDBDatabase
-import com.merajavier.cineme.login.account.MarkFavoriteStatus
-import com.merajavier.cineme.movies.favorites.FavoriteMoviesResponse
-import com.merajavier.cineme.movies.favorites.MarkFavoriteResponse
+import com.merajavier.cineme.movies.rate.RateMovieRequest
+import com.merajavier.cineme.movies.rate.RateMovieResponse
 import com.merajavier.cineme.network.repositories.NetworkMoviesRepositoryInterface
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -51,7 +50,7 @@ class SingleLiveData<T> : MutableLiveData<T>() {
 }
 
 @ExperimentalPagingApi
-class MovieListViewModel(
+class MoviesViewModel(
     private val networkMovieRepository: NetworkMoviesRepositoryInterface,
     private val tmdbDatabase: TMDBDatabase)
     : ViewModel() {
@@ -63,6 +62,10 @@ class MovieListViewModel(
     private val _isMovieFavorite = MutableLiveData<Boolean>()
     val isMovieFavorite: LiveData<Boolean>
         get() = _isMovieFavorite
+
+    private val _isMovieRated = MutableLiveData<Boolean>()
+    val isMovieRated: LiveData<Boolean>
+    get() = _isMovieRated
 
     fun fetchMovies() : LiveData<PagingData<MovieDataItem>>{
         return MoviesPagerRepository()
@@ -124,6 +127,30 @@ class MovieListViewModel(
             }catch(exception: Exception){
                 Timber.i("There was a problem removing the movie from your favorite list.")
                 _isMovieFavorite.postValue(false)
+            }
+        }
+    }
+
+    fun rate(movieId: Int, rating: Float, sessionId: String) {
+        viewModelScope.launch {
+            try {
+                when(val rateStateResult = networkMovieRepository.rate(movieId, RateMovieRequest(rating), sessionId)){
+                    is TMDBApiResult.Success ->{
+                        val rateMovieResponse = rateStateResult.data as RateMovieResponse
+                        _isMovieRated.postValue(rateMovieResponse.success)
+                    }
+                    is TMDBApiResult.Failure -> {
+
+                        val failureResponse = rateStateResult.data as ErrorResponse
+                        Timber.i(failureResponse.statusMessage)
+                    }
+                    is TMDBApiResult.Error -> {
+                        Timber.i(rateStateResult.message)
+                    }
+                }
+            }catch(exception: Exception){
+                Timber.i("There was a problem rating the movie.")
+                _isMovieRated.postValue(false)
             }
         }
     }
