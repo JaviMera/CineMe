@@ -1,6 +1,7 @@
 package com.merajavier.cineme.details
 
 import android.animation.ValueAnimator
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,6 +15,7 @@ import androidx.navigation.fragment.navArgs
 import androidx.paging.ExperimentalPagingApi
 import com.google.android.material.appbar.AppBarLayout
 import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.merajavier.cineme.CinemaActivity
 import com.merajavier.cineme.MessageViewModel
 import com.merajavier.cineme.R
 import com.merajavier.cineme.cast.ActorsRecyclerAdapter
@@ -186,7 +188,11 @@ class DetailsFragment : Fragment() {
         if(isFavorite){
             binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_selected)
         }else{
-            binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_not_selected_dark)
+            val cinemaActivity = activity as CinemaActivity
+            when(cinemaActivity.isDarkModeOn()){
+               true -> binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_not_selected_dark)
+               false -> binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_not_selected)
+            }
         }
     }
 
