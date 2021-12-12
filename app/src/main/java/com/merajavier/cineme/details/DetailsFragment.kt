@@ -135,7 +135,7 @@ class DetailsFragment : Fragment() {
                         false -> getString(R.string.removed_from_favorites_text)
                     })
             }else{
-                messageViewModel.setMessage(getString(R.string.sign_in_error_message))
+                messageViewModel.setMessage(getString(R.string.sign_in_favorite_error_message))
             }
         }
 
@@ -171,7 +171,11 @@ class DetailsFragment : Fragment() {
         }
 
         binding.detailsMovieRate?.setOnClickListener {
-            findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToRateFragment(args.movie))
+            if(loginViewModel.isLogged.value == true){
+                findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToRateFragment(args.movie))
+            }else{
+                messageViewModel.setMessage(getString(R.string.sign_in_rate_error_message))
+            }
         }
 
         return binding.root

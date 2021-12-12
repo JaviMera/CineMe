@@ -41,10 +41,14 @@ class RateFragment : Fragment() {
         binding.movie = args.movie
 
         binding.rateMovieButton.setOnClickListener {
-            if(binding.rateMovieRatingbar.rating < 0.5f){
-                messageViewModel.setMessage("Please choose a rating greater than half a star.")
+            if(loginViewModel.isLogged.value == true){
+                if(binding.rateMovieRatingbar.rating < 0.5f){
+                    messageViewModel.setMessage("Please choose a rating greater than half a star.")
+                }else{
+                    moviesViewModel.rate(args.movie.id, binding.rateMovieRatingbar.rating, loginViewModel.userSession.sessionId)
+                }
             }else{
-                moviesViewModel.rate(args.movie.id, binding.rateMovieRatingbar.rating, loginViewModel.userSession.sessionId)
+                messageViewModel.setMessage(getString(R.string.sign_in_rate_error_message))
             }
         }
 
