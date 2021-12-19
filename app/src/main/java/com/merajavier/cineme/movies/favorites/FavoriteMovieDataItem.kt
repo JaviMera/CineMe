@@ -12,3 +12,4 @@ data class FavoriteMovieDataItem(
     @SerializedName("release_date") val releaseDate: String,
     @SerializedName("poster_path") val posterPath: String?
 ) : Parcelable
+

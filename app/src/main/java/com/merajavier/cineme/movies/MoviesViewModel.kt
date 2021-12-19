@@ -9,6 +9,8 @@ import androidx.paging.map
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.data.local.TMDBDatabase
+import com.merajavier.cineme.movies.rate.AccountStateResponse
+import com.merajavier.cineme.movies.rate.MovieRateDataItem
 import com.merajavier.cineme.movies.rate.RateMovieRequest
 import com.merajavier.cineme.movies.rate.RateMovieResponse
 import com.merajavier.cineme.network.repositories.NetworkMoviesRepositoryInterface
@@ -59,8 +61,8 @@ class MoviesViewModel(
     val movieSelected: LiveData<MovieDataItem>
     get() = _selectedMovie
 
-    private val _isMovieFavorite = MutableLiveData<Boolean>()
-    val isMovieFavorite: LiveData<Boolean>
+    private val _isMovieFavorite = MutableLiveData<AccountStateResponse>()
+    val isMovieFavorite: LiveData<AccountStateResponse>
         get() = _isMovieFavorite
 
     private val _isMovieRated = MutableLiveData<Boolean>()
@@ -106,14 +108,15 @@ class MoviesViewModel(
         }
     }
 
-    fun isMovieFavorite(movieId: Int, sessionId: String) {
+    fun getMovieState(movieId: Int, sessionId: String) {
         viewModelScope.launch {
             try {
                 when(val accountStateResult = networkMovieRepository.getAccountState(movieId, sessionId)){
                     is TMDBApiResult.Success ->{
+
                         val favoriteMoviesResponse = accountStateResult.data as AccountStateResponse
                         Timber.i("Favorite: ${favoriteMoviesResponse.favorite}")
-                        _isMovieFavorite.postValue(favoriteMoviesResponse.favorite)
+                        _isMovieFavorite.postValue(favoriteMoviesResponse)
                     }
                     is TMDBApiResult.Failure -> {
 
@@ -126,7 +129,7 @@ class MoviesViewModel(
                 }
             }catch(exception: Exception){
                 Timber.i("There was a problem removing the movie from your favorite list.")
-                _isMovieFavorite.postValue(false)
+                _isMovieFavorite.postValue(AccountStateResponse(false, MovieRateDataItem(0.0)))
             }
         }
     }

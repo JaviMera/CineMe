@@ -1,7 +1,6 @@
 package com.merajavier.cineme.details
 
 import android.animation.ValueAnimator
-import android.content.res.Configuration
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -31,6 +30,7 @@ import com.merajavier.cineme.movies.reviews.MovieReviewsViewModel
 import com.merajavier.cineme.movies.reviews.ReviewsListAdapter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 @ExperimentalPagingApi
 class DetailsFragment : Fragment() {
@@ -124,7 +124,7 @@ class DetailsFragment : Fragment() {
         binding.detailsMovieFavorite.setOnClickListener {
 
             if(loginViewModel.isLogged.value == true){
-                val isFavorite = !(moviesViewModel.isMovieFavorite.value)!!
+                val isFavorite = !(moviesViewModel.isMovieFavorite.value?.favorite)!!
 
                 accountViewModel.addMovieToFavorites(
                     loginViewModel.userSession.sessionId,
@@ -143,18 +143,23 @@ class DetailsFragment : Fragment() {
 
         accountViewModel.movieUpdated.observe(viewLifecycleOwner, Observer {
             if(it.equals(MarkFavoriteStatus.DONE)){
-                moviesViewModel.isMovieFavorite(args.movie.id, loginViewModel.userSession.sessionId)
+                moviesViewModel.getMovieState(args.movie.id, loginViewModel.userSession.sessionId)
             }
         })
 
         if(loginViewModel.isLogged.value == true){
-            moviesViewModel.isMovieFavorite(args.movie.id, loginViewModel.userSession.sessionId)
+            moviesViewModel.getMovieState(args.movie.id, loginViewModel.userSession.sessionId)
             moviesViewModel.isMovieFavorite.observe(viewLifecycleOwner, Observer {
+
+                Timber.i("Rate: ${it.rated.value}")
+                if(it.rated.value > 0.0){
+                    binding.detailsMovieUserRate!!.text = "${it.rated.value} / 10 your score"
+                }
 
                 if(it == null){
                     binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_not_selected)
                 }else{
-                    displayFavoriteIcon(it)
+                    displayFavoriteIcon(it.favorite)
                 }
             })
         }

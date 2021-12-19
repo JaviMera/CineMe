@@ -154,6 +154,7 @@
                     app:layout_constraintTop_toTopOf="@+id/details_movie_user_score_progress" />
 
                 <TextView
+                    android:id="@+id/details_movie_user_rate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/details_movies_rate_this_text"

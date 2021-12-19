@@ -8,7 +8,6 @@ import androidx.paging.map
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.movies.MoviesPagerRepository
-import com.merajavier.cineme.movies.SingleLiveData
 import com.merajavier.cineme.movies.favorites.FavoriteMovieDataItem
 import com.merajavier.cineme.movies.favorites.MarkFavoriteRequest
 import com.merajavier.cineme.movies.favorites.MarkFavoriteResponse

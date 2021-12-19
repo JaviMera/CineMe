@@ -3,14 +3,12 @@ package com.merajavier.cineme.network.repositories
 import com.google.gson.Gson
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
-import com.merajavier.cineme.movies.AccountStateResponse
 import com.merajavier.cineme.movies.MovieDataItem
 import com.merajavier.cineme.movies.MoviesResponse
-import com.merajavier.cineme.movies.favorites.FavoriteMoviesResponse
-import com.merajavier.cineme.movies.rate.RateMovieRequest
-import com.merajavier.cineme.movies.rate.RateMovieResponse
+import com.merajavier.cineme.movies.rate.*
 import com.merajavier.cineme.movies.reviews.MovieReviewsResponse
 import com.merajavier.cineme.network.api.TMDBApMoviesiInterface
+import org.json.JSONObject
 import retrofit2.*
 import timber.log.Timber
 
@@ -71,7 +69,21 @@ class NetworkMoviesRepository(
         return try {
             val response = apiMoviesiInterface.getAccountState(movieId, sessionId).awaitResponse()
             if(response.isSuccessful){
-                TMDBApiResult.Success(Gson().fromJson(response.body(), AccountStateResponse::class.java))
+                val rating = JSONObject(response.body()).get("rated")
+
+                if(rating.toString().contains("value")){
+
+                    TMDBApiResult.Success(
+                        Gson().fromJson(
+                            response.body(),
+                            AccountStateResponse::class.java
+                        )
+                    )
+                }else{
+
+                    val responseWithoutRate = Gson().fromJson(response.body(),AccountStateResultWithoutRate::class.java)
+                    TMDBApiResult.Success(AccountStateResponse(responseWithoutRate.favorite, MovieRateDataItem(0.0)))
+                }
             }else{
                 TMDBApiResult.Failure(Gson().fromJson(response.errorBody()?.string(), ErrorResponse::class.java))
             }
