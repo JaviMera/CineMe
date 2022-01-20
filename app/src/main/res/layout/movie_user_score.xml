@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/details_movie_user_score_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="false"
+        android:max="100"
+        app:indicatorColor="@color/track_color"
+        app:indicatorDirectionCircular="clockwise"
+        app:layout_constraintStart_toStartOf="parent"
+        app:trackColor="@color/colorSecondaryDark"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:progress="60" />
+
+    <TextView
+        android:id="@+id/details_movie_user_score_percentage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/MovieInformation.UserScore"
+        app:layout_constraintBottom_toBottomOf="@+id/details_movie_user_score_progress"
+        app:layout_constraintEnd_toEndOf="@+id/details_movie_user_score_progress"
+        app:layout_constraintStart_toStartOf="@+id/details_movie_user_score_progress"
+        app:layout_constraintTop_toTopOf="@+id/details_movie_user_score_progress"
+        tools:text="60%" />
+
+    <TextView
+        android:id="@+id/details_movie_user_score_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/detail_movies_user_score_text"
+        style="@style/MovieInformation"
+        app:layout_constraintEnd_toEndOf="@id/details_movie_user_score_progress"
+        app:layout_constraintStart_toStartOf="@id/details_movie_user_score_progress"
+        app:layout_constraintTop_toBottomOf="@id/details_movie_user_score_progress" />
+</merge>

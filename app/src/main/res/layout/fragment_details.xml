@@ -69,20 +69,20 @@
 
                 <TextView
                     android:id="@+id/detail_movies_overview_title"
+                    style="@style/BaseTitle.Details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/detail_movies_overview_title"
-                    style="@style/BaseTitle.Details"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/details_movie_overview"
+                    style="@style/MovieOverview"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:text="@{movie.overview}"
-                    style="@style/MovieOverview"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/detail_movies_overview_title"
@@ -101,100 +101,43 @@
                     tools:itemCount="3"
                     tools:listitem="@layout/details_movie_genre_chip" />
 
-                <com.google.android.material.progressindicator.CircularProgressIndicator
-                    android:id="@+id/details_movie_user_score_progress"
+                <com.merajavier.cineme.details.UserScoreView
+                    android:id="@+id/movie_details_score"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="24dp"
-                    android:layout_marginTop="24dp"
-                    android:indeterminate="false"
-                    android:max="100"
-                    showAverageProgress="@{movie.voteAverage}"
-                    app:indicatorColor="@color/track_color"
-                    app:indicatorDirectionCircular="clockwise"
-                    app:layout_constraintEnd_toStartOf="@+id/details_movie_favorite"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintEnd_toStartOf="@+id/movie_details_add_to_favorite"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintHorizontal_chainStyle="spread_inside"
+                    app:layout_constraintHorizontal_chainStyle="spread"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/details_movie_genres"
-                    app:trackColor="@color/colorSecondaryDark"
-                    tools:progress="60" />
+                    app:layout_constraintTop_toBottomOf="@+id/details_movie_genres" />
 
-                <TextView
-                    android:id="@+id/details_movie_user_score_percentage"
+                <com.merajavier.cineme.details.AddToFavoriteView
+                    android:id="@+id/movie_details_add_to_favorite"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/MovieInformation.UserScore"
-                    app:showVoteAverage="@{movie.voteAverage}"
-                    app:layout_constraintBottom_toBottomOf="@+id/details_movie_user_score_progress"
-                    app:layout_constraintEnd_toEndOf="@+id/details_movie_user_score_progress"
-                    app:layout_constraintStart_toStartOf="@+id/details_movie_user_score_progress"
-                    app:layout_constraintTop_toTopOf="@+id/details_movie_user_score_progress"
-                    tools:text="60%" />
-
-                <TextView
-                    android:id="@+id/details_movie_user_score_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/detail_movies_user_score_text"
-                    style="@style/MovieInformation"
-                    app:layout_constraintEnd_toEndOf="@id/details_movie_user_score_progress"
-                    app:layout_constraintStart_toStartOf="@id/details_movie_user_score_progress"
-                    app:layout_constraintTop_toBottomOf="@id/details_movie_user_score_progress" />
-
-                <ImageView
-                    android:id="@+id/details_movie_favorite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/details_movie_favorite_description"
-                    style="@style/FavoriteIcon"
-                    app:layout_constraintBottom_toBottomOf="@+id/details_movie_user_score_progress"
-                    app:layout_constraintEnd_toStartOf="@+id/details_movie_user_votes"
+                    app:layout_constraintEnd_toStartOf="@+id/movie_details_user_votes"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/details_movie_user_score_progress"
-                    app:layout_constraintTop_toTopOf="@id/details_movie_user_score_progress" />
+                    app:layout_constraintStart_toEndOf="@+id/movie_details_score"
+                    app:layout_constraintTop_toTopOf="@id/movie_details_score" />
 
-                <TextView
-                    android:id="@+id/details_movie_user_favorite_title"
+                <com.merajavier.cineme.details.UserVotesView
+                    android:id="@+id/movie_details_user_votes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/details_movie_user_favorite_text"
-                    style="@style/MovieInformation"
-                    app:layout_constraintEnd_toEndOf="@id/details_movie_favorite"
-                    app:layout_constraintStart_toStartOf="@id/details_movie_favorite"
-                    app:layout_constraintTop_toBottomOf="@id/details_movie_favorite" />
-
-                <TextView
-                    android:id="@+id/details_movie_user_votes"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/MovieInformation.Votes"
-                    android:text="@{String.valueOf(movie.voteCount)}"
-                    app:layout_constraintBottom_toBottomOf="@+id/details_movie_favorite"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
-                    app:layout_constraintStart_toEndOf="@+id/details_movie_favorite"
-                    app:layout_constraintTop_toTopOf="@+id/details_movie_favorite"
-                    tools:text="1,900" />
-
-                <TextView
-                    android:id="@+id/details_movie_user_votes_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/details_movie_user_votes_text"
-                    style="@style/MovieInformation"
-                    app:layout_constraintEnd_toEndOf="@id/details_movie_user_votes"
-                    app:layout_constraintStart_toStartOf="@id/details_movie_user_votes"
-                    app:layout_constraintTop_toBottomOf="@id/details_movie_user_votes" />
+                    app:layout_constraintStart_toEndOf="@+id/movie_details_add_to_favorite"
+                    app:layout_constraintTop_toTopOf="@+id/movie_details_add_to_favorite" />
 
                 <TextView
                     android:id="@+id/detail_movies_top_cast_title"
+                    style="@style/BaseTitle.Details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/detail_movies_top_cast_title"
-                    style="@style/BaseTitle.Details"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/details_movie_user_score_title" />
+                    app:layout_constraintTop_toBottomOf="@id/movie_details_score" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/details_movie_actors"
@@ -211,36 +154,36 @@
 
                 <TextView
                     android:id="@+id/details_movie_director_title"
+                    style="@style/BaseTitle.Details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/details_movie_director_title"
-                    style="@style/BaseTitle.Details"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_actors" />
 
                 <TextView
                     android:id="@+id/details_movie_director"
+                    style="@style/MovieInformation.Directors"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/MovieInformation.Directors"
-                    app:layout_constraintTop_toBottomOf="@id/details_movie_director_title"
                     app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/details_movie_director_title"
                     tools:text="David Fincher, Lio Messi, Francella" />
 
                 <TextView
                     android:id="@+id/details_movie_writers_title"
+                    style="@style/BaseTitle.Details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/details_movie_writers_title"
-                    style="@style/BaseTitle.Details"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_director" />
 
                 <TextView
                     android:id="@+id/details_movie_writers"
+                    style="@style/MovieInformation.Writers"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/MovieInformation.Writers"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_writers_title"
                     tools:text="David Fincher, Lio Messi, Francella" />
@@ -257,12 +200,12 @@
 
                 <TextView
                     android:id="@+id/details_movie_reviews_title"
+                    style="@style/BaseTitle.Details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/details_movie_reviews_title"
-                    style="@style/BaseTitle.Details"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/details_movie_reviews_linebreak"/>
+                    app:layout_constraintTop_toBottomOf="@id/details_movie_reviews_linebreak" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/details_movie_reviews"
@@ -280,9 +223,9 @@
 
                 <TextView
                     android:id="@+id/details_movie_see_all_reviews"
+                    style="@style/SeeAllReviews"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/SeeAllReviews"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/details_movie_reviews" />
             </androidx.constraintlayout.widget.ConstraintLayout>

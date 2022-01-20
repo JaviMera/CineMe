@@ -76,22 +76,9 @@ class DetailsFragment : Fragment() {
         castListViewModel.getMovieActors(args.movie.id)
         castListViewModel.getDirectors(args.movie.id)
 
-        val percentAverage = args.movie.voteAverage.toPercentAverage()
-        val progressBarAnimator = ProgressBarAnimation(
-            binding.detailsMovieUserScoreProgress,
-            0.0,
-            percentAverage
-        )
-        progressBarAnimator.duration = 2000
-        binding.detailsMovieUserScoreProgress.startAnimation(progressBarAnimator)
-
-        val progressPercentAnimator = ValueAnimator.ofInt(0, percentAverage.toInt())
-        progressPercentAnimator.duration = 2000
-        progressPercentAnimator.addUpdateListener { animation ->
-            binding.detailsMovieUserScorePercentage?.text = animation.animatedValue.toString()
-        }
-        progressPercentAnimator.start()
-
+        binding.movieDetailsScore?.userScoreProgress = args.movie.voteAverage.toPercentAverage()
+        binding.movieDetailsUserVotes?.userVotes = args.movie.voteCount
+        
         val listener = AppBarLayout.OnOffsetChangedListener{ unsued, verticalOffset ->
             val seekPosition = -verticalOffset / binding.appbarLayout?.totalScrollRange?.toFloat()!!
             binding.motionLayout?.progress = seekPosition
@@ -122,7 +109,7 @@ class DetailsFragment : Fragment() {
 
         binding.appbarLayout?.addOnOffsetChangedListener(listener)
 
-        binding.detailsMovieFavorite.setOnClickListener {
+        binding.movieDetailsAddToFavorite?.icon?.setOnClickListener {
 
             if(loginViewModel.isLogged.value == true){
                 val isFavorite = !(moviesViewModel.isMovieFavorite.value)!!
@@ -153,7 +140,7 @@ class DetailsFragment : Fragment() {
             moviesViewModel.isMovieFavorite.observe(viewLifecycleOwner, Observer {
 
                 if(it == null){
-                    binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_not_selected)
+                    binding.movieDetailsAddToFavorite?.icon?.setImageResource(R.drawable.movie_favorite_not_selected)
                 }else{
                     displayFavoriteIcon(it)
                 }
@@ -178,23 +165,12 @@ class DetailsFragment : Fragment() {
 
     private fun displayFavoriteIcon(isFavorite: Boolean){
 
-        if(isFavorite){
-            binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_selected)
-        }else{
-            binding.detailsMovieFavorite.setImageResource(R.drawable.movie_favorite_not_selected_dark)
-        }
-    }
-
-    class ProgressBarAnimation(
-        private val progressBar: CircularProgressIndicator,
-        private val from: Double,
-        private val to: Double
-    ) : Animation() {
-
-        override fun applyTransformation(interpolatedTime: Float, t: Transformation?) {
-            super.applyTransformation(interpolatedTime, t)
-            val value = from + (to - from) * interpolatedTime
-            progressBar.progress = value.toInt()
-        }
+        binding.movieDetailsAddToFavorite?.icon?.setImageResource(
+            if(isFavorite){
+                R.drawable.movie_favorite_selected
+            }else{
+                R.drawable.movie_favorite_not_selected_dark
+            }
+        )
     }
 }

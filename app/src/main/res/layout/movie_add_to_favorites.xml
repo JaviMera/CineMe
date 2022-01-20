@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/details_movie_favorite"
+        style="@style/FavoriteIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/details_movie_favorite_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/details_movie_user_favorite_title"
+        style="@style/MovieInformation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/details_movie_user_favorite_text"
+        android:layout_marginTop="@dimen/small_margin_dimen"
+        app:layout_constraintEnd_toEndOf="@id/details_movie_favorite"
+        app:layout_constraintStart_toStartOf="@id/details_movie_favorite"
+        app:layout_constraintTop_toBottomOf="@id/details_movie_favorite"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</merge>
