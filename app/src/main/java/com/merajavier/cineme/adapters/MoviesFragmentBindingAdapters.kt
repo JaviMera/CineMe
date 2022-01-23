@@ -11,6 +11,8 @@ import com.merajavier.cineme.BuildConfig
 import com.merajavier.cineme.R
 import com.merajavier.cineme.common.toMovieDateFormat
 import com.merajavier.cineme.common.toPercentAverage
+import com.merajavier.cineme.details.UserScoreView
+import com.merajavier.cineme.details.UserVotesView
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
@@ -50,6 +52,13 @@ fun bindAverageProgress(circularProgressIndicator: CircularProgressIndicator, av
     circularProgressIndicator.progress = average
         .toPercentAverage()
         .toInt()
+}
+
+@BindingAdapter("userScore")
+fun setUserScore(userScoreView: UserScoreView, average: Double?){
+    average?.let {
+        userScoreView.userScoreProgress = it.toPercentAverage()
+    }
 }
 
 @BindingAdapter("showVoteAverage")

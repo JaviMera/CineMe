@@ -18,8 +18,22 @@ class AddToFavoriteView @JvmOverloads constructor(
         inflater.inflate(R.layout.movie_add_to_favorites, this)
 
         addToFavoriteImageView = findViewById(R.id.details_movie_favorite)
+        addToFavoriteImageView.setOnClickListener {
+            addToFavoriteListener?.let{
+                it()
+            }
+        }
     }
 
-    val icon: ImageView
-    get() = addToFavoriteImageView
+    private var addToFavoriteListener: (() -> Unit)? = null
+
+    fun setListener(listener: () -> Unit){
+        addToFavoriteListener = listener
+    }
+
+    var iconResource: Int = 0
+    set(value){
+        field = value
+        addToFavoriteImageView.setImageResource(field)
+    }
 }

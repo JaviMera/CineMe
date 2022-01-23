@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.Transformation
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -33,8 +34,12 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
+interface AddToFavoriteListener{
+    fun onAddToFavoriteClick()
+}
+
 @ExperimentalPagingApi
-class DetailsFragment : Fragment() {
+class DetailsFragment : Fragment(), AddToFavoriteListener {
 
     private lateinit var binding: FragmentDetailsBinding
     private lateinit var genresAdapter: GenresRecyclerAdapter
@@ -76,9 +81,6 @@ class DetailsFragment : Fragment() {
         castListViewModel.getMovieActors(args.movie.id)
         castListViewModel.getDirectors(args.movie.id)
 
-        binding.movieDetailsScore?.userScoreProgress = args.movie.voteAverage.toPercentAverage()
-        binding.movieDetailsUserVotes?.userVotes = args.movie.voteCount
-        
         val listener = AppBarLayout.OnOffsetChangedListener{ unsued, verticalOffset ->
             val seekPosition = -verticalOffset / binding.appbarLayout?.totalScrollRange?.toFloat()!!
             binding.motionLayout?.progress = seekPosition
@@ -108,8 +110,7 @@ class DetailsFragment : Fragment() {
         })
 
         binding.appbarLayout?.addOnOffsetChangedListener(listener)
-
-        binding.movieDetailsAddToFavorite?.icon?.setOnClickListener {
+        binding.movieDetailsAddToFavorite?.setListener {
 
             if(loginViewModel.isLogged.value == true){
                 val isFavorite = !(moviesViewModel.isMovieFavorite.value)!!
@@ -140,7 +141,7 @@ class DetailsFragment : Fragment() {
             moviesViewModel.isMovieFavorite.observe(viewLifecycleOwner, Observer {
 
                 if(it == null){
-                    binding.movieDetailsAddToFavorite?.icon?.setImageResource(R.drawable.movie_favorite_not_selected)
+                    binding.movieDetailsAddToFavorite?.iconResource = R.drawable.movie_favorite_not_selected
                 }else{
                     displayFavoriteIcon(it)
                 }
@@ -165,12 +166,15 @@ class DetailsFragment : Fragment() {
 
     private fun displayFavoriteIcon(isFavorite: Boolean){
 
-        binding.movieDetailsAddToFavorite?.icon?.setImageResource(
-            if(isFavorite){
-                R.drawable.movie_favorite_selected
-            }else{
-                R.drawable.movie_favorite_not_selected_dark
-            }
-        )
+        binding.movieDetailsAddToFavorite?.iconResource =
+        if(isFavorite){
+            R.drawable.movie_favorite_selected
+        }else{
+            R.drawable.movie_favorite_not_selected_dark
+        }
+    }
+
+    override fun onAddToFavoriteClick() {
+        Toast.makeText(context, "sup", Toast.LENGTH_SHORT).show()
     }
 }
