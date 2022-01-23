@@ -46,25 +46,18 @@ fun bindPictureOfDay(imageView: ImageView, posterUrl: String?){
     }
 }
 
-@BindingAdapter("showAverageProgress")
-fun bindAverageProgress(circularProgressIndicator: CircularProgressIndicator, average: Double){
-
-    circularProgressIndicator.progress = average
-        .toPercentAverage()
-        .toInt()
-}
-
-@BindingAdapter("userScore")
+@BindingAdapter("showUserScore")
 fun setUserScore(userScoreView: UserScoreView, average: Double?){
     average?.let {
         userScoreView.userScoreProgress = it.toPercentAverage()
     }
 }
 
-@BindingAdapter("showVoteAverage")
-fun bindAverageScore(textView: TextView, average: Double){
-    val context = textView.context
-    textView.text = context.getString(R.string.details_movie_user_average_value, average.toPercentAverage().toInt())
+@BindingAdapter("showUserVotes")
+fun setUserVotes(userVotesView: UserVotesView, voteCount: Int?){
+    voteCount?.let{
+        userVotesView.userVotes = it
+    }
 }
 
 @BindingAdapter("showReleaseDate")

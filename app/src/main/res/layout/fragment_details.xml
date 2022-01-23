@@ -106,7 +106,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
-                    app:userScore="@{movie.voteAverage}"
+                    app:showUserScore="@{movie.voteAverage}"
                     app:layout_constraintEnd_toStartOf="@+id/movie_details_add_to_favorite"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintHorizontal_chainStyle="spread"
@@ -127,12 +127,12 @@
                     android:id="@+id/movie_details_user_votes"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:userVotes="@{movie.voteCount}"
                     app:layout_constraintBottom_toBottomOf="@+id/movie_details_score"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.5"
                     app:layout_constraintStart_toEndOf="@+id/movie_details_add_to_favorite"
-                    app:layout_constraintTop_toTopOf="@+id/movie_details_add_to_favorite" />
+                    app:layout_constraintTop_toTopOf="@+id/movie_details_score"
+                    app:showUserVotes="@{movie.voteCount}" />
 
                 <TextView
                     android:id="@+id/detail_movies_top_cast_title"

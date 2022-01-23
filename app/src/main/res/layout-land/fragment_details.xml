@@ -65,7 +65,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toTopOf="@id/details_movie_break_line"
@@ -81,102 +81,48 @@
                 android:layout_width="0dp"
                 android:layout_height="2dp"
                 android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="8dp"
                 android:background="@color/colorPrimaryDark"
-                app:layout_constraintBottom_toTopOf="@id/details_movie_user_score_progress"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@id/details_movie_cardview"
-                app:layout_constraintTop_toBottomOf="@id/details_movie_genres"
-                app:layout_constraintVertical_bias="0.18" />
+                app:layout_constraintTop_toBottomOf="@id/details_movie_genres" />
 
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                android:id="@+id/details_movie_user_score_progress"
-                showAverageProgress="@{movie.voteAverage}"
+            <com.merajavier.cineme.details.UserScoreView
+                android:id="@+id/movie_details_score"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:layout_marginBottom="8dp"
-                android:indeterminate="false"
-                android:max="100"
-                app:indicatorColor="@color/track_color"
-                app:indicatorDirectionCircular="clockwise"
-                app:layout_constraintBottom_toTopOf="@id/details_movie_user_score_title"
-                app:layout_constraintEnd_toStartOf="@+id/details_movie_favorite"
-                app:layout_constraintHorizontal_bias="0.52"
-                app:layout_constraintHorizontal_chainStyle="spread"
-                app:layout_constraintStart_toEndOf="@+id/details_movie_cardview"
-                app:trackColor="@color/colorSecondaryDark"
-                tools:progress="60" />
-
-            <TextView
-                android:id="@+id/details_movie_user_score_percentage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                style="@style/MovieInformation.UserScore"
-                app:layout_constraintBottom_toBottomOf="@+id/details_movie_user_score_progress"
-                app:layout_constraintEnd_toEndOf="@+id/details_movie_user_score_progress"
-                app:layout_constraintStart_toStartOf="@+id/details_movie_user_score_progress"
-                app:layout_constraintTop_toTopOf="@+id/details_movie_user_score_progress"
-                app:showVoteAverage="@{movie.voteAverage}"
-                tools:text="60%" />
-
-            <TextView
-                android:id="@+id/details_movie_user_score_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/detail_movies_user_score_text"
-                style="@style/MovieInformation"
-                app:layout_constraintBottom_toBottomOf="@id/details_movie_cardview"
-                app:layout_constraintEnd_toEndOf="@id/details_movie_user_score_progress"
-                app:layout_constraintStart_toStartOf="@id/details_movie_user_score_progress" />
-
-            <ImageView
-                android:id="@+id/details_movie_favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:contentDescription="@string/details_movie_favorite_description"
-                style="@style/FavoriteIcon"
-                app:layout_constraintBottom_toBottomOf="@id/details_movie_user_score_progress"
-                app:layout_constraintEnd_toStartOf="@+id/details_movie_user_votes"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/details_movie_cardview"
+                app:layout_constraintEnd_toStartOf="@+id/movie_details_add_to_favorite"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/details_movie_user_score_progress"
-                app:layout_constraintTop_toTopOf="@id/details_movie_user_score_progress" />
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintStart_toEndOf="@+id/details_movie_cardview"
+                app:layout_constraintTop_toBottomOf="@id/details_movie_break_line"
+                app:showUserScore="@{movie.voteAverage}" />
 
-            <TextView
-                android:id="@+id/details_movie_user_favorite_title"
+            <com.merajavier.cineme.details.AddToFavoriteView
+                android:id="@+id/movie_details_add_to_favorite"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/details_movie_user_favorite_text"
-                style="@style/MovieInformation"
-                app:layout_constraintBottom_toBottomOf="@+id/details_movie_user_score_title"
-                app:layout_constraintEnd_toEndOf="@id/details_movie_favorite"
-                app:layout_constraintStart_toStartOf="@id/details_movie_favorite"                 />
+                app:layout_constraintTop_toTopOf="@+id/movie_details_score"
+                app:layout_constraintBottom_toBottomOf="@id/movie_details_score"
+                app:layout_constraintEnd_toStartOf="@+id/movie_details_user_votes"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/movie_details_score" />
 
-            <TextView
-                android:id="@+id/details_movie_user_votes"
+            <com.merajavier.cineme.details.UserVotesView
+                android:id="@+id/movie_details_user_votes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="24dp"
-                android:text="@{String.valueOf(movie.voteCount)}"
-                style="@style/MovieInformation.Votes"
-                app:layout_constraintBottom_toBottomOf="@+id/details_movie_favorite"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintBottom_toBottomOf="@id/movie_details_score"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/details_movie_favorite"
-                app:layout_constraintTop_toTopOf="@+id/details_movie_favorite"
-                tools:text="1,900" />
-
-            <TextView
-                android:id="@+id/details_movie_user_votes_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/details_movie_user_votes_text"
-                style="@style/MovieInformation"
-                app:layout_constraintBottom_toBottomOf="@+id/details_movie_user_favorite_title"
-                app:layout_constraintEnd_toEndOf="@id/details_movie_user_votes"
-                app:layout_constraintStart_toStartOf="@id/details_movie_user_votes" />
+                app:layout_constraintStart_toEndOf="@+id/movie_details_add_to_favorite"
+                app:layout_constraintTop_toTopOf="@+id/movie_details_score"
+                app:showUserVotes="@{movie.voteCount}" />
 
             <TextView
                 android:id="@+id/detail_movies_top_cast_title"
