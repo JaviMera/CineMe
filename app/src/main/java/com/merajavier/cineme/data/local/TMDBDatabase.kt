@@ -13,7 +13,7 @@ import com.merajavier.cineme.data.local.entities.UserSessionEntity
 
 @Database(
     entities = [UserSessionEntity::class, MovieEntity::class, RemoteKeysEntity::class],
-    version = 10,
+    version = 11,
     exportSchema = false)
 abstract class TMDBDatabase : RoomDatabase(){
 

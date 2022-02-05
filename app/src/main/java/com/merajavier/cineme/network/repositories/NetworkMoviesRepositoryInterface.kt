@@ -15,8 +15,8 @@ import timber.log.Timber
 interface NetworkMoviesRepositoryInterface {
 
     suspend fun getNowPlaying(pageNumber: Int) : TMDBApiResult<*>
-    suspend fun getDetails(movieId: Int) : TMDBApiResult<*>
-    suspend fun  getUpcoming(pageNumber: Int) : TMDBApiResult<*>
+    suspend fun getMovie(movieId: Int) : TMDBApiResult<*>
+    suspend fun getUpcoming(pageNumber: Int) : TMDBApiResult<*>
     suspend fun getAccountState(movieId: Int, sessionId: String) : TMDBApiResult<*>
     suspend fun getReviews(movieId: Int, pageNumber: Int) : TMDBApiResult<*>
 }
@@ -38,9 +38,9 @@ class NetworkMoviesRepository(
         }
     }
 
-    override suspend fun getDetails(movieId: Int): TMDBApiResult<*> {
+    override suspend fun getMovie(movieId: Int): TMDBApiResult<*> {
         return try {
-            val response = apiMoviesiInterface.getMovie(movieId).awaitResponse()
+            val response = apiMoviesiInterface.getMovie(movieId, "release_dates").awaitResponse()
             if(response.isSuccessful){
                 TMDBApiResult.Success(Gson().fromJson(response.body(), MovieDataItem::class.java))
             }else{

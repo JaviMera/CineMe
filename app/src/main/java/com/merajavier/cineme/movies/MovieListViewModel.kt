@@ -9,9 +9,6 @@ import androidx.paging.map
 import com.merajavier.cineme.common.ErrorResponse
 import com.merajavier.cineme.common.TMDBApiResult
 import com.merajavier.cineme.data.local.TMDBDatabase
-import com.merajavier.cineme.login.account.MarkFavoriteStatus
-import com.merajavier.cineme.movies.favorites.FavoriteMoviesResponse
-import com.merajavier.cineme.movies.favorites.MarkFavoriteResponse
 import com.merajavier.cineme.network.repositories.NetworkMoviesRepositoryInterface
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -84,7 +81,7 @@ class MovieListViewModel(
     fun getMovieDetails(movieId: Int){
         viewModelScope.launch {
             try{
-                when(val response = networkMovieRepository.getDetails(movieId)){
+                when(val response = networkMovieRepository.getMovie(movieId)){
                     is TMDBApiResult.Success -> {
                         val movie = response.data as MovieDataItem
                         _selectedMovie.postValue(movie)

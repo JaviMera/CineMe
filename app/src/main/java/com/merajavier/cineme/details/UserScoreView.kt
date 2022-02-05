@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.merajavier.cineme.R
+import com.merajavier.cineme.common.toPercentAverage
 
 class UserScoreView @JvmOverloads constructor(
     context: Context, attrs: AttributeSet? = null
@@ -28,7 +29,7 @@ class UserScoreView @JvmOverloads constructor(
 
     var userScoreProgress: Double = 0.0
         set(value){
-        field = value
+        field = value.toPercentAverage()
         val progressBarAnimator = ProgressBarAnimation(
             progressBar,
             0.0,

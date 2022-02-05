@@ -13,6 +13,7 @@ import com.merajavier.cineme.common.toMovieDateFormat
 import com.merajavier.cineme.common.toPercentAverage
 import com.merajavier.cineme.details.UserScoreView
 import com.merajavier.cineme.details.UserVotesView
+import com.merajavier.cineme.movies.MovieDataItem
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.*
@@ -46,18 +47,21 @@ fun bindPictureOfDay(imageView: ImageView, posterUrl: String?){
     }
 }
 
-@BindingAdapter("showUserScore")
-fun setUserScore(userScoreView: UserScoreView, average: Double?){
-    average?.let {
-        userScoreView.userScoreProgress = it.toPercentAverage()
-    }
-}
+@BindingAdapter("showMovieDetails")
+fun bindMovieDetails(textView: TextView, movie: MovieDataItem){
 
-@BindingAdapter("showUserVotes")
-fun setUserVotes(userVotesView: UserVotesView, voteCount: Int?){
-    voteCount?.let{
-        userVotesView.userVotes = it
-    }
+    val context = textView.context
+    val year = movie.releaseDate.split("-").firstOrNull()
+    val certification = movie.releaseDates.results
+        .firstOrNull { result -> result.country == "US" }
+        ?.releaseDates
+        ?.firstOrNull{releaseDate -> releaseDate.certification.isNotEmpty()}
+        ?.certification
+
+    val hours = movie.runtime / 60
+    val minutes = movie.runtime % 60
+
+    textView.text =  context.getString(R.string.movie_details, year, certification, hours,minutes)
 }
 
 @BindingAdapter("showReleaseDate")

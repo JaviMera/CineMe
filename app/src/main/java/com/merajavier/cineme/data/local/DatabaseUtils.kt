@@ -3,6 +3,7 @@ package com.merajavier.cineme.data.local
 import com.merajavier.cineme.data.local.entities.MovieEntity
 import com.merajavier.cineme.genre.GenreDataItem
 import com.merajavier.cineme.movies.MovieDataItem
+import com.merajavier.cineme.movies.MovieReleaseDates
 
 fun MovieEntity.toMovieDataItem() : MovieDataItem {
     return MovieDataItem(
@@ -16,7 +17,9 @@ fun MovieEntity.toMovieDataItem() : MovieDataItem {
         posterPath = this.posterPath,
         releaseDate = this.releaseDate,
         title = this.title,
-        genres = listOf(GenreDataItem(0, ""))
+        genres = listOf(GenreDataItem(0, "")),
+        runtime = this.runtime,
+        releaseDates = MovieReleaseDates(listOf())
     )
 }
 
@@ -36,7 +39,8 @@ fun List<MovieDataItem>.toMovieEntities() : List<MovieEntity>{
             voteAverage = movie.voteAverage,
             popularity = movie.popularity,
             originalTitle = movie.originalTitle,
-            backdropPath = movie.backdropPath!!
+            backdropPath = movie.backdropPath!!,
+            runtime = movie.runtime
         )
     }
 }

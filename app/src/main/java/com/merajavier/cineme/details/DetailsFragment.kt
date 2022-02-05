@@ -1,27 +1,20 @@
 package com.merajavier.cineme.details
 
-import android.animation.ValueAnimator
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.Transformation
 import android.widget.Toast
 import androidx.lifecycle.Observer
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.ExperimentalPagingApi
-import com.google.android.material.appbar.AppBarLayout
-import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.merajavier.cineme.MessageViewModel
 import com.merajavier.cineme.R
 import com.merajavier.cineme.cast.ActorsRecyclerAdapter
 import com.merajavier.cineme.cast.CastListViewModel
-import com.merajavier.cineme.common.toPercentAverage
-import com.merajavier.cineme.databinding.FragmentDetailsBinding
+import com.merajavier.cineme.databinding.FragmentMovieDetailsBinding
 import com.merajavier.cineme.genre.GenresRecyclerAdapter
 import com.merajavier.cineme.login.LoginViewModel
 import com.merajavier.cineme.login.account.AccountViewModel
@@ -29,8 +22,6 @@ import com.merajavier.cineme.login.account.MarkFavoriteStatus
 import com.merajavier.cineme.movies.MovieListViewModel
 import com.merajavier.cineme.movies.reviews.MovieReviewsViewModel
 import com.merajavier.cineme.movies.reviews.ReviewsListAdapter
-import com.merajavier.cineme.movies.reviews.ReviewsPagerAdapter
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -41,7 +32,7 @@ interface AddToFavoriteListener{
 @ExperimentalPagingApi
 class DetailsFragment : Fragment(), AddToFavoriteListener {
 
-    private lateinit var binding: FragmentDetailsBinding
+    private lateinit var binding: FragmentMovieDetailsBinding
     private lateinit var genresAdapter: GenresRecyclerAdapter
     private lateinit var actorsAdapter: ActorsRecyclerAdapter
     private lateinit var reviewsAdapter: ReviewsListAdapter
@@ -65,14 +56,14 @@ class DetailsFragment : Fragment(), AddToFavoriteListener {
         savedInstanceState: Bundle?
     ): View? {
 
-        binding = FragmentDetailsBinding.inflate(inflater, container, false)
+        binding = FragmentMovieDetailsBinding.inflate(inflater, container, false)
 
         binding.lifecycleOwner = this
         genresAdapter = GenresRecyclerAdapter()
         actorsAdapter = ActorsRecyclerAdapter()
         reviewsAdapter = ReviewsListAdapter()
 
-        binding.detailsMovieGenres.adapter = genresAdapter
+        binding.movieGenres.adapter = genresAdapter
         binding.detailsMovieActors.adapter = actorsAdapter
         binding.detailsMovieReviews?.adapter = reviewsAdapter
 
@@ -80,11 +71,6 @@ class DetailsFragment : Fragment(), AddToFavoriteListener {
         genresAdapter.submitList(args.movie.genres)
         castListViewModel.getMovieActors(args.movie.id)
         castListViewModel.getDirectors(args.movie.id)
-
-        val listener = AppBarLayout.OnOffsetChangedListener{ unsued, verticalOffset ->
-            val seekPosition = -verticalOffset / binding.appbarLayout?.totalScrollRange?.toFloat()!!
-            binding.motionLayout?.progress = seekPosition
-        }
 
         castListViewModel.actors.observe(viewLifecycleOwner, Observer {
             it.let {
@@ -109,8 +95,7 @@ class DetailsFragment : Fragment(), AddToFavoriteListener {
             }
         })
 
-        binding.appbarLayout?.addOnOffsetChangedListener(listener)
-        binding.movieDetailsAddToFavorite?.setListener {
+        binding.movieAddToFavorite?.setListener {
 
             if(loginViewModel.isLogged.value == true){
                 val isFavorite = !(moviesViewModel.isMovieFavorite.value)!!
@@ -141,14 +126,14 @@ class DetailsFragment : Fragment(), AddToFavoriteListener {
             moviesViewModel.isMovieFavorite.observe(viewLifecycleOwner, Observer {
 
                 if(it == null){
-                    binding.movieDetailsAddToFavorite?.iconResource = R.drawable.movie_favorite_not_selected
+                    binding.movieAddToFavorite?.iconResource = R.drawable.movie_favorite_not_selected
                 }else{
                     displayFavoriteIcon(it)
                 }
             })
         }
 
-        binding.detailsMovieOverview.setOnClickListener {
+        binding.movieOverview.setOnClickListener {
             findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToOverviewFragment(args.movie.overview))
         }
 
@@ -166,7 +151,7 @@ class DetailsFragment : Fragment(), AddToFavoriteListener {
 
     private fun displayFavoriteIcon(isFavorite: Boolean){
 
-        binding.movieDetailsAddToFavorite?.iconResource =
+        binding.movieAddToFavorite?.iconResource =
         if(isFavorite){
             R.drawable.movie_favorite_selected
         }else{

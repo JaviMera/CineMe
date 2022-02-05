@@ -8,7 +8,8 @@ import retrofit2.http.Query
 interface TMDBApMoviesiInterface {
     @GET("movie/{movie_id}")
     fun getMovie(
-        @Path("movie_id") movieId: Int
+        @Path("movie_id") movieId: Int,
+        @Query("append_to_response") appendToResponse: String
     ) : Call<String>
 
     @GET("movie/now_playing")

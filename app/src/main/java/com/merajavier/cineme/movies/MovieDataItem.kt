@@ -3,7 +3,6 @@ package com.merajavier.cineme.movies
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.merajavier.cineme.genre.GenreDataItem
-import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -18,5 +17,9 @@ data class MovieDataItem(
     @SerializedName("poster_path") val posterPath: String?,
     @SerializedName("backdrop_path") val backdropPath: String?,
     val genres: List<GenreDataItem>?,
-    @SerializedName("vote_count") val voteCount: Int
-) : Parcelable
+    @SerializedName("vote_count") val voteCount: Int,
+    val runtime: Int,
+    @SerializedName("release_dates") val releaseDates: MovieReleaseDates
+) : Parcelable {
+}
+

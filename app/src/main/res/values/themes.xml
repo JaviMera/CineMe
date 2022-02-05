@@ -32,6 +32,10 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="MovieDetails" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textColor">?baseColor</item>
+    </style>
+
     <style name="MovieTitle.Landscape" parent="MovieTitle">
         <item name="android:textSize">@dimen/large_text_dimen</item>
         <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
@@ -92,6 +96,12 @@
         <item name="android:layout_marginTop">@dimen/small_margin_dimen</item>
     </style>
 
+    <style name="MovieTitle.Details" parent="MovieTitle">
+        <item name="android:textSize">@dimen/x_large_text_dimen</item>
+        <item name="android:layout_marginTop">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+    </style>
+
     <style name="MovieReleaseDate.Favorite" parent="MovieReleaseDate">
         <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
         <item name="android:layout_marginTop">@dimen/x_small_margin_dimen</item>
@@ -110,6 +120,13 @@
         <item name="android:layout_margin">?cardMarginSmall</item>
     </style>
 
+    <style name="MovieDetails.GenreList">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginEnd">@dimen/small_margin_dimen</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
     <style name="CardViewGenre" parent="Widget.MaterialComponents.CardView">
         <item name="cardBackgroundColor">?movieBackground</item>
         <item name="android:layout_marginEnd">?cardMarginSmall</item>
@@ -360,5 +377,28 @@
         <item name="android:text">@string/details_movie_see_all_reviews_text</item>
         <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
         <item name="android:layout_marginTop">@dimen/medium_margin_dimen</item>
+    </style>
+
+    <style name="ReviewsList">
+        <item name="android:layout_marginTop">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginBottom">@dimen/small_margin_dimen</item>
+        <item name="android:orientation">horizontal</item>
+    </style>
+
+    <style name="MovieDetails.Poster">
+        <item name="android:layout_width">100dp</item>
+        <item name="android:layout_height">150dp</item>
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginTop">@dimen/medium_margin_dimen</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="MovieDetails.BackgroundPoster">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">250dp</item>
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginEnd">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginTop">@dimen/medium_margin_dimen</item>
+        <item name="android:scaleType">centerCrop</item>
     </style>
 </resources>

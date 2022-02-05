@@ -49,7 +49,7 @@ class SearchMoviesViewModel(
     fun getMovieDetails(movieId: Int){
         viewModelScope.launch {
             try{
-                when(val response = networkMovieRepository.getDetails(movieId)){
+                when(val response = networkMovieRepository.getMovie(movieId)){
                     is TMDBApiResult.Success -> {
                         val movie = response.data as MovieDataItem
                         _selectedMovie.postValue(movie)
