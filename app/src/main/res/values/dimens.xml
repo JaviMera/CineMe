@@ -11,7 +11,6 @@
     <dimen name="medium_text_dimen">12sp</dimen>
     <dimen name="large_text_dimen">18sp</dimen>
     <dimen name="x_large_text_dimen">24sp</dimen>
-    <dimen name="cardview_margin">10dp</dimen>
     <dimen name="cardview_corner_radius">5dp</dimen>
     <dimen name="cardview_genre_corner_radius">20dp</dimen>
     <dimen name="favorite_icon_size">20dp</dimen>

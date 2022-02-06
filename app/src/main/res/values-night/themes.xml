@@ -23,7 +23,7 @@
         <item name="baseColor">@color/colorPrimaryLight</item>
         <item name="movieBackground">@color/colorPrimaryDark</item>
         <item name="cardCornerRadius">@dimen/cardview_corner_radius</item>
-        <item name="cardMarginSmall">@dimen/cardview_margin</item>
+        <item name="cardMarginSmall">@dimen/small_margin_dimen</item>
         <item name="cardMarginXSmall">@dimen/x_small_margin_dimen</item>
         <item name="cardElevation">@dimen/xx_small_margin_dimen</item>
     </style>
