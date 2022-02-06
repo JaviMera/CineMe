@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/MovieDetailReviewContainer.Score"
-                android:text="@{String.valueOf(review.authorDetails.rating)}"
+                app:showReviewScore="@{review.authorDetails.rating}"
                 app:layout_constraintBottom_toBottomOf="@id/detail_movie_review_item_icon"
                 app:layout_constraintStart_toEndOf="@id/detail_movie_review_item_icon"
                 tools:text="6.9" />

@@ -32,3 +32,13 @@ fun bindReviewDate(textView: TextView, releaseDate: String?){
         }
     }
 }
+
+@BindingAdapter("showReviewScore")
+fun bindReviewScore(textView: TextView, reviewScore: Double?){
+
+    reviewScore?.let { score ->
+        if(reviewScore.compareTo(0.0) != 0){
+            textView.text = score.toString()
+        }
+    }
+}
