@@ -75,7 +75,7 @@
         android:id="@+id/detailsFragment"
         android:name="com.merajavier.cineme.details.DetailsFragment"
         android:label="@string/fragment_details_title"
-        tools:layout="@layout/fragment_details">
+        tools:layout="@layout/fragment_movie_details">
         <argument
             android:name="movie"
             app:argType="com.merajavier.cineme.movies.MovieDataItem" />
@@ -94,6 +94,15 @@
 
             app:popUpTo="@id/reviewsFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_detailsFragment_to_actorFragment"
+            app:destination="@id/actorFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/actorFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/overviewFragment"
@@ -111,6 +120,15 @@
         tools:layout="@layout/review_item">
         <argument
             android:name="movieId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/actorFragment"
+        android:name="com.merajavier.cineme.cast.ActorFragment"
+        android:label="ActorFragment"
+        tools:layout="@layout/fragment_actor">
+        <argument
+            android:name="actorId"
             app:argType="integer" />
     </fragment>
 </navigation>

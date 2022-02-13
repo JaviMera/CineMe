@@ -5,5 +5,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ActorProfileImagesResponse(
-    val profiles: List<ActorProfileImageDataItem>
+    val profiles: List<ActorProfileImageDataItem>?
 ) : Parcelable

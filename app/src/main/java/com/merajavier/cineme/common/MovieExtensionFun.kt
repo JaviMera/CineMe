@@ -8,7 +8,7 @@ fun Double.toPercentAverage() : Double {
     return (this * 10)
 }
 
-fun String.toMovieDateFormat() : String{
+fun String.toDateFormat() : String{
 
     val pattern = "MMM d, yyyy"
     val calendar = Calendar.getInstance()

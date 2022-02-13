@@ -9,14 +9,9 @@ import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.merajavier.cineme.BuildConfig
 import com.merajavier.cineme.R
-import com.merajavier.cineme.common.toMovieDateFormat
-import com.merajavier.cineme.common.toPercentAverage
-import com.merajavier.cineme.details.UserScoreView
-import com.merajavier.cineme.details.UserVotesView
+import com.merajavier.cineme.cast.ActorProfileImagesResponse
+import com.merajavier.cineme.common.toDateFormat
 import com.merajavier.cineme.movies.MovieDataItem
-import timber.log.Timber
-import java.text.SimpleDateFormat
-import java.util.*
 
 @BindingAdapter("showLoading")
 fun bindLoadingBar(circularProgressIndicator: CircularProgressIndicator, isLoading: Boolean){
@@ -67,7 +62,38 @@ fun bindMovieDetails(textView: TextView, movie: MovieDataItem){
 @BindingAdapter("showReleaseDate")
 fun bindReleaseDate(textView: TextView, releaseDate: String?){
     releaseDate?.let{
-        val movieDateFormat = it.toMovieDateFormat()
+        val movieDateFormat = it.toDateFormat()
         textView.text = movieDateFormat
+    }
+}
+
+@BindingAdapter("showActorImageProfile")
+fun bindActorImageProfile(imageView: ImageView, imagesResponse: ActorProfileImagesResponse?){
+
+    if(imagesResponse?.profiles == null || !imagesResponse.profiles.any() ){
+        imageView.setImageResource(R.drawable.loading_image_error)
+    }else{
+
+        val imagePath = imagesResponse.profiles.maxByOrNull { image -> image.VoteCount }
+
+        if(imagePath == null){
+            imageView.setImageResource(R.drawable.loading_image_error)
+        }else{
+            Glide.with(imageView.context)
+                .load("${BuildConfig.API_POSTER_URL}${imagePath.filePath}")
+                .apply(
+                    RequestOptions()
+                        .placeholder(R.drawable.loading_image)
+                        .error(R.drawable.loading_image_error))
+                .into(imageView)
+        }
+    }
+}
+
+@BindingAdapter("showBirthdate")
+fun bindBirthdate(textView: TextView, birthdate: String?){
+    birthdate?.let{
+        val birthdate = it.toDateFormat()
+        textView.text = birthdate
     }
 }

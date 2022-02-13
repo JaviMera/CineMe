@@ -3,11 +3,9 @@ package com.merajavier.cineme.adapters
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.merajavier.cineme.R
-import com.merajavier.cineme.common.toMovieDateFormat
+import com.merajavier.cineme.common.toDateFormat
 import com.merajavier.cineme.movies.reviews.AuthorDetails
 import timber.log.Timber
-import java.text.SimpleDateFormat
-import java.util.*
 
 @BindingAdapter("reviewAuthorName")
 fun bindReviewAuthorName(textView: TextView, authorDetails: AuthorDetails?){
@@ -25,7 +23,7 @@ fun bindReviewDate(textView: TextView, releaseDate: String?){
             val datePart = it.split("T")
 
             if(datePart.isNotEmpty() && datePart.any()){
-                textView.text = textView.context.getString(R.string.movie_review_date, datePart[0].toMovieDateFormat())
+                textView.text = textView.context.getString(R.string.movie_review_date, datePart[0].toDateFormat())
             }
         }else{
             Timber.i("Empty date: $it")

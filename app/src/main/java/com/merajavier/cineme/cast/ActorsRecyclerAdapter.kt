@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.DetailsMovieActorItemBinding
 
-class ActorsRecyclerAdapter
-    : ListAdapter<ActorDataItem, ActorsRecyclerAdapter.ActorViewHolder>(DiffCallback) {
+class ActorsRecyclerAdapter(
+  private val onActorClickListener: OnActorClickListener
+) : ListAdapter<ActorDataItem, ActorsRecyclerAdapter.ActorViewHolder>(DiffCallback) {
 
     class ActorViewHolder(
         private val binding: DetailsMovieActorItemBinding
@@ -19,6 +20,10 @@ class ActorsRecyclerAdapter
         fun bind(actor: ActorDataItem){
             binding.actor = actor
         }
+    }
+
+    class OnActorClickListener(val clickListener: (actorId: Int) -> Unit){
+        fun onClick(actorId: Int) = clickListener(actorId)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ActorViewHolder {
@@ -30,7 +35,13 @@ class ActorsRecyclerAdapter
 
     override fun onBindViewHolder(holder: ActorViewHolder, position: Int) {
         val actor = getItem(position)
-        holder.bind(actor)
+
+        actor?.let{ actorItem ->
+            holder.itemView.setOnClickListener {
+                onActorClickListener.onClick(actorItem.id)
+            }
+            holder.bind(actorItem)
+        }
     }
 
     override fun getItemId(position: Int): Long {

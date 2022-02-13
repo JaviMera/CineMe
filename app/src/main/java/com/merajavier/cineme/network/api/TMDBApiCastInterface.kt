@@ -12,7 +12,7 @@ interface TMDBApiCastInterface {
         @Path("movie_id") movieId: Int
     ) : Call<String>
 
-    @GET("person/{person_id")
+    @GET("person/{person_id}")
     fun getActorDetails(
         @Path("person_id") actorId: Int,
         @Query("append_to_response") appendToResponse: String

@@ -24,6 +24,7 @@ import com.merajavier.cineme.movies.reviews.MovieReviewsViewModel
 import com.merajavier.cineme.movies.reviews.ReviewsListAdapter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 interface AddToFavoriteListener{
     fun onAddToFavoriteClick()
@@ -60,7 +61,9 @@ class DetailsFragment : Fragment(), AddToFavoriteListener {
 
         binding.lifecycleOwner = this
         genresAdapter = GenresRecyclerAdapter()
-        actorsAdapter = ActorsRecyclerAdapter()
+        actorsAdapter = ActorsRecyclerAdapter(ActorsRecyclerAdapter.OnActorClickListener{
+            findNavController().navigate(DetailsFragmentDirections.actionDetailsFragmentToActorFragment(it))
+        })
         reviewsAdapter = ReviewsListAdapter()
 
         binding.movieGenres.adapter = genresAdapter
