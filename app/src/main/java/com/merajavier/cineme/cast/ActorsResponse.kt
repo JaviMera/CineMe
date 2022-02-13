@@ -9,3 +9,4 @@ data class ActorsResponse (
     val cast: List<ActorDataItem>,
     val crew: List<CrewDataItem>
 ) : Parcelable
+
