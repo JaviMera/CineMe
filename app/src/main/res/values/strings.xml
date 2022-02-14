@@ -75,4 +75,5 @@
     <string name="actor_details_birthdate_born_title">Born:</string>
     <string name="actor_details_birthdate_title">Born:</string>
     <string name="actor_details_deathdate_title">Death:</string>
+    <string name="actor_details_filmography_title">Filmography</string>
 </resources>
