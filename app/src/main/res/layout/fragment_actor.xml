@@ -42,7 +42,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginTop="8dp"
-            android:maxLines="6"
+            android:maxLines="5"
             android:text="@{actorDetail.biography}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/actor_details_card"
@@ -51,26 +51,32 @@
             tools:text="@string/actor_biography" />
 
         <TextView
-            android:id="@+id/actor_details_birthdate_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/actor_details_card"
-            app:layout_constraintStart_toEndOf="@+id/actor_details_card"
-            app:layout_constraintTop_toBottomOf="@+id/actor_details_biography"
-            android:text="@string/actor_details_birthdate_born_title"/>
-
-        <TextView
             android:id="@+id/actor_details_birthdate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            app:showBirthdate="@{actorDetail.birthday}"
-            app:layout_constraintBaseline_toBaselineOf="@+id/actor_details_birthdate_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/actor_details_birthdate_title"
-            tools:text="May 1, 1962" />
+            app:layout_constraintStart_toEndOf="@+id/actor_details_card"
+            app:layout_constraintTop_toBottomOf="@+id/actor_details_biography"
+            app:showBirthdate="@{actorDetail.birthday}"
+            tools:text="Born: July 1, 1963" />
+
+        <TextView
+            android:id="@+id/actor_details_deathdate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/actor_details_card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/actor_details_card"
+            app:layout_constraintTop_toBottomOf="@+id/actor_details_birthdate"
+            app:showDeathDate="@{actorDetail.deathday}"
+            tools:text="Death: July 1, 1963" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

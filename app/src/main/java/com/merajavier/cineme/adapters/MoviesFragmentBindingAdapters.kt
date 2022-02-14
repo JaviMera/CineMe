@@ -1,8 +1,10 @@
 package com.merajavier.cineme.adapters
 
+import android.text.SpannableStringBuilder
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.text.bold
 import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -12,6 +14,7 @@ import com.merajavier.cineme.R
 import com.merajavier.cineme.cast.ActorProfileImagesResponse
 import com.merajavier.cineme.common.toDateFormat
 import com.merajavier.cineme.movies.MovieDataItem
+import timber.log.Timber
 
 @BindingAdapter("showLoading")
 fun bindLoadingBar(circularProgressIndicator: CircularProgressIndicator, isLoading: Boolean){
@@ -93,7 +96,28 @@ fun bindActorImageProfile(imageView: ImageView, imagesResponse: ActorProfileImag
 @BindingAdapter("showBirthdate")
 fun bindBirthdate(textView: TextView, birthdate: String?){
     birthdate?.let{
-        val birthdate = it.toDateFormat()
-        textView.text = birthdate
+        textView.text = getActorDate(
+            textView.context.getString(R.string.actor_details_birthdate_title),
+            it
+        )
     }
+}
+
+@BindingAdapter("showDeathDate")
+fun bindDeathDate(textView: TextView, deathDate: String?){
+
+    Timber.i("Reading actor's death date: $deathDate")
+    deathDate?.let{
+        textView.text = getActorDate(
+            textView.context.getString(R.string.actor_details_deathdate_title),
+            it
+        )
+    }
+}
+
+private fun getActorDate(title: String, date: String): SpannableStringBuilder {
+
+    return SpannableStringBuilder()
+        .bold { append(title) }
+        .append(" ${date.toDateFormat()}")
 }
