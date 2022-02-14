@@ -401,4 +401,23 @@
         <item name="android:layout_marginTop">@dimen/medium_margin_dimen</item>
         <item name="android:scaleType">centerCrop</item>
     </style>
+
+    <style name="ActorDetails" parent="TextAppearance.AppCompat.Body2">
+        <item name="android:textColor">?baseColor</item>
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginEnd">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginTop">@dimen/small_margin_dimen</item>
+    </style>
+
+    <style name="ActorDetails.Biography" parent="ActorDetails">
+        <item name="android:maxLines">5</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="ActorDetails.Birthday" parent="ActorDetails">
+    </style>
+
+    <style name="ActorDetails.Deathday" parent="ActorDetails">
+        <item name="android:layout_marginBottom">@dimen/small_margin_dimen</item>
+    </style>
 </resources>
