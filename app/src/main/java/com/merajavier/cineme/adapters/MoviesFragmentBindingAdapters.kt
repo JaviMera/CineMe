@@ -12,9 +12,9 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.merajavier.cineme.BuildConfig
 import com.merajavier.cineme.R
 import com.merajavier.cineme.cast.ActorProfileImagesResponse
+import com.merajavier.cineme.common.toActorYears
 import com.merajavier.cineme.common.toDateFormat
 import com.merajavier.cineme.movies.MovieDataItem
-import timber.log.Timber
 
 @BindingAdapter("showLoading")
 fun bindLoadingBar(circularProgressIndicator: CircularProgressIndicator, isLoading: Boolean){
@@ -103,15 +103,17 @@ fun bindBirthdate(textView: TextView, birthdate: String?){
     }
 }
 
-@BindingAdapter("showDeathDate")
-fun bindDeathDate(textView: TextView, deathDate: String?){
+@BindingAdapter("birthday", "deathday")
+fun bindDeathDate(textView: TextView, birthday: String?, deathday: String?){
 
-    Timber.i("Reading actor's death date: $deathDate")
-    deathDate?.let{
-        textView.text = getActorDate(
-            textView.context.getString(R.string.actor_details_deathdate_title),
-            it
-        )
+    if(!birthday.isNullOrEmpty() && !deathday.isNullOrEmpty()){
+        deathday.let{
+            textView.text = getActorDate(
+                textView.context.getString(R.string.actor_details_deathdate_title),
+                it
+            )
+                .append(birthday.toActorYears())
+        }
     }
 }
 

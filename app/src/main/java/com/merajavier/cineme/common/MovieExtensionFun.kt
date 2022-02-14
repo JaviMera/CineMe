@@ -23,3 +23,16 @@ fun String.toDateFormat() : String{
         ""
     }
 }
+
+fun String.toActorYears() : String{
+
+    val calendar = Calendar.getInstance()
+    val currentYear = calendar.get(Calendar.YEAR)
+    val values = this.split("-")
+
+    return if(values.isNotEmpty()){
+        return " (${currentYear - values[0].toInt()} years)"
+    }else{
+        ""
+    }
+}
