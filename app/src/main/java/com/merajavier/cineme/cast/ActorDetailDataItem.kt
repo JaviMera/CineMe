@@ -13,6 +13,7 @@ data class ActorDetailDataItem(
     val name: String,
     @SerializedName("place_of_birth") val placeOfBirth: String,
     val popularity: Double,
-    val images: ActorProfileImagesResponse
+    val images: ActorProfileImagesResponse,
+    val credits: ActorCreditsResponse
 ) : Parcelable
 

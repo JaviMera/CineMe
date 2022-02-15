@@ -14,6 +14,7 @@ import com.merajavier.cineme.R
 import com.merajavier.cineme.cast.ActorProfileImagesResponse
 import com.merajavier.cineme.common.toActorYears
 import com.merajavier.cineme.common.toDateFormat
+import com.merajavier.cineme.common.toYear
 import com.merajavier.cineme.movies.MovieDataItem
 
 @BindingAdapter("showLoading")
@@ -101,6 +102,19 @@ fun bindBirthdate(textView: TextView, birthdate: String?){
             it
         )
     }
+}
+
+@BindingAdapter("actorCreditYear", "actorCreditCharacter")
+fun bindActorCreditDescription(textView: TextView, actorCreditYear: String?, actorCreditCharacter: String?){
+
+    if(actorCreditYear == null && actorCreditCharacter == null)
+        return
+
+    textView.text = textView.context.getString(
+        R.string.actor_credits_description,
+        actorCreditYear?.toYear(),
+        actorCreditCharacter
+    )
 }
 
 @BindingAdapter("birthday", "deathday")

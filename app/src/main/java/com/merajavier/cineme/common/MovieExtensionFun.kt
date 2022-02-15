@@ -36,3 +36,14 @@ fun String.toActorYears() : String{
         ""
     }
 }
+
+fun String.toYear() : String {
+
+    val values = this.split("-")
+
+    return if(values.isNotEmpty()){
+        return values[0]
+    }else{
+        ""
+    }
+}

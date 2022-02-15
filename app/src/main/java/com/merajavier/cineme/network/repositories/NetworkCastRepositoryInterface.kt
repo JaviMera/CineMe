@@ -11,7 +11,7 @@ import retrofit2.awaitResponse
 interface NetworkCastRepositoryInterface {
     suspend fun getActors(movieId: Int) : TMDBApiResult<*>
     suspend fun getCrew(movieId: Int) : TMDBApiResult<*>
-    suspend fun getActorDetails(actorId: Int, appendToResponse: List<String>) : TMDBApiResult<*>
+    suspend fun getActorDetails(actorId: Int, appendToResponse: String) : TMDBApiResult<*>
 }
 
 class NetworkMovieActorRepository(
@@ -49,9 +49,9 @@ class NetworkMovieActorRepository(
         }
     }
 
-    override suspend fun getActorDetails(actorId: Int, appendToResponse: List<String>): TMDBApiResult<*> {
+    override suspend fun getActorDetails(actorId: Int, appendToResponse: String): TMDBApiResult<*> {
         return try{
-            val response = apiInterface.getActorDetails(actorId, appendToResponse.joinToString()).awaitResponse()
+            val response = apiInterface.getActorDetails(actorId, appendToResponse).awaitResponse()
             if(response.isSuccessful){
                 val actorResponse = Gson().fromJson(response.body(), ActorDetailDataItem::class.java)
                 TMDBApiResult.Success(actorResponse)

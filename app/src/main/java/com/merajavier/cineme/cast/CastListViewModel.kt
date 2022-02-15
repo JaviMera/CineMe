@@ -73,7 +73,7 @@ class CastListViewModel(
     fun getActorDetails(actorId: Int){
         viewModelScope.launch {
             try{
-                when(val response = networkMovieActorRepository.getActorDetails(actorId, mutableListOf("images"))){
+                when(val response = networkMovieActorRepository.getActorDetails(actorId, "images,credits")){
                     is TMDBApiResult.Success -> {
                         val actorDetails = response.data as ActorDetailDataItem
                         _actorDetails.postValue(actorDetails)

@@ -11,10 +11,12 @@ import androidx.navigation.fragment.navArgs
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentActorBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 class ActorFragment : Fragment() {
 
     private lateinit var binding: FragmentActorBinding
+    private lateinit var actorCreditsAdapter: ActorCreditsAdapter
     private val castListViewModel: CastListViewModel by viewModel()
     private val args: ActorFragmentArgs by navArgs()
 
@@ -29,10 +31,13 @@ class ActorFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentActorBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
+        actorCreditsAdapter = ActorCreditsAdapter()
+        binding.actorDetailsRecyclerFilmography.adapter = actorCreditsAdapter
 
         castListViewModel.getActorDetails(args.actorId)
         castListViewModel.actorDetails.observe(viewLifecycleOwner, Observer {
             binding.actorDetail = it
+            actorCreditsAdapter.submitList(it.credits.cast.sortedBy { credit -> credit.order }.take(10))
         })
 
         return binding.root

@@ -5,11 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="actorCredit"
+            type="com.merajavier.cineme.cast.ActorCreditDataItem" />
     </data>
 
     <androidx.cardview.widget.CardView
-        android:layout_width="130dp"
+        android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
         app:cardCornerRadius="5dp">
@@ -21,10 +23,11 @@
 
             <ImageView
                 android:id="@+id/actor_film_poster"
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:contentDescription="@string/details_movie_cast_item_picture"
                 android:scaleType="centerCrop"
+                app:showPoster="@{actorCredit.posterPath}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -46,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:text="@{String.valueOf(actorCredit.voteAverage)}"
                 app:layout_constraintBottom_toBottomOf="@id/actor_film_rate_icon"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/actor_film_rate_icon"
@@ -59,6 +63,9 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:text="@{actorCredit.title}"
+                android:maxLines="1"
+                android:ellipsize="end"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/actor_film_rate_icon"
@@ -71,6 +78,10 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginEnd="8dp"
+                android:maxLines="1"
+                android:ellipsize="end"
+                app:actorCreditYear="@{actorCredit.releaseDate}"
+                app:actorCreditCharacter="@{actorCredit.character}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/actor_film_title"
