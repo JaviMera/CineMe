@@ -17,5 +17,11 @@ interface TMDBApiCastInterface {
         @Path("person_id") actorId: Int,
         @Query("append_to_response") appendToResponse: String
     ) : Call<String>
+
+    @GET("person/{person_id}/tagged_images")
+    fun getActorTaggedImages(
+        @Path("person_id") actorId: Int,
+        @Query("page") pageNumber: Int
+    ) : Call<String>
 }
 

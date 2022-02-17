@@ -4,7 +4,7 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class ActorProfileImagesResponse(
-    val profiles: List<ActorProfileImageDataItem>?
-) : Parcelable
+data class MediaDataItem(
+    val id: Int
 
+) : Parcelable

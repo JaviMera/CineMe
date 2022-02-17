@@ -17,6 +17,7 @@ class ActorFragment : Fragment() {
 
     private lateinit var binding: FragmentActorBinding
     private lateinit var actorCreditsAdapter: ActorCreditsAdapter
+    private lateinit var actorTaggedImagesAdapter: ActorTaggedImagesAdapter
     private val castListViewModel: CastListViewModel by viewModel()
     private val args: ActorFragmentArgs by navArgs()
 
@@ -32,12 +33,20 @@ class ActorFragment : Fragment() {
         binding = FragmentActorBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this
         actorCreditsAdapter = ActorCreditsAdapter()
+        actorTaggedImagesAdapter = ActorTaggedImagesAdapter()
         binding.actorDetailsRecyclerFilmography.adapter = actorCreditsAdapter
+        binding.actorDetailsPhotosRecycler.adapter = actorTaggedImagesAdapter
 
         castListViewModel.getActorDetails(args.actorId)
+        castListViewModel.getActorTaggedImages(args.actorId)
+
         castListViewModel.actorDetails.observe(viewLifecycleOwner, Observer {
             binding.actorDetail = it
             actorCreditsAdapter.submitList(it.credits.cast.sortedBy { credit -> credit.order }.take(10))
+        })
+
+        castListViewModel.actorTaggedImages.observe(viewLifecycleOwner, Observer {
+            actorTaggedImagesAdapter.submitList(it)
         })
 
         return binding.root

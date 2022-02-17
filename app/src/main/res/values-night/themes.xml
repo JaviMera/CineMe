@@ -43,4 +43,8 @@
     <style name="MovieReviewContainer.Icon.Rate" parent="MovieDetailReviewContainer.Icon">
         <item name="android:src">@drawable/movie_rate_icon_dark</item>
     </style>
+
+    <style name="ActorDetails.Credit.Icon">
+        <item name="android:src">@drawable/movie_rate_icon_dark</item>
+    </style>
 </resources>

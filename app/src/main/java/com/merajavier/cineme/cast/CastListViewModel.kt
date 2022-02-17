@@ -26,6 +26,10 @@ class CastListViewModel(
     val actorDetails: LiveData<ActorDetailDataItem>
     get() = _actorDetails
 
+    private var _actorTaggedImages = MutableLiveData<List<ActorTaggedImageDataItem>>()
+    val actorTaggedImages: LiveData<List<ActorTaggedImageDataItem>>
+        get() = _actorTaggedImages
+
     fun getMovieActors(movieId: Int){
         viewModelScope.launch {
             try{
@@ -80,6 +84,30 @@ class CastListViewModel(
                     }
                     is TMDBApiResult.Error -> {
                         Timber.i("Unable to get actor details: ${response.message}")
+                    }
+                    is TMDBApiResult.Failure -> {
+                        val errorResponse = response.data as ErrorResponse
+                        Timber.i(errorResponse.statusMessage)
+                    }
+                }
+            }
+            catch (exception: Exception){
+                Timber.i(exception.localizedMessage)
+            }
+        }
+    }
+
+    fun getActorTaggedImages(actorId: Int) {
+        viewModelScope.launch {
+            try{
+                when(val response = networkMovieActorRepository.getActorTaggedImages(actorId, 1)){
+                    is TMDBApiResult.Success -> {
+                        val taggedImages = response.data as ActorTaggedImagesResponse
+                        Timber.i("Data: $taggedImages")
+                        _actorTaggedImages.postValue(taggedImages.results)
+                    }
+                    is TMDBApiResult.Error -> {
+                        Timber.i("Unable to get actor tagged images: ${response.message}")
                     }
                     is TMDBApiResult.Failure -> {
                         val errorResponse = response.data as ErrorResponse

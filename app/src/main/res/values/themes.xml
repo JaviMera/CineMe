@@ -404,20 +404,58 @@
 
     <style name="ActorDetails" parent="TextAppearance.AppCompat.Body2">
         <item name="android:textColor">?baseColor</item>
-        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
-        <item name="android:layout_marginEnd">@dimen/small_margin_dimen</item>
-        <item name="android:layout_marginTop">@dimen/small_margin_dimen</item>
     </style>
 
     <style name="ActorDetails.Biography" parent="ActorDetails">
         <item name="android:maxLines">5</item>
         <item name="android:ellipsize">end</item>
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginEnd">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginTop">@dimen/small_margin_dimen</item>
     </style>
 
     <style name="ActorDetails.Birthday" parent="ActorDetails">
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginEnd">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginTop">@dimen/small_margin_dimen</item>
     </style>
 
     <style name="ActorDetails.Deathday" parent="ActorDetails">
         <item name="android:layout_marginBottom">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginEnd">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginTop">@dimen/small_margin_dimen</item>
+    </style>
+
+    <style name="ActorDetails.Credit">
+        <item name="cardBackgroundColor">?movieBackground</item>
+        <item name="cardCornerRadius">?cardCornerRadius</item>
+        <item name="android:layout_margin">@dimen/small_margin_dimen</item>
+    </style>
+
+    <style name="ActorDetails.Credit.Icon">
+        <item name="android:src">@drawable/movie_rate_icon</item>
+    </style>
+
+    <style name="ActorDetails.Credit.Average" parent="ActorDetails">
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginEnd">@dimen/small_margin_dimen</item>
+    </style>
+
+    <style name="ActorDetails.Credit.Title" parent="ActorDetails">
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginEnd">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginTop">@dimen/small_margin_dimen</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
+    </style>
+
+    <style name="ActorDetails.Credit.Description" parent="ActorDetails">
+        <item name="android:textStyle">bold|italic</item>
+        <item name="android:layout_marginStart">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginEnd">@dimen/small_margin_dimen</item>
+        <item name="android:layout_marginTop">@dimen/small_margin_dimen</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:ellipsize">end</item>
     </style>
 </resources>

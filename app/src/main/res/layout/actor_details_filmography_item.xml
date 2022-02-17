@@ -13,8 +13,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        app:cardCornerRadius="5dp">
+        style="@style/ActorDetails.Credit">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/actor_filmography_constraint_layout"
@@ -39,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:src="@drawable/movie_rate_icon"
+                style="@style/ActorDetails.Credit.Icon"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/actor_film_poster" />
 
@@ -47,8 +46,7 @@
                 android:id="@+id/actor_film_score"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                style="@style/ActorDetails.Credit.Average"
                 android:text="@{String.valueOf(actorCredit.voteAverage)}"
                 app:layout_constraintBottom_toBottomOf="@id/actor_film_rate_icon"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -60,12 +58,8 @@
                 android:id="@+id/actor_film_title"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
+                style="@style/ActorDetails.Credit.Title"
                 android:text="@{actorCredit.title}"
-                android:maxLines="1"
-                android:ellipsize="end"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/actor_film_rate_icon"
@@ -75,11 +69,7 @@
                 android:id="@+id/actor_film_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:maxLines="1"
-                android:ellipsize="end"
+                style="@style/ActorDetails.Credit.Description"
                 app:actorCreditYear="@{actorCredit.releaseDate}"
                 app:actorCreditCharacter="@{actorCredit.character}"
                 app:layout_constraintEnd_toEndOf="parent"
