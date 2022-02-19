@@ -7,6 +7,7 @@
     <color name="colorPrimary">#673ab7</color>
     <color name="colorPrimaryLight">#d1c4e9</color>
     <color name="colorPrimaryDark">#320b86</color>
+    <color name="actorCreditColor">#4d2c91</color>
     <color name="colorSecondary">#00838f</color>
     <color name="colorSecondaryDark">#005662</color>
     <color name="colorSecondaryLight">#4fb3bf</color>

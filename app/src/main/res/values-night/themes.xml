@@ -26,6 +26,8 @@
         <item name="cardMarginSmall">@dimen/small_margin_dimen</item>
         <item name="cardMarginXSmall">@dimen/x_small_margin_dimen</item>
         <item name="cardElevation">@dimen/xx_small_margin_dimen</item>
+        <item name="actorCreditCardColor">@color/actorCreditColor</item>
+        <item name="actorCreditContainerColor">@color/black</item>
     </style>
 
     <style name="CardViewSearch.Icon.Search" parent="CardViewSearch.Icon">
