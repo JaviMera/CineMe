@@ -41,7 +41,7 @@
                         app:showActorImageProfile="@{actorDetail.images}"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        tools:srcCompat="@drawable/keanu_reaves" />
+                        tools:srcCompat="@drawable/venom" />
 
                     <TextView
                         android:id="@+id/actor_details_biography"
@@ -97,14 +97,10 @@
                     android:id="@+id/actor_details_filmography_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/actor_details_filmography_title"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/large_text_dimen"
+                    style="@style/ActorDetails.Card.Title.Filmography"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"/>
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/actor_details_recycler_filmography"
@@ -139,11 +135,7 @@
                     android:id="@+id/actor_details_photos_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="16dp"
-                    android:text="@string/actor_details_photos_title"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/large_text_dimen"
+                    style="@style/ActorDetails.Card.Title.Photos"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent" />
