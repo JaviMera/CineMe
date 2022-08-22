@@ -68,6 +68,13 @@
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.3921875" />
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/menu/fragment_user_menu.xml" value="0.3921875" />
         <entry key="..\:/Users/javie/StudioProjects/Udacity/Capstone/CineMe/app/src/main/res/xml/movie_details_motion_layout_description.xml" value="0.253125" />
+        <entry key="..\:/Users/javier/StudioProjects/CineMe/app/src/main/res/drawable/loading_icon.xml" value="0.259" />
+        <entry key="..\:/Users/javier/StudioProjects/CineMe/app/src/main/res/drawable/loading_image_error.xml" value="0.259" />
+        <entry key="..\:/Users/javier/StudioProjects/CineMe/app/src/main/res/layout/actor_details_filmography_item.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/javier/StudioProjects/CineMe/app/src/main/res/layout/fragment_actor.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/javier/StudioProjects/CineMe/app/src/main/res/layout/fragment_movie_details.xml" value="0.4041666666666667" />
+        <entry key="..\:/Users/javier/StudioProjects/CineMe/app/src/main/res/layout/fragment_movies.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/javier/StudioProjects/CineMe/app/src/main/res/layout/upcoming_movie_item.xml" value="0.25364583333333335" />
         <entry key="app/src/main/res/layout/fragment_actor.xml" value="0.2740036231884058" />
       </map>
     </option>

@@ -11,26 +11,22 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadState
-import androidx.paging.map
-import com.google.android.material.snackbar.Snackbar
 import com.merajavier.cineme.CinemaActivity
-import com.merajavier.cineme.MessageViewModel
+import com.merajavier.cineme.ActivityViewModel
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentUserBinding
 import com.merajavier.cineme.login.LoginViewModel
 import com.merajavier.cineme.movies.MoviesFooterAdapter
 import com.merajavier.cineme.movies.favorites.FavoriteMoviesAdapter
-import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 @ExperimentalPagingApi
 class UserFragment : Fragment() {
     private lateinit var binding: FragmentUserBinding
     private val loginViewModel: LoginViewModel by sharedViewModel()
-    private val messageViewModel: MessageViewModel by sharedViewModel()
+    private val activityViewModel: ActivityViewModel by sharedViewModel()
 
     private val accountViewModel: AccountViewModel by viewModel()
     private lateinit var favoriteMoviesAdapter: FavoriteMoviesAdapter
@@ -81,14 +77,14 @@ class UserFragment : Fragment() {
         accountViewModel.movieUpdated.observe(viewLifecycleOwner, Observer {
 
             if(it == null){
-                messageViewModel.setMessage(getString(R.string.remove_movie_error))
+                activityViewModel.setMessage(getString(R.string.remove_movie_error))
             }else{
                 when(it){
                     MarkFavoriteStatus.DONE -> {
                         favoriteMoviesAdapter.refresh()
                     }
                     MarkFavoriteStatus.FAILED -> {
-                            messageViewModel.setMessage(getString(R.string.remove_movie_error))
+                            activityViewModel.setMessage(getString(R.string.remove_movie_error))
                     }
                 }
             }

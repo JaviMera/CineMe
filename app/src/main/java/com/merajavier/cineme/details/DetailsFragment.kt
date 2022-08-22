@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.paging.ExperimentalPagingApi
-import com.merajavier.cineme.MessageViewModel
+import com.merajavier.cineme.ActivityViewModel
 import com.merajavier.cineme.R
 import com.merajavier.cineme.cast.ActorsRecyclerAdapter
 import com.merajavier.cineme.cast.CastListViewModel
@@ -24,7 +24,6 @@ import com.merajavier.cineme.movies.reviews.MovieReviewsViewModel
 import com.merajavier.cineme.movies.reviews.ReviewsListAdapter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import timber.log.Timber
 
 interface AddToFavoriteListener{
     fun onAddToFavoriteClick()
@@ -44,7 +43,7 @@ class DetailsFragment : Fragment(), AddToFavoriteListener {
     private val reviewsViewModel: MovieReviewsViewModel by viewModel()
 
     private val loginViewModel: LoginViewModel by sharedViewModel()
-    private val messageViewModel: MessageViewModel by sharedViewModel()
+    private val activityViewModel: ActivityViewModel by sharedViewModel()
 
     private val args: DetailsFragmentArgs by navArgs()
 
@@ -71,6 +70,9 @@ class DetailsFragment : Fragment(), AddToFavoriteListener {
         binding.detailsMovieReviews?.adapter = reviewsAdapter
 
         binding.movie = args.movie
+
+        activityViewModel.setAppBarTitle(args.movie.title)
+
         genresAdapter.submitList(args.movie.genres)
         castListViewModel.getMovieActors(args.movie.id)
         castListViewModel.getDirectors(args.movie.id)
@@ -108,13 +110,13 @@ class DetailsFragment : Fragment(), AddToFavoriteListener {
                     args.movie.id,
                     isFavorite)
 
-                messageViewModel.setMessage(
+                activityViewModel.setMessage(
                     when(isFavorite){
                         true -> getString(R.string.added_to_favorites_text)
                         false -> getString(R.string.removed_from_favorites_text)
                     })
             }else{
-                messageViewModel.setMessage(getString(R.string.sign_in_error_message))
+                activityViewModel.setMessage(getString(R.string.sign_in_error_message))
             }
         }
 

@@ -8,8 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
+import com.merajavier.cineme.ActivityViewModel
 import com.merajavier.cineme.R
 import com.merajavier.cineme.databinding.FragmentActorBinding
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 
@@ -19,6 +21,7 @@ class ActorFragment : Fragment() {
     private lateinit var actorCreditsAdapter: ActorCreditsAdapter
     private lateinit var actorTaggedImagesAdapter: ActorTaggedImagesAdapter
     private val castListViewModel: CastListViewModel by viewModel()
+    private val activityViewModel: ActivityViewModel by sharedViewModel()
     private val args: ActorFragmentArgs by navArgs()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,9 +43,12 @@ class ActorFragment : Fragment() {
         castListViewModel.getActorDetails(args.actorId)
         castListViewModel.getActorTaggedImages(args.actorId)
 
-        castListViewModel.actorDetails.observe(viewLifecycleOwner, Observer {
-            binding.actorDetail = it
-            actorCreditsAdapter.submitList(it.credits.cast.sortedBy { credit -> credit.order }.take(10))
+        castListViewModel.actorDetails.observe(viewLifecycleOwner, Observer { actor ->
+            binding.actorDetail = actor
+            actorCreditsAdapter.submitList(actor.credits.cast.sortedBy { credit -> credit.order }
+                .take(10))
+
+            activityViewModel.setAppBarTitle(actor.name)
         })
 
         castListViewModel.actorTaggedImages.observe(viewLifecycleOwner, Observer {

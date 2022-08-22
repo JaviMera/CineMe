@@ -2,7 +2,7 @@ package com.merajavier.cineme.koin.modules
 
 import android.content.SharedPreferences
 import androidx.paging.ExperimentalPagingApi
-import com.merajavier.cineme.MessageViewModel
+import com.merajavier.cineme.ActivityViewModel
 import com.merajavier.cineme.cast.CastListViewModel
 import com.merajavier.cineme.data.local.LocalAccountRepositoryInterface
 import com.merajavier.cineme.data.local.TMDBDatabase
@@ -12,7 +12,6 @@ import com.merajavier.cineme.movies.MovieListViewModel
 import com.merajavier.cineme.movies.reviews.MovieReviewsViewModel
 import com.merajavier.cineme.movies.search.SearchMoviesViewModel
 import com.merajavier.cineme.movies.upcoming.UpcomingMoviesViewModel
-import com.merajavier.cineme.network.*
 import com.merajavier.cineme.network.repositories.*
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -56,7 +55,7 @@ val viewModelsModule = module{
     }
 
     viewModel{
-        MessageViewModel()
+        ActivityViewModel()
     }
 
     viewModel{

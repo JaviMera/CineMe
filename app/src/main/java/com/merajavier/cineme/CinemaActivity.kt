@@ -26,7 +26,7 @@ class CinemaActivity : AppCompatActivity() {
     private lateinit var _binding: ActivityCinemaBinding
     private val loginViewModel: LoginViewModel by viewModel()
     private val searchViewModel: SearchMoviesViewModel by viewModel()
-    private val messageViewModel: MessageViewModel by viewModel()
+    private val activityViewModel: ActivityViewModel by viewModel()
 
     private val navHostFragment: NavHostFragment by lazy {supportFragmentManager.findFragmentById(R.id.nav_host_fragment_activity_cinema) as NavHostFragment}
     val binding: ActivityCinemaBinding
@@ -106,9 +106,13 @@ class CinemaActivity : AppCompatActivity() {
             }
         })
 
-        messageViewModel.snackBarMessage.observe(this, Observer {
+        activityViewModel.snackBarMessage.observe(this, Observer {
             showSnackBar(it)
         })
+
+        activityViewModel.appBarTitle.observe(this){ title ->
+            supportActionBar?.title = title
+        }
 
         loginViewModel.snackMessage.observe(this, Observer {
             showSnackBar(it)
